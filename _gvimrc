@@ -1,0 +1,74 @@
+﻿set t_Co=256
+colorscheme molokai
+" colorscheme zenburn
+
+""""""""""""""""""""""""""""""
+"挿入モード時、ステータスラインの色を変更
+""""""""""""""""""""""""""""""
+let g:hi_insert = 'highlight StatusLine guifg=darkblue guibg=darkyellow gui=none ctermfg=blue ctermbg=yellow cterm=none'
+
+if has('syntax')
+  augroup InsertHook
+    autocmd!
+    autocmd InsertEnter * call s:StatusLine('Enter')
+    autocmd InsertLeave * call s:StatusLine('Leave')
+  augroup END
+endif
+
+let s:slhlcmd = ''
+function! s:StatusLine(mode)
+  if a:mode == 'Enter'
+    silent! let s:slhlcmd = 'highlight ' . s:GetHighlight('StatusLine')
+    silent exec g:hi_insert
+  else
+    highlight clear StatusLine
+    silent exec s:slhlcmd
+  endif
+endfunction
+
+function! s:GetHighlight(hi)
+  redir => hl
+  exec 'highlight '.a:hi
+  redir END
+  let hl = substitute(hl, '[\r\n]', '', 'g')
+  let hl = substitute(hl, 'xxx', '', '')
+  return hl
+endfunction
+
+
+""""""""""""""""""""""""""""""
+"全角スペースを表示
+""""""""""""""""""""""""""""""
+"コメント以外で全角スペースを指定しているので scriptencodingと、
+"このファイルのエンコードが一致するよう注意！
+"全角スペースが強調表示されない場合、ここでscriptencodingを指定すると良い。
+"scriptencoding cp932
+
+"デフォルトのZenkakuSpaceを定義
+function! ZenkakuSpace()
+  highlight ZenkakuSpace cterm=underline ctermfg=darkgrey gui=underline guifg=darkgrey
+endfunction
+
+if has('syntax')
+  augroup ZenkakuSpace
+    autocmd!
+    " ZenkakuSpaceをカラーファイルで設定するなら次の行は削除
+    autocmd ColorScheme       * call ZenkakuSpace()
+    " 全角スペースのハイライト指定
+    autocmd VimEnter,WinEnter * match ZenkakuSpace /　/
+  augroup END
+  call ZenkakuSpace()
+endif
+
+" 縦幅　デフォルトは24
+set lines=40
+" 横幅　デフォルトは80
+set columns=120
+
+".gvimrc カラー設定
+"カラー設定した後にCursorIMを定義する方法
+
+if has('multi_byte_ime') || has('xim')
+  highlight Cursor guifg=NONE guibg=White
+  highlight CursorIM guifg=NONE guibg=Purple
+endif
