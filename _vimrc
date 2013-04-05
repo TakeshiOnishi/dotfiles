@@ -310,6 +310,8 @@ autocmd FileType html,xhtml nnoremap <S-CR> $a<br<Space>/><Esc><S-J>i<CR><ESC>$
 " •Â‚¶Š‡ŒÊ‚ðŽ©“®•âŠ®
 inoremap { {}<LEFT>
 inoremap [ []<LEFT>
+inoremap ' ''<LEFT>
+inoremap " ""<LEFT>
 vnoremap { "zdi{<C-R>z}<ESC>
 vnoremap [ "zdi[<C-R>z]<ESC>
 
