@@ -381,3 +381,5 @@ cmap <silent> <C-@> <C-u>:NERDTreeFromBookmark
 
 "less•âŠ®
 autocmd BufNewFile,BufRead *.less set filetype=css
+autocmd BufNewFile,BufRead *.phtml set filetype=html
+autocmd BufNewFile,BufRead *.tpl set filetype=html
