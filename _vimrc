@@ -379,7 +379,10 @@ omap <silent> <C-@>      :NERDTreeFromBookmark
 imap <silent> <C-@> <Esc>:NERDTreeFromBookmark 
 cmap <silent> <C-@> <C-u>:NERDTreeFromBookmark 
 
-"less補完
+" ファイルタイプ
 autocmd BufNewFile,BufRead *.less set filetype=css
 autocmd BufNewFile,BufRead *.phtml set filetype=html
 autocmd BufNewFile,BufRead *.tpl set filetype=html
+
+"辞書
+autocmd FileType php :set dictionary=dictionary/PHP.dict
