@@ -386,3 +386,11 @@ autocmd BufNewFile,BufRead *.tpl set filetype=html
 
 "«‘
 autocmd FileType php :set dictionary=dictionary/PHP.dict
+
+" •Šg‘åk¬
+nnoremap [winsize] <Nop>
+nmap <C-X> [winsize]
+nnoremap [winsize]j :resize +5<CR>
+nnoremap [winsize]k :resize -5<CR>
+nnoremap [winsize]l :vertical resize +50<CR>   
+nnoremap [winsize]h :vertical resize -50<CR>
