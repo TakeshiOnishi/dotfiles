@@ -62,10 +62,8 @@ set number
 " キーコードはすぐにタイムアウト。マッピングはタイムアウトしない
 set notimeout ttimeout ttimeoutlen=200
 
-" タブ文字の代わりにスペース2個を使う場合の設定。
-" この場合、'tabstop'はデフォルトの8から変えない。
-set shiftwidth=2
-set softtabstop=2
+set shiftwidth=4
+set softtabstop=4
 set expandtab
 
 " インデントにハードタブを使う場合の設定。
