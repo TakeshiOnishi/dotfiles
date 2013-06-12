@@ -215,6 +215,8 @@ Bundle 'rhysd/clever-f.vim'
 Bundle 'groenewege/vim-less.git'
 " cssカラー補助
 Bundle 'skammer/vim-css-color.git'
+" MarkDownプレビュー
+Bundle 'kannokanno/previm'
 
 " BundleEnd "
 
