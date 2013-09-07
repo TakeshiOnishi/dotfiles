@@ -62,14 +62,11 @@ set number
 " キーコードはすぐにタイムアウト。マッピングはタイムアウトしない
 set notimeout ttimeout ttimeoutlen=200
 
-set shiftwidth=2
-set softtabstop=2
-set expandtab
-
 " インデントにハードタブを使う場合の設定。
 " タブ文字を2文字分の幅で表示する。
-"set shiftwidth=2
-"set tabstop=2
+set shiftwidth=4
+set tabstop=4
+set softtabstop=0
 
 
 " Yの動作をDやCと同じにする
