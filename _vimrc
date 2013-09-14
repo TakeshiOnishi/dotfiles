@@ -47,9 +47,6 @@ set confirm
 " ビープの代わりにビジュアルベル（画面フラッシュ）を使う
 set visualbell
 
-" そしてビジュアルベルも無効化する
-set t_vb=
-
 " 全モードでマウスを有効化
 set mouse=a
 
@@ -58,9 +55,6 @@ set cmdheight=2
 
 " 行番号を表示
 set number
-
-" キーコードはすぐにタイムアウト。マッピングはタイムアウトしない
-set notimeout ttimeout ttimeoutlen=200
 
 " インデントにハードタブを使う場合の設定。
 " タブ文字を2文字分の幅で表示する。
@@ -85,16 +79,6 @@ set statusline=%F%m%r%h%w\ [%{&fenc!=''?&fenc:&enc}]\ %{&ff}\ [TYPE=%Y]\ [POS=%0
 " 入力中改行
 noremap <CR> o<ESC>
 
-"下に移動
-inoremap <C-j> <Down>
-"上に移動
-inoremap <C-k> <Up>
-"左に移動
-inoremap <C-h> <Left>
-"右に移動
-inoremap <C-l> <Right>
-
-" ショートカット
 " 一画面
 nnoremap <silent> <C-x>1 :only<CR>
 " 縦分割
@@ -108,8 +92,6 @@ inoremap <Leader>date <C-R>=strftime('%Y/%m/%d (%a)')<CR>
 " カーソル下のURLをブラウザで開く
 nmap ,o <Plug>(openbrowser-open)
 vmap ,o <Plug>(openbrowser-open)
-" ググる
-nnoremap ,g :<C-u>OpenBrowserSearch<Space><C-r><C-w><Enter>
 
 
 if &encoding !=# 'utf-8'
@@ -158,16 +140,11 @@ endif
 nmap ,ee :e ++enc=euc-jp<CR>
 " SJIS
 nmap ,es :e ++enc=cp932<CR>
-" JIS
-nmap ,ej :e ++enc=iso-2022-jp<CR>
 " UTF-8
 nmap ,eu :e ++enc=utf-8<CR>
 
 " Windowsの形式
 nmap ,fw :e ++ff=dos
-
-" Macの形式
-nmap :fm ++ff=mac
 
 " Unixの形式
 nmap :fu ++ff=unix
@@ -260,9 +237,6 @@ let g:NERDTreeHighlightCursorline=1
 "ブックマークリストの表示。 -> 表示する
 let g:NERDTreeShowBookmarks=1
 
-"NERDTreeのツリーを開く場所
-"let g:NERDTreeWinPos="right"
-
 "NERDTreeのツリーの幅
 "Default: 31.
 "let g:NERDTreeWinSize=45
@@ -285,14 +259,6 @@ let g:NERDTreeDirArrows=0
 " let g:NERDTreeMouseMode=2
 let g:NERDTreeMouseMode=3
 
-"NERDTreeBookmarksFile
-"ブックマークを記録したファイルの設置場所を指定。
-"Values: a path
-"Default: $HOME/.NERDTreeBookmarks
-
-"NERDTreeShowLineNumbers
-"let NERDTreeShowLineNumbers=1
-
 " NERDTree END "
 
 
@@ -300,15 +266,12 @@ let g:NERDTreeMouseMode=3
 set nobackup
 
 "<br>
-autocmd FileType html,xhtml inoremap <br> <br<Space>/>
 autocmd FileType html,xhtml inoremap <S-CR> <br<Space>/><CR>
 autocmd FileType html,xhtml nnoremap <S-CR> $a<br<Space>/><Esc><S-J>i<CR><ESC>$
 
 " 閉じ括弧を自動補完
 inoremap { {}<LEFT>
 inoremap [ []<LEFT>
-vnoremap { "zdi{<C-R>z}<ESC>
-vnoremap [ "zdi[<C-R>z]<ESC>
 
 "閉じタグ
 function! Endtagcomment()
@@ -361,20 +324,9 @@ nnoremap ,t :<C-u>call Endtagcomment()<CR>
 "検索を中央
 nnoremap n nzz
 nnoremap N Nzz
-nnoremap * *zz
-nnoremap # #zz
-nnoremap g* g*zz
-nnoremap g# g#zz
 
 " ESC
 inoremap <silent><c-f> <ESC>
-
-" NERDTree 補助
-nmap <silent> <C-@>      :NERDTreeFromBookmark 
-vmap <silent> <C-@> <Esc>:NERDTreeFromBookmark 
-omap <silent> <C-@>      :NERDTreeFromBookmark 
-imap <silent> <C-@> <Esc>:NERDTreeFromBookmark 
-cmap <silent> <C-@> <C-u>:NERDTreeFromBookmark 
 
 " ファイルタイプ
 autocmd BufNewFile,BufRead *.less set filetype=css
