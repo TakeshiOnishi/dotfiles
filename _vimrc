@@ -1,140 +1,101 @@
-" ViŒİŠ·ƒ‚[ƒh‚ğƒIƒtiVim‚ÌŠg’£‹@”\‚ğ—LŒøj
+" Viäº’æ›ãƒ¢ãƒ¼ãƒ‰ã‚’ã‚ªãƒ•ï¼ˆVimã®æ‹¡å¼µæ©Ÿèƒ½ã‚’æœ‰åŠ¹ï¼‰
 set nocompatible
 
-" ƒtƒ@ƒCƒ‹–¼‚Æ“à—e‚É‚æ‚Á‚Äƒtƒ@ƒCƒ‹ƒ^ƒCƒv‚ğ”»•Ê‚µAƒtƒ@ƒCƒ‹ƒ^ƒCƒvƒvƒ‰ƒOƒCƒ“‚ğ—LŒø‚É‚·‚é
+" ãƒ•ã‚¡ã‚¤ãƒ«åã¨å†…å®¹ã«ã‚ˆã£ã¦ãƒ•ã‚¡ã‚¤ãƒ«ã‚¿ã‚¤ãƒ—ã‚’åˆ¤åˆ¥ã—ã€ãƒ•ã‚¡ã‚¤ãƒ«ã‚¿ã‚¤ãƒ—ãƒ—ãƒ©ã‚°ã‚¤ãƒ³ã‚’æœ‰åŠ¹ã«ã™ã‚‹
 filetype indent plugin on
 
-" F‚Ã‚¯‚ğƒIƒ“
+" è‰²ã¥ã‘ã‚’ã‚ªãƒ³
 syntax on
 
-" ƒoƒbƒtƒ@‚ğ•Û‘¶‚µ‚È‚­‚Ä‚à‘¼‚Ìƒoƒbƒtƒ@‚ğ•\¦‚Å‚«‚é‚æ‚¤‚É‚·‚é
+" ãƒãƒƒãƒ•ã‚¡ã‚’ä¿å­˜ã—ãªãã¦ã‚‚ä»–ã®ãƒãƒƒãƒ•ã‚¡ã‚’è¡¨ç¤ºã§ãã‚‹ã‚ˆã†ã«ã™ã‚‹
 set hidden
 
-" ƒRƒ}ƒ“ƒhƒ‰ƒCƒ“•âŠ®‚ğ•Ö—˜‚É
+" ã‚³ãƒãƒ³ãƒ‰ãƒ©ã‚¤ãƒ³è£œå®Œã‚’ä¾¿åˆ©ã«
 set wildmenu
 
-" ƒ^ƒCƒv“r’†‚ÌƒRƒ}ƒ“ƒh‚ğ‰æ–ÊÅ‰ºs‚É•\¦
+" ã‚¿ã‚¤ãƒ—é€”ä¸­ã®ã‚³ãƒãƒ³ãƒ‰ã‚’ç”»é¢æœ€ä¸‹è¡Œã«è¡¨ç¤º
 set showcmd
 
-" ŒŸõŒê‚ğ‹­’²•\¦i<C-L>‚ğ‰Ÿ‚·‚ÆŒ»İ‚Ì‹­’²•\¦‚ğ‰ğœ‚·‚éj
+" æ¤œç´¢èªã‚’å¼·èª¿è¡¨ç¤ºï¼ˆ<C-L>ã‚’æŠ¼ã™ã¨ç¾åœ¨ã®å¼·èª¿è¡¨ç¤ºã‚’è§£é™¤ã™ã‚‹ï¼‰
 set hlsearch
 
-" ŒŸõ‚É‘å•¶šE¬•¶š‚ğ‹æ•Ê‚µ‚È‚¢B‚½‚¾‚µAŒŸõŒã‚É‘å•¶š¬•¶š‚ª
-" ¬İ‚µ‚Ä‚¢‚é‚Æ‚«‚Í‹æ•Ê‚·‚é
+" æ¤œç´¢æ™‚ã«å¤§æ–‡å­—ãƒ»å°æ–‡å­—ã‚’åŒºåˆ¥ã—ãªã„ã€‚ãŸã ã—ã€æ¤œç´¢å¾Œã«å¤§æ–‡å­—å°æ–‡å­—ãŒ
+" æ··åœ¨ã—ã¦ã„ã‚‹ã¨ãã¯åŒºåˆ¥ã™ã‚‹
 set ignorecase
 set smartcase
 
-" ƒI[ƒgƒCƒ“ƒfƒ“ƒgA‰üsAƒCƒ“ƒT[ƒgƒ‚[ƒhŠJn’¼Œã‚ÉƒoƒbƒNƒXƒy[ƒXƒL[‚Å
-" íœ‚Å‚«‚é‚æ‚¤‚É‚·‚éB
+" ã‚ªãƒ¼ãƒˆã‚¤ãƒ³ãƒ‡ãƒ³ãƒˆã€æ”¹è¡Œã€ã‚¤ãƒ³ã‚µãƒ¼ãƒˆãƒ¢ãƒ¼ãƒ‰é–‹å§‹ç›´å¾Œã«ãƒãƒƒã‚¯ã‚¹ãƒšãƒ¼ã‚¹ã‚­ãƒ¼ã§
+" å‰Šé™¤ã§ãã‚‹ã‚ˆã†ã«ã™ã‚‹ã€‚
 set backspace=indent,eol,start
 
-" ƒI[ƒgƒCƒ“ƒfƒ“ƒg
+" ã‚ªãƒ¼ãƒˆã‚¤ãƒ³ãƒ‡ãƒ³ãƒˆ
 set autoindent
 
-" ˆÚ“®ƒRƒ}ƒ“ƒh‚ğg‚Á‚½‚Æ‚«As“ª‚ÉˆÚ“®‚µ‚È‚¢
+" ç§»å‹•ã‚³ãƒãƒ³ãƒ‰ã‚’ä½¿ã£ãŸã¨ãã€è¡Œé ­ã«ç§»å‹•ã—ãªã„
 set nostartofline
 
-" ‰æ–ÊÅ‰ºs‚Éƒ‹[ƒ‰[‚ğ•\¦‚·‚é
+" ç”»é¢æœ€ä¸‹è¡Œã«ãƒ«ãƒ¼ãƒ©ãƒ¼ã‚’è¡¨ç¤ºã™ã‚‹
 set ruler
 
-" ƒXƒe[ƒ^ƒXƒ‰ƒCƒ“‚ğí‚É•\¦‚·‚é
+" ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ãƒ©ã‚¤ãƒ³ã‚’å¸¸ã«è¡¨ç¤ºã™ã‚‹
 set laststatus=2
 
-" ƒoƒbƒtƒ@‚ª•ÏX‚³‚ê‚Ä‚¢‚é‚Æ‚«AƒRƒ}ƒ“ƒh‚ğƒGƒ‰[‚É‚·‚é‚Ì‚Å‚È‚­A•Û‘¶‚·‚é
-" ‚©‚Ç‚¤‚©Šm”F‚ğ‹‚ß‚é
+" ãƒãƒƒãƒ•ã‚¡ãŒå¤‰æ›´ã•ã‚Œã¦ã„ã‚‹ã¨ãã€ã‚³ãƒãƒ³ãƒ‰ã‚’ã‚¨ãƒ©ãƒ¼ã«ã™ã‚‹ã®ã§ãªãã€ä¿å­˜ã™ã‚‹
+" ã‹ã©ã†ã‹ç¢ºèªã‚’æ±‚ã‚ã‚‹
 set confirm
 
-" ƒr[ƒv‚Ì‘ã‚í‚è‚ÉƒrƒWƒ…ƒAƒ‹ƒxƒ‹i‰æ–Êƒtƒ‰ƒbƒVƒ…j‚ğg‚¤
+" ãƒ“ãƒ¼ãƒ—ã®ä»£ã‚ã‚Šã«ãƒ“ã‚¸ãƒ¥ã‚¢ãƒ«ãƒ™ãƒ«ï¼ˆç”»é¢ãƒ•ãƒ©ãƒƒã‚·ãƒ¥ï¼‰ã‚’ä½¿ã†
 set visualbell
 
-" ‘Sƒ‚[ƒh‚Åƒ}ƒEƒX‚ğ—LŒø‰»
+" å…¨ãƒ¢ãƒ¼ãƒ‰ã§ãƒã‚¦ã‚¹ã‚’æœ‰åŠ¹åŒ–
 set mouse=a
 
-" ƒRƒ}ƒ“ƒhƒ‰ƒCƒ“‚Ì‚‚³‚ğ2s‚É
+" ã‚³ãƒãƒ³ãƒ‰ãƒ©ã‚¤ãƒ³ã®é«˜ã•ã‚’2è¡Œã«
 set cmdheight=2
 
-" s”Ô†‚ğ•\¦
+" è¡Œç•ªå·ã‚’è¡¨ç¤º
 set number
 
-" ƒCƒ“ƒfƒ“ƒg‚Éƒn[ƒhƒ^ƒu‚ğg‚¤ê‡‚Ìİ’èB
-" ƒ^ƒu•¶š‚ğ2•¶š•ª‚Ì•‚Å•\¦‚·‚éB
+" ã‚¤ãƒ³ãƒ‡ãƒ³ãƒˆã«ãƒãƒ¼ãƒ‰ã‚¿ãƒ–ã‚’ä½¿ã†å ´åˆã®è¨­å®šã€‚
+" ã‚¿ãƒ–æ–‡å­—ã‚’2æ–‡å­—åˆ†ã®å¹…ã§è¡¨ç¤ºã™ã‚‹ã€‚
 set shiftwidth=4
 set tabstop=4
 set softtabstop=0
 
 
-" Y‚Ì“®ì‚ğD‚âC‚Æ“¯‚¶‚É‚·‚é
+" Yã®å‹•ä½œã‚’Dã‚„Cã¨åŒã˜ã«ã™ã‚‹
 map Y y$
 
-" <C-L>‚ÅŒŸõŒã‚Ì‹­’²•\¦‚ğ‰ğœ‚·‚é
+" <C-L>ã§æ¤œç´¢å¾Œã®å¼·èª¿è¡¨ç¤ºã‚’è§£é™¤ã™ã‚‹
 nnoremap <C-L> :nohl<CR><C-L>
 
 
 "------------------------------------------------------------
 "Append by Onishi
 
-" ƒXƒe[ƒ^ƒX‚ğ [ƒtƒ@ƒCƒ‹–¼][•¶šƒR[ƒh][ƒtƒ@ƒCƒ‹ƒ^ƒCƒv][s,—ñ][Š„‡][‘S‘Ìs]
+" ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚’ [ãƒ•ã‚¡ã‚¤ãƒ«å][æ–‡å­—ã‚³ãƒ¼ãƒ‰][ãƒ•ã‚¡ã‚¤ãƒ«ã‚¿ã‚¤ãƒ—][è¡Œ,åˆ—][å‰²åˆ][å…¨ä½“è¡Œ]
 set statusline=%F%m%r%h%w\ [%{&fenc!=''?&fenc:&enc}]\ %{&ff}\ [TYPE=%Y]\ [POS=%04l,%04v][%p%%]\ [LEN=%L] 
 
-" “ü—Í’†‰üs
+" å…¥åŠ›ä¸­æ”¹è¡Œ
 noremap <CR> o<ESC>
 
-" ˆê‰æ–Ê
+" ä¸€ç”»é¢
 nnoremap <silent> <C-x>1 :only<CR>
-" c•ªŠ„
+" ç¸¦åˆ†å‰²
 nnoremap <silent> <C-x>2 :sp<CR>
-" ‰¡•ªŠ„
+" æ¨ªåˆ†å‰²
 nnoremap <silent> <C-x>3 :vsp<CR>
 
-" “ú•t“ü—Í
+" æ—¥ä»˜å…¥åŠ›
 inoremap <Leader>date <C-R>=strftime('%Y/%m/%d (%a)')<CR>
 
-" ƒJ[ƒ\ƒ‹‰º‚ÌURL‚ğƒuƒ‰ƒEƒU‚ÅŠJ‚­
+" ã‚«ãƒ¼ã‚½ãƒ«ä¸‹ã®URLã‚’ãƒ–ãƒ©ã‚¦ã‚¶ã§é–‹ã
 nmap ,o <Plug>(openbrowser-open)
 vmap ,o <Plug>(openbrowser-open)
 
 
-if &encoding !=# 'utf-8'
-  set encoding=japan
-  set fileencoding=japan
-endif
-if has('iconv')
-  let s:enc_euc = 'euc-jp'
-  let s:enc_jis = 'iso-2022-jp'
-  if iconv("\x87\x64\x87\x6a", 'cp932', 'eucjp-ms') ==# "\xad\xc5\xad\xcb"
-    let s:enc_euc = 'eucjp-ms'
-    let s:enc_jis = 'iso-2022-jp-3'
-  elseif iconv("\x87\x64\x87\x6a", 'cp932', 'euc-jisx0213') ==# "\xad\xc5\xad\xcb"
-    let s:enc_euc = 'euc-jisx0213'
-    let s:enc_jis = 'iso-2022-jp-3'
-  endif
-  if &encoding ==# 'utf-8'
-    let s:fileencodings_default = &fileencodings
-    if has('mac')
-      let &fileencodings = s:enc_jis .','. s:enc_euc
-      let &fileencodings = &fileencodings .','. s:fileencodings_default
-    else
-      let &fileencodings = s:enc_jis .','. s:enc_euc .',cp932'
-      let &fileencodings = &fileencodings .','. s:fileencodings_default
-    endif
-    unlet s:fileencodings_default
-  else
-    let &fileencodings = &fileencodings .','. s:enc_jis
-    set fileencodings+=utf-8,ucs-2le,ucs-2
-    if &encoding =~# '^\(euc-jp\|euc-jisx0213\|eucjp-ms\)$'
-      set fileencodings+=cp932
-      set fileencodings-=euc-jp
-      set fileencodings-=euc-jisx0213
-      set fileencodings-=eucjp-ms
-      let &encoding = s:enc_euc
-      let &fileencoding = s:enc_euc
-    else
-      let &fileencodings = &fileencodings .','. s:enc_euc
-    endif
-  endif
-  unlet s:enc_euc
-  unlet s:enc_jis
-endif
+set encoding=utf-8
+set fileencodings=ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932,utf-8
 
 " EUC-JP
 nmap ,ee :e ++enc=euc-jp<CR>
@@ -143,13 +104,13 @@ nmap ,es :e ++enc=cp932<CR>
 " UTF-8
 nmap ,eu :e ++enc=utf-8<CR>
 
-" Windows‚ÌŒ`®
+" Windowsã®å½¢å¼
 nmap ,fw :e ++ff=dos
 
-" Unix‚ÌŒ`®
+" Unixã®å½¢å¼
 nmap :fu ++ff=unix
 
-" U‚è•ª‚¯
+" æŒ¯ã‚Šåˆ†ã‘
 if has("win32") || has("win64")
   set rtp+=~/dotfiles/vimfiles/vundle.git/ 
   call vundle#rc('~/dotfiles/vimfiles/bundle/')
@@ -159,37 +120,37 @@ else
 endif
 
 " From GitHub
-" •âŠ®
+" è£œå®Œ
 Bundle 'Shougo/neocomplcache'
-" ƒXƒjƒy
+" ã‚¹ãƒ‹ãƒš
 Bundle 'mattn/zencoding-vim'
-" •¶šƒIƒuƒWƒFƒNƒg
+" æ–‡å­—ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 Bundle 'tpope/vim-surround.git'
-" ƒRƒƒ“ƒg
+" ã‚³ãƒ¡ãƒ³ãƒˆ
 Bundle 'scrooloose/nerdcommenter.git'
-" ƒfƒBƒŒƒNƒgƒŠƒcƒŠ[
+" ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªãƒ„ãƒªãƒ¼
 Bundle 'scrooloose/nerdtree.git'
-" js®Œ`
+" jsæ•´å½¢
 Bundle 'pangloss/vim-javascript'
-" js‚ÍƒnƒCƒ‰ƒCƒg
+" jsã¯ãƒã‚¤ãƒ©ã‚¤ãƒˆ
 Bundle 'JavaScript-syntax'
-" URLƒI[ƒvƒ“
+" URLã‚ªãƒ¼ãƒ—ãƒ³
 Bundle 'tyru/open-browser.vim'
 " Git
 Bundle 'tpope/vim-fugitive'
-" •¶š®Œ`
+" æ–‡å­—æ•´å½¢
 Bundle 'h1mesuke/vim-alignta.git'
-" JSON®Œ`
+" JSONæ•´å½¢
 Bundle 'vim-scripts/JSON.vim.git'
-" Ct ^ IMEŒÅ’è
+" Ct ^ IMEå›ºå®š
 Bundle 'fuenor/im_control.vim'
-" ÄŒŸõ
+" å†æ¤œç´¢
 Bundle 'rhysd/clever-f.vim'
-" less®Œ`ƒnƒCƒ‰ƒCƒg
+" lessæ•´å½¢ãƒã‚¤ãƒ©ã‚¤ãƒˆ
 Bundle 'groenewege/vim-less.git'
-" cssƒJƒ‰[•â•
+" cssã‚«ãƒ©ãƒ¼è£œåŠ©
 Bundle 'skammer/vim-css-color.git'
-" MarkDownƒvƒŒƒrƒ…[
+" MarkDownãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼
 Bundle 'kannokanno/previm'
 
 " BundleEnd "
@@ -201,10 +162,10 @@ nmap ,, <Plug>NERDCommenterToggle
 vmap ,, <Plug>NERDCommenterToggle
 
 " neocomplcache
-let g:neocomplcache_enable_at_startup = 1 " ‹N“®‚É—LŒø‰»
+let g:neocomplcache_enable_at_startup = 1 " èµ·å‹•æ™‚ã«æœ‰åŠ¹åŒ–
 
 " NERDTree START "
-"<C-e>‚ÅNERDTree‚ğƒIƒ“ƒIƒtB‚¢‚Â‚Å‚à‚Ç‚±‚Å‚àB
+"<C-e>ã§NERDTreeã‚’ã‚ªãƒ³ã‚ªãƒ•ã€‚ã„ã¤ã§ã‚‚ã©ã“ã§ã‚‚ã€‚
 nmap <silent> <C-e>      :NERDTreeToggle<CR>
 vmap <silent> <C-e> <Esc>:NERDTreeToggle<CR>
 omap <silent> <C-e>      :NERDTreeToggle<CR>
@@ -214,47 +175,47 @@ cmap <silent> <C-e> <C-u>:NERDTreeToggle<CR>
 "How can I close vim if the only window left open is a NERDTree?
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
-"ƒtƒ@ƒCƒ‹ƒI[ƒvƒ“Œã‚Ì“®ì 
-"0 : ‚»‚Ì‚Ü‚ÜNERDTree‚ğŠJ‚¢‚Ä‚¨‚­B
-"1 : NERDTree‚ğ•Â‚¶‚éB
+"ãƒ•ã‚¡ã‚¤ãƒ«ã‚ªãƒ¼ãƒ—ãƒ³å¾Œã®å‹•ä½œ 
+"0 : ãã®ã¾ã¾NERDTreeã‚’é–‹ã„ã¦ãŠãã€‚
+"1 : NERDTreeã‚’é–‰ã˜ã‚‹ã€‚
 "Values: 0 or 1.
 "Default: 0
 "let g:NERDTreeQuitOnOpen=0
 "let g:NERDTreeQuitOnOpen=1
 
-"NERDTreeIgnore –³‹‚·‚éƒtƒ@ƒCƒ‹‚ğİ’è‚·‚éB
-"'\.vim$'‚È‚ç‚Îfugitive.vim‚È‚Ç‚Ìƒtƒ@ƒCƒ‹–¼‚ª•\¦‚³‚ê‚È‚¢B
-"\ ƒGƒXƒP[ƒv‹L†
-"$ ƒtƒ@ƒCƒ‹–¼‚ÌÅŒã
+"NERDTreeIgnore ç„¡è¦–ã™ã‚‹ãƒ•ã‚¡ã‚¤ãƒ«ã‚’è¨­å®šã™ã‚‹ã€‚
+"'\.vim$'ãªã‚‰ã°fugitive.vimãªã©ã®ãƒ•ã‚¡ã‚¤ãƒ«åãŒè¡¨ç¤ºã•ã‚Œãªã„ã€‚
+"\ ã‚¨ã‚¹ã‚±ãƒ¼ãƒ—è¨˜å·
+"$ ãƒ•ã‚¡ã‚¤ãƒ«åã®æœ€å¾Œ
 let g:NERDTreeIgnore=['\.clean$', '\.swp$', '\.bak$', '\~$']
 
-"NERDTreeShowHidden ‰B‚µƒtƒ@ƒCƒ‹‚ğ•\¦‚·‚é‚©H ->•\¦‚·‚é
+"NERDTreeShowHidden éš ã—ãƒ•ã‚¡ã‚¤ãƒ«ã‚’è¡¨ç¤ºã™ã‚‹ã‹ï¼Ÿ ->è¡¨ç¤ºã™ã‚‹
 let g:NERDTreeShowHidden=1
 
-"ƒJ[ƒ\ƒ‹ƒ‰ƒCƒ“‚ğƒnƒCƒ‰ƒCƒg•\¦‚·‚éB -> ƒJƒ‰[•\¦
+"ã‚«ãƒ¼ã‚½ãƒ«ãƒ©ã‚¤ãƒ³ã‚’ãƒã‚¤ãƒ©ã‚¤ãƒˆè¡¨ç¤ºã™ã‚‹ã€‚ -> ã‚«ãƒ©ãƒ¼è¡¨ç¤º
 let g:NERDTreeHighlightCursorline=1
 
-"ƒuƒbƒNƒ}[ƒNƒŠƒXƒg‚Ì•\¦B -> •\¦‚·‚é
+"ãƒ–ãƒƒã‚¯ãƒãƒ¼ã‚¯ãƒªã‚¹ãƒˆã®è¡¨ç¤ºã€‚ -> è¡¨ç¤ºã™ã‚‹
 let g:NERDTreeShowBookmarks=1
 
-"NERDTree‚ÌƒcƒŠ[‚Ì•
+"NERDTreeã®ãƒ„ãƒªãƒ¼ã®å¹…
 "Default: 31.
 "let g:NERDTreeWinSize=45
 
-"NERDTree‚ğ+|`‚È‚Ç‚ğg‚Á‚ÄƒcƒŠ[•\¦‚ğ‚·‚éB
-"ƒfƒBƒŒƒNƒgƒŠ‚ª•Â‚¶‚Ä‚¢‚éê‡‚É‚Í+‚ğæ“ª‚É‚Â‚¯‚éB
-"ƒfƒBƒŒƒNƒgƒŠ‚ªŠJ‚¢‚Ä‚¢‚éê‡‚É‚Í~‚ğæ“ª‚É‚Â‚¯‚éB
-"ƒtƒ@ƒCƒ‹‚É‚Í-‚ğæ“ª‚É‚Â‚¯‚éB
-"0 : ãY—í‚ÉŒ©‚¹‚éB
-"1 : +|`‚È‚Ç‚ğg‚í‚È‚¢
+"NERDTreeã‚’+|`ãªã©ã‚’ä½¿ã£ã¦ãƒ„ãƒªãƒ¼è¡¨ç¤ºã‚’ã™ã‚‹ã€‚
+"ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªãŒé–‰ã˜ã¦ã„ã‚‹å ´åˆã«ã¯+ã‚’å…ˆé ­ã«ã¤ã‘ã‚‹ã€‚
+"ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªãŒé–‹ã„ã¦ã„ã‚‹å ´åˆã«ã¯~ã‚’å…ˆé ­ã«ã¤ã‘ã‚‹ã€‚
+"ãƒ•ã‚¡ã‚¤ãƒ«ã«ã¯-ã‚’å…ˆé ­ã«ã¤ã‘ã‚‹ã€‚
+"0 : ç¶ºéº—ã«è¦‹ã›ã‚‹ã€‚
+"1 : +|`ãªã©ã‚’ä½¿ã‚ãªã„
 "Values: 0 or 1
 "Default: 1.
 let g:NERDTreeDirArrows=0
 "let g:NERDTreeDirArrows=1
 
-"1 : ƒtƒ@ƒCƒ‹AƒfƒBƒŒƒNƒgƒŠ—¼•û‹¤ƒ_ƒuƒ‹ƒNƒŠƒbƒN‚ÅŠJ‚­B
-"2 : ƒfƒBƒŒƒNƒgƒŠ‚Ì‚İƒVƒ“ƒOƒ‹ƒNƒŠƒbƒN‚ÅŠJ‚­B
-"3 : ƒtƒ@ƒCƒ‹AƒfƒBƒŒƒNƒgƒŠ—¼•û‹¤ƒVƒ“ƒOƒ‹ƒNƒŠƒbƒN‚ÅŠJ‚­B
+"1 : ãƒ•ã‚¡ã‚¤ãƒ«ã€ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªä¸¡æ–¹å…±ãƒ€ãƒ–ãƒ«ã‚¯ãƒªãƒƒã‚¯ã§é–‹ãã€‚
+"2 : ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã®ã¿ã‚·ãƒ³ã‚°ãƒ«ã‚¯ãƒªãƒƒã‚¯ã§é–‹ãã€‚
+"3 : ãƒ•ã‚¡ã‚¤ãƒ«ã€ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªä¸¡æ–¹å…±ã‚·ãƒ³ã‚°ãƒ«ã‚¯ãƒªãƒƒã‚¯ã§é–‹ãã€‚
 "let g:NERDTreeMouseMode=1
 " let g:NERDTreeMouseMode=2
 let g:NERDTreeMouseMode=3
@@ -269,11 +230,11 @@ set nobackup
 autocmd FileType html,xhtml inoremap <S-CR> <br<Space>/><CR>
 autocmd FileType html,xhtml nnoremap <S-CR> $a<br<Space>/><Esc><S-J>i<CR><ESC>$
 
-" •Â‚¶Š‡ŒÊ‚ğ©“®•âŠ®
+" é–‰ã˜æ‹¬å¼§ã‚’è‡ªå‹•è£œå®Œ
 inoremap { {}<LEFT>
 inoremap [ []<LEFT>
 
-"•Â‚¶ƒ^ƒO
+"é–‰ã˜ã‚¿ã‚°
 function! Endtagcomment()
     let reg_save = @@
 
@@ -321,22 +282,22 @@ let g:endtagcommentFormat = '<!-- /%tag_name%id%class -->'
 nnoremap ,t :<C-u>call Endtagcomment()<CR>
 
 
-"ŒŸõ‚ğ’†‰›
+"æ¤œç´¢ã‚’ä¸­å¤®
 nnoremap n nzz
 nnoremap N Nzz
 
 " ESC
 inoremap <silent><c-f> <ESC>
 
-" ƒtƒ@ƒCƒ‹ƒ^ƒCƒv
+" ãƒ•ã‚¡ã‚¤ãƒ«ã‚¿ã‚¤ãƒ—
 autocmd BufNewFile,BufRead *.less set filetype=css
 autocmd BufNewFile,BufRead *.phtml set filetype=html
 autocmd BufNewFile,BufRead *.tpl set filetype=html
 
-"«‘
+"è¾æ›¸
 autocmd FileType php :set dictionary=dictionary/PHP.dict
 
-" •Šg‘åk¬
+" å¹…æ‹¡å¤§ç¸®å°
 nnoremap [winsize] <Nop>
 nmap <C-X> [winsize]
 nnoremap [winsize]j :resize +5<CR>
