@@ -308,3 +308,12 @@ nnoremap [winsize]j :resize +5<CR>
 nnoremap [winsize]k :resize -5<CR>
 nnoremap [winsize]l :vertical resize +50<CR>   
 nnoremap [winsize]h :vertical resize -50<CR>
+
+
+
+" 入力中の疑似キー移動
+inoremap <C-j> <Down>
+inoremap <C-k> <Up>
+inoremap <C-h> <Left>
+inoremap <C-l> <Right>
+
