@@ -1,3 +1,7 @@
+nnoremap <F4> :<C-u>edit $MYVIMRC<CR>
+nnoremap <F5> :<C-u>source $MYVIMRC<CR>
+
+"
 " Vi互換モードをオフ（Vimの拡張機能を有効）
 set nocompatible
 
