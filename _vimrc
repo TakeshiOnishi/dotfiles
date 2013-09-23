@@ -1,17 +1,9 @@
-nnoremap <F4> :<C-u>edit $MYVIMRC<CR>
-nnoremap <F5> :<C-u>source $MYVIMRC<CR>
+" ####Init####
 
-"
-" Vi互換モードをオフ（Vimの拡張機能を有効）
+" Vi互換モードをオフ
 set nocompatible
 
-" ファイル名と内容によってファイルタイプを判別し、ファイルタイププラグインを有効にする
-filetype indent plugin on
-
-" 色づけをオン
-syntax on
-
-" バッファを保存しなくても他のバッファを表示できるようにする
+" 同時編集できるように
 set hidden
 
 " コマンドライン補完を便利に
@@ -23,98 +15,174 @@ set showcmd
 " 検索語を強調表示（<C-L>を押すと現在の強調表示を解除する）
 set hlsearch
 
-" 検索時に大文字・小文字を区別しない。ただし、検索後に大文字小文字が
-" 混在しているときは区別する
+" 検索に大文字小文字無視できるよう
 set ignorecase
 set smartcase
 
-" オートインデント、改行、インサートモード開始直後にバックスペースキーで
-" 削除できるようにする。
+" バックスペースで削除の開始タイミング
 set backspace=indent,eol,start
 
 " オートインデント
 set autoindent
 
-" 移動コマンドを使ったとき、行頭に移動しない
+" 移動コマンドを使ったときに先頭にいかないように
 set nostartofline
 
-" 画面最下行にルーラーを表示する
-set ruler
-
-" ステータスラインを常に表示する
+" ステータスライン常時表示
 set laststatus=2
-
-" バッファが変更されているとき、コマンドをエラーにするのでなく、保存する
-" かどうか確認を求める
-set confirm
-
-" ビープの代わりにビジュアルベル（画面フラッシュ）を使う
-set visualbell
-
-" 全モードでマウスを有効化
-set mouse=a
-
-" コマンドラインの高さを2行に
-set cmdheight=2
-
-" 行番号を表示
-set number
-
-" インデントにハードタブを使う場合の設定。
-" タブ文字を2文字分の幅で表示する。
-set shiftwidth=4
-set tabstop=4
-set softtabstop=0
-
-
-" Yの動作をDやCと同じにする
-map Y y$
-
-" <C-L>で検索後の強調表示を解除する
-nnoremap <C-L> :nohl<CR><C-L>
-
-
-"------------------------------------------------------------
-"Append by Onishi
 
 " ステータスを [ファイル名][文字コード][ファイルタイプ][行,列][割合][全体行]
 set statusline=%F%m%r%h%w\ [%{&fenc!=''?&fenc:&enc}]\ %{&ff}\ [TYPE=%Y]\ [POS=%04l,%04v][%p%%]\ [LEN=%L] 
 
-" 入力中改行
-noremap <CR> o<ESC>
+" コマンドラインを一行
+set cmdheight=1
 
-" 一画面
-nnoremap <silent> <C-x>1 :only<CR>
-" 縦分割
-nnoremap <silent> <C-x>2 :sp<CR>
-" 横分割
-nnoremap <silent> <C-x>3 :vsp<CR>
+" バッファ変更時の確認
+set confirm
 
-" 日付入力
-inoremap <Leader>date <C-R>=strftime('%Y/%m/%d (%a)')<CR>
+" エラー時に画面フラッシュ
+set visualbell
 
-" カーソル下のURLをブラウザで開く
+" 行数を表示
+set number
+
+" マウスの有効
+set mouse=a
+
+" インデント設定
+set shiftwidth=4
+set tabstop=4
+set softtabstop=0
+
+" 保存文字コード
+set encoding=utf-8
+" 読み取り文字コード順
+set fileencodings=ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932,utf-8
+
+" swp削除
+set nobackup
+
+" [p]neocomplcache
+" 起動時に有効化
+let g:neocomplcache_enable_at_startup = 1 
+
+" [p]NERDcomment
+let NERDSpaceDelims = 1
+
+" [p]NERDTree
+" ファイルOpen後 開いたまま
+let g:NERDTreeQuitOnOpen=0
+" 非表示ファイルリスト
+let g:NERDTreeIgnore=['\.clean$', '\.swp$', '\.bak$', '\~$']
+" 隠しファイル表示
+let g:NERDTreeShowHidden=1
+" カーソル強調
+let g:NERDTreeHighlightCursorline=1
+" ブックマーク表示
+let g:NERDTreeShowBookmarks=1
+" ツリーサイズ
+let g:NERDTreeWinSize=45
+" ツリーの表示に記号使用
+let g:NERDTreeDirArrows=0
+" ツリー内部はダブルクリックで起動
+let g:NERDTreeMouseMode=1
+
+
+" ファイルタイプ分岐
+filetype indent plugin on
+
+" 色づけ
+syntax on
+
+
+" ####Keymap####
+
+" Yで行末までコピー
+map Y y$
+
+"検索箇所を中央
+nnoremap n nzz
+nnoremap N Nzz
+
+" 検索後の強調表示解除
+nnoremap <C-L> :nohl<CR><C-L>
+
+" 設定ファイル編集
+nnoremap <F4> :<C-u>edit $MYVIMRC<CR>
+nnoremap <F5> :<C-u>source $MYVIMRC<CR>
+
+" 一画面/縦/横
+nnoremap <silent> <C-s>1 :only<CR>
+nnoremap <silent> <C-s>2 :sp<CR>
+nnoremap <silent> <C-s>3 :vsp<CR>
+
+" サイズ変更
+nnoremap [winsize] <Nop>
+nmap <C-s> [winsize]
+nnoremap [winsize]j :resize +5<CR>
+nnoremap [winsize]k :resize -5<CR>
+nnoremap [winsize]l :vertical resize +50<CR>   
+nnoremap [winsize]h :vertical resize -50<CR>
+
+" 現在の日時
+inoremap <Leader>date <C-R>=strftime('%Y/%m/%d (%a) %H:%M:%S')<CR>
+
+" カーソル下URLオープン
 nmap ,o <Plug>(openbrowser-open)
 vmap ,o <Plug>(openbrowser-open)
 
-
-set encoding=utf-8
-set fileencodings=ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932,utf-8
-
-" EUC-JP
+" 文字コード変換
+" EUC-JP/SJIS/UTF-8
 nmap ,ee :e ++enc=euc-jp<CR>
-" SJIS
 nmap ,es :e ++enc=cp932<CR>
-" UTF-8
 nmap ,eu :e ++enc=utf-8<CR>
 
-" Windowsの形式
-nmap ,fw :e ++ff=dos
+" エスケープ入力補助
+inoremap <silent><c-f> <ESC>
 
-" Unixの形式
+" ファイルタイプ
+autocmd BufNewFile,BufRead *.less set filetype=css
+autocmd BufNewFile,BufRead *.phtml set filetype=html
+autocmd BufNewFile,BufRead *.tpl set filetype=html
+
+"PHp辞そ
+autocmd FileType php :set dictionary=dictionary/PHP.dict
+
+
+" 入力中の疑似キー移動
+inoremap <C-j> <Down>
+inoremap <C-k> <Up>
+inoremap <C-h> <Left>
+inoremap <C-l> <Right>
+
+
+" 改行コード変更
+" win/unix
+nmap :fw :e ++ff=dos
 nmap :fu ++ff=unix
 
-" 振り分け
+"改行入力 Shift + Enter
+autocmd FileType html,xhtml inoremap <S-CR> <br<Space>/><CR>
+autocmd FileType html,xhtml nnoremap <S-CR> $a<br<Space>/><Esc><S-J>i<CR><ESC>$
+
+
+" [p]NERDcomment
+" 機能呼び出し
+nmap ,, <Plug>NERDCommenterToggle
+vmap ,, <Plug>NERDCommenterToggle
+
+" [p]NERDTree
+" ツリー呼び出し
+nmap <silent> <C-e>      :NERDTreeToggle<CR>
+vmap <silent> <C-e> <Esc>:NERDTreeToggle<CR>
+omap <silent> <C-e>      :NERDTreeToggle<CR>
+imap <silent> <C-e> <Esc>:NERDTreeToggle<CR>
+cmap <silent> <C-e> <C-u>:NERDTreeToggle<CR>
+
+
+" ####Vundle####
+
+" win/macでのVundle場所
 if has("win32") || has("win64")
   set rtp+=~/dotfiles/vimfiles/vundle.git/ 
   call vundle#rc('~/dotfiles/vimfiles/bundle/')
@@ -123,7 +191,7 @@ else
   call vundle#rc()
 endif
 
-" From GitHub
+" GitHubリポジトリ
 " 補完
 Bundle 'Shougo/neocomplcache'
 " スニペ
@@ -157,82 +225,9 @@ Bundle 'skammer/vim-css-color.git'
 " MarkDownプレビュー
 Bundle 'kannokanno/previm'
 
-" BundleEnd "
 
 
-" NERDcomment ShortCut
-let NERDSpaceDelims = 1
-nmap ,, <Plug>NERDCommenterToggle
-vmap ,, <Plug>NERDCommenterToggle
 
-" neocomplcache
-let g:neocomplcache_enable_at_startup = 1 " 起動時に有効化
-
-" NERDTree START "
-"<C-e>でNERDTreeをオンオフ。いつでもどこでも。
-nmap <silent> <C-e>      :NERDTreeToggle<CR>
-vmap <silent> <C-e> <Esc>:NERDTreeToggle<CR>
-omap <silent> <C-e>      :NERDTreeToggle<CR>
-imap <silent> <C-e> <Esc>:NERDTreeToggle<CR>
-cmap <silent> <C-e> <C-u>:NERDTreeToggle<CR>
-
-"How can I close vim if the only window left open is a NERDTree?
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-
-"ファイルオープン後の動作 
-"0 : そのままNERDTreeを開いておく。
-"1 : NERDTreeを閉じる。
-"Values: 0 or 1.
-"Default: 0
-"let g:NERDTreeQuitOnOpen=0
-"let g:NERDTreeQuitOnOpen=1
-
-"NERDTreeIgnore 無視するファイルを設定する。
-"'\.vim$'ならばfugitive.vimなどのファイル名が表示されない。
-"\ エスケープ記号
-"$ ファイル名の最後
-let g:NERDTreeIgnore=['\.clean$', '\.swp$', '\.bak$', '\~$']
-
-"NERDTreeShowHidden 隠しファイルを表示するか？ ->表示する
-let g:NERDTreeShowHidden=1
-
-"カーソルラインをハイライト表示する。 -> カラー表示
-let g:NERDTreeHighlightCursorline=1
-
-"ブックマークリストの表示。 -> 表示する
-let g:NERDTreeShowBookmarks=1
-
-"NERDTreeのツリーの幅
-"Default: 31.
-"let g:NERDTreeWinSize=45
-
-"NERDTreeを+|`などを使ってツリー表示をする。
-"ディレクトリが閉じている場合には+を先頭につける。
-"ディレクトリが開いている場合には~を先頭につける。
-"ファイルには-を先頭につける。
-"0 : 綺麗に見せる。
-"1 : +|`などを使わない
-"Values: 0 or 1
-"Default: 1.
-let g:NERDTreeDirArrows=0
-"let g:NERDTreeDirArrows=1
-
-"1 : ファイル、ディレクトリ両方共ダブルクリックで開く。
-"2 : ディレクトリのみシングルクリックで開く。
-"3 : ファイル、ディレクトリ両方共シングルクリックで開く。
-"let g:NERDTreeMouseMode=1
-" let g:NERDTreeMouseMode=2
-let g:NERDTreeMouseMode=3
-
-" NERDTree END "
-
-
-"backup
-set nobackup
-
-"<br>
-autocmd FileType html,xhtml inoremap <S-CR> <br<Space>/><CR>
-autocmd FileType html,xhtml nnoremap <S-CR> $a<br<Space>/><Esc><S-J>i<CR><ESC>$
 
 " 閉じ括弧を自動補完
 inoremap { {}<LEFT>
@@ -285,35 +280,4 @@ endfunction
 let g:endtagcommentFormat = '<!-- /%tag_name%id%class -->'
 nnoremap ,t :<C-u>call Endtagcomment()<CR>
 
-
-"検索を中央
-nnoremap n nzz
-nnoremap N Nzz
-
-" ESC
-inoremap <silent><c-f> <ESC>
-
-" ファイルタイプ
-autocmd BufNewFile,BufRead *.less set filetype=css
-autocmd BufNewFile,BufRead *.phtml set filetype=html
-autocmd BufNewFile,BufRead *.tpl set filetype=html
-
-"辞書
-autocmd FileType php :set dictionary=dictionary/PHP.dict
-
-" 幅拡大縮小
-nnoremap [winsize] <Nop>
-nmap <C-X> [winsize]
-nnoremap [winsize]j :resize +5<CR>
-nnoremap [winsize]k :resize -5<CR>
-nnoremap [winsize]l :vertical resize +50<CR>   
-nnoremap [winsize]h :vertical resize -50<CR>
-
-
-
-" 入力中の疑似キー移動
-inoremap <C-j> <Down>
-inoremap <C-k> <Up>
-inoremap <C-h> <Left>
-inoremap <C-l> <Right>
 
