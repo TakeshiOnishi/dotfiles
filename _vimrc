@@ -195,7 +195,7 @@ endif
 " 補完
 Bundle 'Shougo/neocomplcache'
 " スニペ
-Bundle 'mattn/zencoding-vim'
+Bundle 'mattn/emmet-vim'
 " 文字オブジェクト
 Bundle 'tpope/vim-surround.git'
 " コメント
