@@ -192,6 +192,8 @@ else
 endif
 
 " GitHubリポジトリ
+" Chalice
+Bundle 'koron/chalice'
 " 補完
 Bundle 'Shougo/neocomplcache'
 " スニペ
