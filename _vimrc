@@ -192,6 +192,8 @@ else
 endif
 
 " GitHubリポジトリ
+" wordPress
+Bundle "vim-scripts/VimRepress"
 " Chalice
 Bundle 'koron/chalice'
 " 補完
