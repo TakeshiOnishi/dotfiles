@@ -31,9 +31,6 @@ set nostartofline
 " ステータスライン常時表示
 set laststatus=2
 
-" ステータスを [ファイル名][文字コード][ファイルタイプ][行,列][割合][全体行]
-set statusline=%F%m%r%h%w\ [%{&fenc!=''?&fenc:&enc}]\ %{&ff}\ [TYPE=%Y]\ [POS=%04l,%04v][%p%%]\ [LEN=%L] 
-
 " コマンドラインを一行
 set cmdheight=1
 
@@ -228,6 +225,8 @@ Bundle 'groenewege/vim-less.git'
 Bundle 'skammer/vim-css-color.git'
 " MarkDownプレビュー
 Bundle 'kannokanno/previm'
+"CUIみため
+Bundle 'Lokaltog/vim-powerline'
 
 
 
@@ -284,4 +283,5 @@ endfunction
 let g:endtagcommentFormat = '<!-- /%tag_name%id%class -->'
 nnoremap ,t :<C-u>call Endtagcomment()<CR>
 
-
+let g:Powerline_symbols = 'fancy'
+let g:Powerline_symbols = 'compatible'
