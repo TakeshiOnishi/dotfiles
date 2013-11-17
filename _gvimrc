@@ -73,4 +73,4 @@ if has('multi_byte_ime') || has('xim')
   highlight CursorIM guifg=NONE guibg=Purple
 endif
 
-set guifont=Ricty\ Discord\ Regular:h15pt
+set guifont=Ricty\ Discord\ for\ Powerline:h15pt
