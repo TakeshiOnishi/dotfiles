@@ -62,6 +62,10 @@ set nobackup
 " コメントを改行時に挿入しない
 autocmd FileType * setlocal formatoptions-=ro
 
+" 日本語入力固定
+let IM_CtrlMode = 4
+inoremap <silent><C-^>=IMState('FixMode')<CR>
+
 " [p]neocomplcache
 " 起動時に有効化
 let g:neocomplcache_enable_at_startup = 1 
@@ -230,7 +234,8 @@ Bundle 'skammer/vim-css-color.git'
 Bundle 'kannokanno/previm'
 "CUIみため
 Bundle 'Lokaltog/vim-powerline'
-
+"IME切り替え
+Bundle 'fuenor/im_control.vim'
 
 
 
