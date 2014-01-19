@@ -64,7 +64,6 @@ autocmd FileType * setlocal formatoptions-=ro
 
 " 日本語入力固定
 let IM_CtrlMode = 4
-inoremap <silent><C-^>=IMState('FixMode')<CR>
 
 " [p]neocomplcache
 " 起動時に有効化
