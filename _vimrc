@@ -235,6 +235,8 @@ Bundle 'kannokanno/previm'
 Bundle 'Lokaltog/vim-powerline'
 "IME切り替え
 Bundle 'fuenor/im_control.vim'
+" カレンダー
+Bundle 'itchyny/calendar.vim'
 
 
 
