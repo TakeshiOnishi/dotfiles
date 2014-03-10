@@ -228,7 +228,7 @@ Bundle 'rhysd/clever-f.vim'
 " less整形ハイライト
 Bundle 'groenewege/vim-less.git'
 " cssカラー補助
-Bundle 'skammer/vim-css-color.git'
+Bundle 'lilydjwg/colorizer'
 " MarkDownプレビュー
 Bundle 'kannokanno/previm'
 "CUIみため
@@ -237,6 +237,8 @@ Bundle 'Lokaltog/vim-powerline'
 Bundle 'fuenor/im_control.vim'
 " カレンダー
 Bundle 'itchyny/calendar.vim'
+" カラーセレクタ
+Bundle 'colorsel.vim'
 
 
 
