@@ -239,7 +239,8 @@ Bundle 'fuenor/im_control.vim'
 Bundle 'itchyny/calendar.vim'
 " カラーセレクタ
 Bundle 'colorsel.vim'
-
+" php,html混在インデント
+Bundle 'vim-scripts/php.vim-html-enhanced'
 
 
 
