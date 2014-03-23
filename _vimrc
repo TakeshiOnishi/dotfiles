@@ -24,6 +24,7 @@ set backspace=indent,eol,start
 
 " オートインデント
 set autoindent
+set smartindent
 
 " 移動コマンドを使ったときに先頭にいかないように
 set nostartofline
@@ -47,6 +48,7 @@ set number
 set mouse=a
 
 " インデント設定
+set expandtab
 set shiftwidth=4
 set tabstop=4
 set softtabstop=0
@@ -441,4 +443,3 @@ autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#3c3c3c ctermbg=darkgr
 let g:indent_guides_color_change_percent = 30
 " ガイドの幅
 let g:indent_guides_guide_size = 1
-
