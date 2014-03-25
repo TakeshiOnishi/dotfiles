@@ -251,9 +251,6 @@ Bundle 'nathanaelkane/vim-indent-guides'
 " 閉じ括弧を自動補完
 inoremap { {}<LEFT>
 inoremap [ []<LEFT>
-inoremap "" ""<Left>
-inoremap '' ''<Left>
-inoremap <> <><Left>
 
 
 
