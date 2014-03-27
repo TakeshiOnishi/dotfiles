@@ -48,7 +48,7 @@ set number
 set mouse=a
 
 " インデント設定
-set expandtab
+set noexpandtab
 set shiftwidth=2
 set tabstop=2
 set softtabstop=0
@@ -189,11 +189,11 @@ cmap <silent> <C-e> <C-u>:NERDTreeToggle<CR>
 
 " win/macでのVundle場所
 if has("win32") || has("win64")
-  set rtp+=~/dotfiles/vimfiles/vundle.git/ 
-  call vundle#rc('~/dotfiles/vimfiles/bundle/')
+	set rtp+=~/dotfiles/vimfiles/vundle.git/ 
+	call vundle#rc('~/dotfiles/vimfiles/bundle/')
 else
-  set rtp+=~/.vim/vundle.git/ 
-  call vundle#rc()
+	set rtp+=~/.vim/vundle.git/ 
+	call vundle#rc()
 endif
 
 " GitHubリポジトリ
@@ -256,46 +256,46 @@ inoremap [ []<LEFT>
 
 "閉じタグ
 function! Endtagcomment()
-    let reg_save = @@
+	let reg_save = @@
 
-    try
-        silent normal vaty
-    catch
-        execute "normal \<Esc>"
-        echohl ErrorMsg
-        echo 'no match html tags'
-        echohl None
-        return
-    endtry
+	try
+		silent normal vaty
+	catch
+		execute "normal \<Esc>"
+		echohl ErrorMsg
+		echo 'no match html tags'
+		echohl None
+		return
+	endtry
 
-    let html = @@
+	let html = @@
 
-    let start_tag = matchstr(html, '\v(\<.{-}\>)')
-    let tag_name  = matchstr(start_tag, '\v([a-zA-Z]+)')
+	let start_tag = matchstr(html, '\v(\<.{-}\>)')
+	let tag_name  = matchstr(start_tag, '\v([a-zA-Z]+)')
 
-    let id = ''
-    let id_match = matchlist(start_tag, '\vid\=["'']([^"'']+)["'']')
-    if exists('id_match[1]')
-        let id = '#' . id_match[1]
-    endif
+	let id = ''
+	let id_match = matchlist(start_tag, '\vid\=["'']([^"'']+)["'']')
+	if exists('id_match[1]')
+		let id = '#' . id_match[1]
+	endif
 
-    let class = ''
-    let class_match = matchlist(start_tag, '\vclass\=["'']([^"'']+)["'']')
-    if exists('class_match[1]')
-        let class = '.' . join(split(class_match[1], '\v\s+'), '.')
-    endif
+	let class = ''
+	let class_match = matchlist(start_tag, '\vclass\=["'']([^"'']+)["'']')
+	if exists('class_match[1]')
+		let class = '.' . join(split(class_match[1], '\v\s+'), '.')
+	endif
 
-    execute "normal `>va<\<Esc>`<"
+	execute "normal `>va<\<Esc>`<"
 
-    let comment = g:endtagcommentFormat
-    let comment = substitute(comment, '%tag_name', tag_name, 'g')
-    let comment = substitute(comment, '%id', id, 'g')
-    let comment = substitute(comment, '%class', class, 'g')
-    let @@ = comment
+	let comment = g:endtagcommentFormat
+	let comment = substitute(comment, '%tag_name', tag_name, 'g')
+	let comment = substitute(comment, '%id', id, 'g')
+	let comment = substitute(comment, '%class', class, 'g')
+	let @@ = comment
 
-    normal ""P
+	normal ""P
 
-    let @@ = reg_save
+	let @@ = reg_save
 endfunction
 
 let g:endtagcommentFormat = '<!-- /%tag_name%id%class -->'
@@ -307,129 +307,129 @@ nnoremap ,t :<C-u>call Endtagcomment()<CR>
 let g:Powerline_symbols='fancy'
 let g:Powerline_mode_n = 'NORMAL'
 call Pl#Hi#Allocate({
-  \ 'black'          : 16,
-  \ 'white'          : 231,
-  \
-  \ 'darkestgreen'   : 22,
-  \ 'darkgreen'      : 28,
-  \
-  \ 'darkestcyan'    : 21,
-  \ 'mediumcyan'     : 117,
-  \
-  \ 'darkestblue'    : 24,
-  \ 'darkblue'       : 31,
-  \
-  \ 'darkestred'     : 52,
-  \ 'darkred'        : 88,
-  \ 'mediumred'      : 124,
-  \ 'brightred'      : 160,
-  \ 'brightestred'   : 196,
-  \
-  \ 'darkestyellow'  : 59,
-  \ 'darkyellow'     : 100,
-  \ 'darkestpurple'  : 57,
-  \ 'mediumpurple'   : 98,
-  \ 'brightpurple'   : 189,
-  \
-  \ 'brightorange'   : 208,
-  \ 'brightestorange': 214,
-  \
-  \ 'gray0'          : 233,
-  \ 'gray1'          : 235,
-  \ 'gray2'          : 236,
-  \ 'gray3'          : 239,
-  \ 'gray4'          : 240,
-  \ 'gray5'          : 241,
-  \ 'gray6'          : 244,
-  \ 'gray7'          : 245,
-  \ 'gray8'          : 247,
-  \ 'gray9'          : 250,
-  \ 'gray10'         : 252,
-  \ })
+			\ 'black'          : 16,
+			\ 'white'          : 231,
+			\
+			\ 'darkestgreen'   : 22,
+			\ 'darkgreen'      : 28,
+			\
+			\ 'darkestcyan'    : 21,
+			\ 'mediumcyan'     : 117,
+			\
+			\ 'darkestblue'    : 24,
+			\ 'darkblue'       : 31,
+			\
+			\ 'darkestred'     : 52,
+			\ 'darkred'        : 88,
+			\ 'mediumred'      : 124,
+			\ 'brightred'      : 160,
+			\ 'brightestred'   : 196,
+			\
+			\ 'darkestyellow'  : 59,
+			\ 'darkyellow'     : 100,
+			\ 'darkestpurple'  : 57,
+			\ 'mediumpurple'   : 98,
+			\ 'brightpurple'   : 189,
+			\
+			\ 'brightorange'   : 208,
+			\ 'brightestorange': 214,
+			\
+			\ 'gray0'          : 233,
+			\ 'gray1'          : 235,
+			\ 'gray2'          : 236,
+			\ 'gray3'          : 239,
+			\ 'gray4'          : 240,
+			\ 'gray5'          : 241,
+			\ 'gray6'          : 244,
+			\ 'gray7'          : 245,
+			\ 'gray8'          : 247,
+			\ 'gray9'          : 250,
+			\ 'gray10'         : 252,
+			\ })
 " 'n': normal mode
 " 'i': insert mode
 " 'v': visual mode
 " 'r': replace mode
 " 'N': not active
 let g:Powerline#Colorschemes#my#colorscheme = Pl#Colorscheme#Init([
-  \ Pl#Hi#Segments(['SPLIT'], {
-    \ 'n': ['white', 'gray2'],
-    \ 'N': ['gray0', 'gray0'],
-    \ }),
-  \
-  \ Pl#Hi#Segments(['mode_indicator'], {
-    \ 'i': ['darkestgreen', 'white', ['bold']],
-    \ 'n': ['darkestcyan', 'white', ['bold']],
-    \ 'v': ['darkestpurple', 'white', ['bold']],
-    \ 'r': ['mediumred', 'white', ['bold']],
-    \ 's': ['white', 'gray5', ['bold']],
-    \ }),
-  \
-  \ Pl#Hi#Segments(['fileinfo', 'filename'], {
-    \ 'i': ['white', 'darkestgreen', ['bold']],
-    \ 'n': ['white', 'darkestcyan', ['bold']],
-    \ 'v': ['white', 'darkestpurple', ['bold']],
-    \ 'r': ['white', 'mediumred', ['bold']],
-    \ 'N': ['gray0', 'gray2', ['bold']],
-    \ }),
-  \
-  \ Pl#Hi#Segments(['branch', 'scrollpercent', 'raw', 'filesize'], {
-    \ 'n': ['gray2', 'gray7'],
-    \ 'N': ['gray0', 'gray2'],
-    \ }),
-  \
-  \ Pl#Hi#Segments(['fileinfo.filepath', 'status'], {
-    \ 'n': ['gray10'],
-    \ 'N': ['gray5'],
-    \ }),
-  \
-  \ Pl#Hi#Segments(['static_str'], {
-    \ 'n': ['white', 'gray4'],
-    \ 'N': ['gray1', 'gray1'],
-    \ }),
-  \
-  \ Pl#Hi#Segments(['fileinfo.flags'], {
-    \ 'n': ['white'],
-    \ 'N': ['gray4'],
-    \ }),
-  \
-  \ Pl#Hi#Segments(['currenttag', 'fileformat', 'fileencoding', 'pwd', 'filetype', 'charcode', 'currhigroup'], {
-    \ 'n': ['gray9', 'gray4'],
-    \ }),
-  \
-  \ Pl#Hi#Segments(['lineinfo'], {
-    \ 'n': ['gray2', 'gray10'],
-    \ 'N': ['gray2', 'gray4'],
-    \ }),
-  \
-  \ Pl#Hi#Segments(['errors'], {
-    \ 'n': ['white', 'gray2'],
-    \ }),
-  \
-  \ Pl#Hi#Segments(['lineinfo.line.tot'], {
-    \ 'n': ['gray2'],
-    \ 'N': ['gray2'],
-    \ }),
-  \
-  \ Pl#Hi#Segments(['paste_indicator', 'ws_marker'], {
-    \ 'n': ['white', 'brightred', ['bold']],
-    \ }),
-  \
-  \ Pl#Hi#Segments(['gundo:static_str.name'], {
-    \ 'n': ['white', 'mediumred', ['bold']],
-    \ 'N': ['brightred', 'darkestred', ['bold']],
-    \ }),
-  \
-  \ Pl#Hi#Segments(['gundo:static_str.buffer'], {
-    \ 'n': ['white', 'darkred'],
-    \ 'N': ['brightred', 'darkestred'],
-    \ }),
-  \
-  \ Pl#Hi#Segments(['gundo:SPLIT'], {
-    \ 'n': ['white', 'gray2'],
-    \ 'N': ['white', 'gray0'],
-    \ }),
-  \ ])
+			\ Pl#Hi#Segments(['SPLIT'], {
+			\ 'n': ['white', 'gray2'],
+			\ 'N': ['gray0', 'gray0'],
+			\ }),
+			\
+			\ Pl#Hi#Segments(['mode_indicator'], {
+			\ 'i': ['darkestgreen', 'white', ['bold']],
+			\ 'n': ['darkestcyan', 'white', ['bold']],
+			\ 'v': ['darkestpurple', 'white', ['bold']],
+			\ 'r': ['mediumred', 'white', ['bold']],
+			\ 's': ['white', 'gray5', ['bold']],
+			\ }),
+			\
+			\ Pl#Hi#Segments(['fileinfo', 'filename'], {
+			\ 'i': ['white', 'darkestgreen', ['bold']],
+			\ 'n': ['white', 'darkestcyan', ['bold']],
+			\ 'v': ['white', 'darkestpurple', ['bold']],
+			\ 'r': ['white', 'mediumred', ['bold']],
+			\ 'N': ['gray0', 'gray2', ['bold']],
+			\ }),
+			\
+			\ Pl#Hi#Segments(['branch', 'scrollpercent', 'raw', 'filesize'], {
+			\ 'n': ['gray2', 'gray7'],
+			\ 'N': ['gray0', 'gray2'],
+			\ }),
+			\
+			\ Pl#Hi#Segments(['fileinfo.filepath', 'status'], {
+			\ 'n': ['gray10'],
+			\ 'N': ['gray5'],
+			\ }),
+			\
+			\ Pl#Hi#Segments(['static_str'], {
+			\ 'n': ['white', 'gray4'],
+			\ 'N': ['gray1', 'gray1'],
+			\ }),
+			\
+			\ Pl#Hi#Segments(['fileinfo.flags'], {
+			\ 'n': ['white'],
+			\ 'N': ['gray4'],
+			\ }),
+			\
+			\ Pl#Hi#Segments(['currenttag', 'fileformat', 'fileencoding', 'pwd', 'filetype', 'charcode', 'currhigroup'], {
+			\ 'n': ['gray9', 'gray4'],
+			\ }),
+			\
+			\ Pl#Hi#Segments(['lineinfo'], {
+			\ 'n': ['gray2', 'gray10'],
+			\ 'N': ['gray2', 'gray4'],
+			\ }),
+			\
+			\ Pl#Hi#Segments(['errors'], {
+			\ 'n': ['white', 'gray2'],
+			\ }),
+			\
+			\ Pl#Hi#Segments(['lineinfo.line.tot'], {
+			\ 'n': ['gray2'],
+			\ 'N': ['gray2'],
+			\ }),
+			\
+			\ Pl#Hi#Segments(['paste_indicator', 'ws_marker'], {
+			\ 'n': ['white', 'brightred', ['bold']],
+			\ }),
+			\
+			\ Pl#Hi#Segments(['gundo:static_str.name'], {
+			\ 'n': ['white', 'mediumred', ['bold']],
+			\ 'N': ['brightred', 'darkestred', ['bold']],
+			\ }),
+			\
+			\ Pl#Hi#Segments(['gundo:static_str.buffer'], {
+			\ 'n': ['white', 'darkred'],
+			\ 'N': ['brightred', 'darkestred'],
+			\ }),
+			\
+			\ Pl#Hi#Segments(['gundo:SPLIT'], {
+			\ 'n': ['white', 'gray2'],
+			\ 'N': ['white', 'gray0'],
+			\ }),
+			\ ])
 let g:Powerline_colorscheme='my'
 
 
