@@ -49,8 +49,8 @@ set mouse=a
 
 " インデント設定
 set expandtab
-set shiftwidth=4
-set tabstop=4
+set shiftwidth=2
+set tabstop=2
 set softtabstop=0
 
 " 保存文字コード
