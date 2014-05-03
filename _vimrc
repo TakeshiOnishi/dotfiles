@@ -243,6 +243,8 @@ Bundle 'itchyny/calendar.vim'
 Bundle 'colorsel.vim'
 " php,html混在インデント
 Bundle 'vim-scripts/php.vim-html-enhanced'
+" sftp
+Bundle 'eshion/vim-sftp-sync'
 
 
 
