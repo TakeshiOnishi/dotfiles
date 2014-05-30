@@ -235,8 +235,6 @@ Bundle 'lilydjwg/colorizer'
 Bundle 'kannokanno/previm'
 "CUIみため
 Bundle 'Lokaltog/vim-powerline'
-"IME切り替え
-Bundle 'fuenor/im_control.vim'
 " カレンダー
 Bundle 'itchyny/calendar.vim'
 " カラーセレクタ
