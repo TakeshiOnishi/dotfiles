@@ -61,6 +61,9 @@ set fileencodings=ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp
 " swp削除
 set nobackup
 
+" unkファイル無視
+set noundofile
+
 " コメントを改行時に挿入しない
 autocmd FileType * setlocal formatoptions-=ro
 
