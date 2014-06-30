@@ -302,6 +302,18 @@ endfunction
 let g:endtagcommentFormat = '<!-- /%tag_name%id%class -->'
 nnoremap ,t :<C-u>call Endtagcomment()<CR>
 
+
+" 背景透過きりかえ
+function! s:toggle_transparence()
+    if &transparency == 15
+        set transparency=0
+    else
+        set transparency=15
+    endif
+
+endfunction
+nnoremap <silent> <Space>oT :<C-u>call <SID>toggle_transparence()<CR>
+
 " powerline
 " スキン引用元
 " http://d.hatena.ne.jp/itchyny/20120609/1339249777
