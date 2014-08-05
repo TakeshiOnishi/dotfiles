@@ -246,7 +246,8 @@ Bundle 'colorsel.vim'
 Bundle 'vim-scripts/php.vim-html-enhanced'
 " sftp
 Bundle 'eshion/vim-sftp-sync'
-
+" Diff
+Bundle 'AndrewRadev/linediff.vim'
 
 
 " 閉じ括弧を自動補完
