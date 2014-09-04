@@ -73,6 +73,10 @@ let IM_CtrlMode = 4
 " [p]neocomplcache
 " 起動時に有効化
 let g:neocomplcache_enable_at_startup = 1 
+let g:neocomplcache_min_syntax_length = 3
+inoremap <expr><Space> pumvisible() ? neocomplcache#close_popup() . "\<Space>" : "\<Space>"
+
+
 
 " [p]NERDcomment
 let NERDSpaceDelims = 1
