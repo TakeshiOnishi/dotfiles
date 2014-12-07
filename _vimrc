@@ -64,6 +64,16 @@ set nobackup
 " unkファイル無視
 set noundofile
 
+" ウィンドウ幅によっての自動折り返し補完
+set wrap
+set breakat=\ 
+set showbreak=+\ 
+if (v:version == 704 && has("patch338")) || v:version >= 705
+  set breakindent
+  autocmd BufEnter * set breakindentopt=min:20,shift:0
+endif
+
+
 " コメントを改行時に挿入しない
 autocmd FileType * setlocal formatoptions-=ro
 
