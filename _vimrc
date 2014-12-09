@@ -329,6 +329,18 @@ function! s:toggle_transparence()
 endfunction
 nnoremap <silent> <Space>oT :<C-u>call <SID>toggle_transparence()<CR>
 
+" Dash起動
+function! s:dash(...)
+  let ft = &filetype
+  if &filetype == 'python'
+    let ft = ft.'2'
+  endif
+  let ft = ft.':'
+  let word = len(a:000) == 0 ? input('Dash search: ', ft.expand('<cword>')) : ft.join(a:000, ' ')
+  call system(printf("open dash://'%s'", word))
+endfunction
+command! -nargs=* Dash call <SID>dash(<f-args>)
+
 " powerline
 " スキン引用元
 " http://d.hatena.ne.jp/itchyny/20120609/1339249777
