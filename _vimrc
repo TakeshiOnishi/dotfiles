@@ -269,6 +269,11 @@ inoremap { {}<LEFT>
 inoremap [ []<LEFT>
 
 
+" mdファイル認識
+augroup PrevimSettings
+    autocmd!
+    autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
+	augroup END
 
 "閉じタグ
 function! Endtagcomment()
