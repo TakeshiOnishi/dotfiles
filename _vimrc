@@ -48,8 +48,8 @@ set mouse=a
 set expandtab
 set shiftwidth=2
 set tabstop=2
-set softtabstop=2
-au BufNewFile,BufRead * set tabstop=2 shiftwidth=2
+set softtabstop=0
+au BufNewFile,BufRead * setlocal sw=2 sts=2 ts=2
 
 
 " 保存文字コード
