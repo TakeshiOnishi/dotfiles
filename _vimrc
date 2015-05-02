@@ -51,7 +51,9 @@ set mouse=a
 set expandtab
 set shiftwidth=2
 set tabstop=2
-set softtabstop=0
+set softtabstop=2
+au BufNewFile,BufRead * set tabstop=2 shiftwidth=2
+
 
 " 保存文字コード
 set encoding=utf-8
@@ -216,8 +218,6 @@ endif
 " GitHubリポジトリ
 " wordPress
 Bundle "vim-scripts/VimRepress"
-" Chalice
-Bundle 'koron/chalice'
 " 補完
 Bundle 'Shougo/neocomplcache'
 " スニペ
@@ -285,9 +285,9 @@ function! Endtagcomment()
 		silent normal vaty
 	catch
 		execute "normal \<Esc>"
-		echohl ErrorMsg
-		echo 'no match html tags'
-		echohl None
+    echohl ErrorMsg
+    echo 'no match html tags'
+    echohl None
 		return
 	endtry
 
@@ -480,5 +480,5 @@ let g:Powerline#Colorschemes#my#colorscheme = Pl#Colorscheme#Init([
 let g:Powerline_colorscheme='my'
 
 let g:indentLine_enabled = 1
-let g:indentLine_color_gui = '#57597f'
 let g:indentLine_char = '|'
+let g:indentLine_color_gui = '#69a6a0'
