@@ -2,6 +2,9 @@
 colorscheme molokai
 " colorscheme zenburn
 
+" コマンドライン高さ
+set cmdheight=1
+
 """"""""""""""""""""""""""""""
 "挿入モード時、ステータスラインの色を変更
 """"""""""""""""""""""""""""""

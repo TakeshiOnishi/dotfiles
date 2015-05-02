@@ -32,9 +32,6 @@ set nostartofline
 " ステータスライン常時表示
 set laststatus=2
 
-" コマンドラインを一行
-set cmdheight=1
-
 " バッファ変更時の確認
 set confirm
 
