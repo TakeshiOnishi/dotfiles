@@ -48,7 +48,7 @@ set number
 set mouse=a
 
 " インデント設定
-set noexpandtab
+set expandtab
 set shiftwidth=2
 set tabstop=2
 set softtabstop=0
@@ -262,6 +262,8 @@ Bundle 'TakeshiOnishi/php.vim-html-enhanced'
 Bundle 'eshion/vim-sftp-sync'
 " Diff
 Bundle 'AndrewRadev/linediff.vim'
+" Indent
+Bundle 'Yggdroot/indentLine'
 
 
 " 閉じ括弧を自動補完
@@ -477,6 +479,6 @@ let g:Powerline#Colorschemes#my#colorscheme = Pl#Colorscheme#Init([
 			\ ])
 let g:Powerline_colorscheme='my'
 
-set list
-set listchars=tab:\|\ 
-hi SpecialKey guifg=#333333
+let g:indentLine_enabled = 1
+let g:indentLine_color_gui = '#57597f'
+let g:indentLine_char = '|'
