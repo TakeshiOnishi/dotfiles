@@ -51,14 +51,17 @@ function! s:dash(...)
 endfunction
 command! -nargs=* Dash call <SID>dash(<f-args>)
 
-
-" indetLine
-let g:indentLine_enabled = 1
-let g:indentLine_char = '|'
-let g:indentLine_color_gui = '#69a6a0'
-
 " previm Markdownファイル認識
 augroup PrevimSettings
   autocmd!
   autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
 augroup END
+
+
+" indentGuide
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_auto_colors = 0
+let g:indent_guides_start_level = 1
+let g:indent_guides_guide_size = 1
+hi IndentGuidesOdd  ctermbg=235
+hi IndentGuidesEven ctermbg=239

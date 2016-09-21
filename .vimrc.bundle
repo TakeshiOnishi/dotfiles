@@ -55,7 +55,7 @@ Bundle 'eshion/vim-sftp-sync'
 " Diff
 Bundle 'AndrewRadev/linediff.vim'
 " Indent
-Bundle 'Yggdroot/indentLine'
+Bundle 'nathanaelkane/vim-indent-guides'
 " Vimshell
 Bundle 'Shougo/vimshell.vim'
 " ColorScheme - molokai
