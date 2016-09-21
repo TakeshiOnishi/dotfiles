@@ -48,6 +48,9 @@ let IM_CtrlMode = 4
 " コマンドライン高さ
 set cmdheight=1
 
+" Vimを使ってくれてありがとう!
+set notitle
+
 " インデント設定
 set expandtab
 set shiftwidth=2
