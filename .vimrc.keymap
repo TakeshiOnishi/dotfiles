@@ -75,3 +75,6 @@ function! s:toggle_transparence()
 
 endfunction
 nnoremap <silent> <Space>oT :<C-u>call <SID>toggle_transparence()<CR>
+
+" Escの2回でハイライト削除
+nmap <ESC><ESC> :nohlsearch<CR><ESC>
