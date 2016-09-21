@@ -47,10 +47,10 @@ autocmd BufNewFile,BufRead *.phtml set filetype=html
 autocmd BufNewFile,BufRead *.tpl set filetype=html
 
 " 入力中の疑似キー移動
-imap OA <Up>
-imap OB <Down>
-imap OC <Right>
-imap OD <Left>
+imap A <Up>
+imap B <Down>
+imap C <Right>
+imap D <Left>
 
 " 改行コード変更
 " win/unix
