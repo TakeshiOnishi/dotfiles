@@ -1,13 +1,14 @@
-自分用vim設定ファイル
+自分用設定ファイル
 ====
 
 ## Description
 
-自分用のvimrcファイルをまとめたものがメイン
+自分用の色々な設定ファイルをまとめたもの
 
-vimrcはファイルを複数に分けてsourceで読み込んでいる
-
-SubmoduleとしてVundle
+- vim
+- tmux
+- git
+- bashrc or zshrc(今度)
 
 ## vimrcSetings
 
@@ -26,7 +27,8 @@ SubmoduleとしてVundle
 
 ## Requirement
 
-- Vundle.vim
+-  vim
+  - Vundle.vim
 
 ## Usage
 
