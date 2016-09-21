@@ -59,6 +59,6 @@ Bundle 'nathanaelkane/vim-indent-guides'
 " Vimshell
 Bundle 'Shougo/vimshell.vim'
 " vimから非同期実行 (for vimshell)
-Bundle 'Shougo/vimproc.git'
+" Bundle 'Shougo/vimproc.git'
 " ColorScheme - molokai
 Bundle 'tomasr/molokai'
