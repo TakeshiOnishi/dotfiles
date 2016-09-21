@@ -47,11 +47,10 @@ autocmd BufNewFile,BufRead *.phtml set filetype=html
 autocmd BufNewFile,BufRead *.tpl set filetype=html
 
 " 入力中の疑似キー移動
-inoremap <C-j> <Down>
-inoremap <C-k> <Up>
-inoremap <C-h> <Left>
-inoremap <C-l> <Right>
-
+imap OA <Up>
+imap OB <Down>
+imap OC <Right>
+imap OD <Left>
 
 " 改行コード変更
 " win/unix
@@ -76,4 +75,3 @@ function! s:toggle_transparence()
 
 endfunction
 nnoremap <silent> <Space>oT :<C-u>call <SID>toggle_transparence()<CR>
-
