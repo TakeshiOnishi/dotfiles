@@ -1,5 +1,9 @@
 " ####Init####
 
+" ColorScheme
+set t_Co=256
+colorscheme molokai
+
 " Vi互換モードをオフ
 set nocompatible
 
@@ -261,6 +265,8 @@ Bundle 'eshion/vim-sftp-sync'
 Bundle 'AndrewRadev/linediff.vim'
 " Indent
 Bundle 'Yggdroot/indentLine'
+" Vimshell
+Bundle 'Shougo/vimshell.vim'
 
 
 " 閉じ括弧を自動補完

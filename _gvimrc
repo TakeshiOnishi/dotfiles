@@ -1,8 +1,4 @@
-﻿set t_Co=256
-colorscheme molokai
-" colorscheme zenburn
-
-" コマンドライン高さ
+﻿" コマンドライン高さ
 set cmdheight=1
 
 """"""""""""""""""""""""""""""
