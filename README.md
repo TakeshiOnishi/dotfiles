@@ -30,10 +30,11 @@
 -  vim
   - Vundle.vim
 
-## Usage
-
-- 未編集
-
 ## Install
 
-- 未編集
+1. cd ~/
+1. git clone https://github.com/TakeshiOnishi/dotfiles
+1. cd dotfiles
+1. git submodule update
+1. sh.setup.sh
+1. vim (:BundleInstall)
