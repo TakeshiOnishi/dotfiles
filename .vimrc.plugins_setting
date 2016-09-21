@@ -1,0 +1,64 @@
+" neocomplcache
+" 起動時に有効化
+let g:neocomplcache_enable_at_startup = 1 
+let g:neocomplcache_min_syntax_length = 3
+inoremap <expr><Space> pumvisible() ? neocomplcache#close_popup() . "\<Space>" : "\<Space>"
+
+" NERDcomment
+let NERDSpaceDelims = 1
+
+" NERDTree
+" ファイルOpen後 開いたまま
+let g:NERDTreeQuitOnOpen=0
+" 非表示ファイルリスト
+let g:NERDTreeIgnore=['\.clean$', '\.swp$', '\.bak$', '\~$']
+" 隠しファイル表示
+let g:NERDTreeShowHidden=1
+" カーソル強調
+let g:NERDTreeHighlightCursorline=1
+" ブックマーク表示
+let g:NERDTreeShowBookmarks=1
+" ツリーサイズ
+let g:NERDTreeWinSize=45
+" ツリーの表示に記号使用
+let g:NERDTreeDirArrows=0
+" ツリー内部はダブルクリックで起動
+let g:NERDTreeMouseMode=1
+
+" NERDcomment
+" 機能呼び出し
+nmap ,, <Plug>NERDCommenterToggle
+vmap ,, <Plug>NERDCommenterToggle
+
+" NERDTree
+" ツリー呼び出し
+nmap <silent> <C-e>      :NERDTreeToggle<CR>
+vmap <silent> <C-e> <Esc>:NERDTreeToggle<CR>
+omap <silent> <C-e>      :NERDTreeToggle<CR>
+imap <silent> <C-e> <Esc>:NERDTreeToggle<CR>
+cmap <silent> <C-e> <C-u>:NERDTreeToggle<CR>
+
+
+" Dash起動
+function! s:dash(...)
+  let ft = &filetype
+  if &filetype == 'python'
+    let ft = ft.'2'
+  endif
+  let ft = ft.':'
+  let word = len(a:000) == 0 ? input('Dash search: ', ft.expand('<cword>')) : ft.join(a:000, ' ')
+  call system(printf("open dash://'%s'", word))
+endfunction
+command! -nargs=* Dash call <SID>dash(<f-args>)
+
+
+" indetLine
+let g:indentLine_enabled = 1
+let g:indentLine_char = '|'
+let g:indentLine_color_gui = '#69a6a0'
+
+" previm Markdownファイル認識
+augroup PrevimSettings
+  autocmd!
+  autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
+augroup END
