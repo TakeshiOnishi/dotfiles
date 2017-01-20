@@ -12,4 +12,4 @@ if has('multi_byte_ime') || has('xim')
 endif
 
 " Font
-set guifont=Ricty\ Discord\ for\ Powerline:h15pt
+set guifont=Ricty\ Discord\ for\ Powerline:h12pt
