@@ -1,11 +1,12 @@
 " win/macでのVundle場所
 if has("win32") || has("win64")
-	set rtp+=~/dotfiles/vimfiles/vundle.git/ 
-	call vundle#rc('~/dotfiles/vimfiles/bundle/')
+	set rtp+="$HOME/dotfiles/vimfiles/vundle.git/"
+	call vundle#rc("$HOME/dotfiles/vimfiles/bundle/")
 else
 	set rtp+=~/.vim/vundle.git/ 
 	call vundle#rc()
 endif
+
 
 " GitHubリポジトリ
 " wordPress
