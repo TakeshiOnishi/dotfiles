@@ -2,4 +2,4 @@
 !.config/fish
 .zsh/history/
 .vim/bundle/*
-.vim/vundle.git/*
+.vim/vundle.git
