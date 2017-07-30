@@ -64,9 +64,6 @@ au BufNewFile,BufRead * setlocal sw=2 sts=2 ts=2
 " ファイルタイプ分岐
 filetype indent plugin on
 
-" コメントを改行時に挿入しない
-" autocmd FileType * setlocal formatoptions-=ro
-
 " 保存文字コード
 set encoding=utf-8
 " 読み取り文字コード順
