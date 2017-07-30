@@ -2,31 +2,15 @@
 	name = Onishi Takeshi
 	email = march.hare.come@gmail.com
 [core]
-	excludesfile = /Users/onishi_takeshi/dotfiles/.gitignore_global
+	excludesfile = ~/.gitignore_global
 	autocrlf = input  
-	editor = /Applications/MacVim.app/Contents/MacOS/mvim -f
+  safecrlf = true
 	
-[difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
-[mergetool "sourcetree"]
-	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
-
 [color]
 	ui = true
 
-[pager]
-	log = diff-highlight | less
-	show = diff-highlight | less
-	diff = diff-highlight | less
-
-[tig "bind"]
-  generic = g move-first-line
-  generic = G move-last-line
-
 [push]
-  default = upstream #git branch -u xx/xx
+  default = simple #一応指定(1.7.11以降不要)
 
 [alias]
   st = status -sb

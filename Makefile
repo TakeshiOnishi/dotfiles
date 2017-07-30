@@ -1,4 +1,4 @@
-DOTFILES_EXCLUDES := .DS_Store .git .gitmodules README.md $(wildcard *.swp)
+DOTFILES_EXCLUDES := .DS_Store .git .gitmodules .gitignore README.md $(wildcard *.swp)
 DOTFILES_TARGET   := $(wildcard .??*) bin
 DOTFILES_DIR      := $(PWD)
 DOTFILES_FILES    := $(filter-out $(DOTFILES_EXCLUDES), $(DOTFILES_TARGET))
