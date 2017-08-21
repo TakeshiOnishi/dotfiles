@@ -3,5 +3,8 @@ if [[ -n $VIMRUNTIME ]]; then
     return 0
 fi
 
-# zsh$B$N@_Dj%m!<%I(B
+# zshの設定ロード
 source ~/.zsh/rc/init.zsh
+
+# asdf設定
+. $HOME/.asdf/asdf.sh
