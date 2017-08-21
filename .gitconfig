@@ -1,6 +1,11 @@
-[user]
-	name = Onishi Takeshi
-	email = march.hare.come@gmail.com
+[include]
+  path = ~/.gitconfig.local
+
+; FILE: .gitconfig.local
+; [user]
+	; name = Onishi Takeshi
+	; email = march.hare.come@gmail.com
+
 [core]
 	excludesfile = ~/.gitignore_global
 	autocrlf = input  
