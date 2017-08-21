@@ -40,7 +40,7 @@ Bundle 'rhysd/clever-f.vim'
 " less整形ハイライト
 Bundle 'groenewege/vim-less.git'
 " cssカラー補助
-Bundle 'lilydjwg/colorizer'
+Bundle 'gko/vim-coloresque'
 " MarkDownプレビュー
 Bundle 'kannokanno/previm'
 "CUIみため
