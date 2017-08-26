@@ -10,6 +10,11 @@ Dotfiles
 - git
 - bashrc or zshrc
 
+## ignore File
+
+- [Directory] *_local
+- [File] *.local
+
 ## Install
 
 1. cd ~/
