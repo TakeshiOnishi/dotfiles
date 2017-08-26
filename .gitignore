@@ -1,4 +1,4 @@
 .config/*
-**_local/*
+**/_local/*
 !**_local/.gitkeep
 *.local*
