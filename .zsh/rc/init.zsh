@@ -21,4 +21,6 @@ load_if_exists "${script_dir}/alias.zsh"
 load_if_exists "${script_dir}/mac_server.zsh"
 
 # 環境ごとのalias (ignore対象)
-load_if_exists "${script_dir}/ignore_optional.zsh"
+for file in ${script_dir}/*.local; do
+  source "$file"
+done
