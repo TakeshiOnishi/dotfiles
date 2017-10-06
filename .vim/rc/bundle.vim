@@ -64,4 +64,4 @@ Bundle 'Shougo/vimshell.vim'
 " ColorScheme - molokai
 Bundle 'tomasr/molokai'
 " vim-R
-Bundle 'jalvesaq/Nvim-R'
+Bundle 'vim-scripts/Vim-R-plugin'
