@@ -65,3 +65,12 @@ let g:indent_guides_start_level = 1
 let g:indent_guides_guide_size = 1
 hi IndentGuidesOdd  ctermbg=235
 hi IndentGuidesEven ctermbg=239
+
+" vim-r-plugin settings
+let maplocalleader = ","
+let vimrplugin_vsplit = 1
+let vimrplugin_assign = 0
+
+let vimrplugin_vimpager = "horizontal"
+let vimrplugin_objbr_place = "console,right"
+let vimrplugin_objbr_opendf = 0
