@@ -33,3 +33,6 @@ setopt hist_no_store
 setopt hist_expand
 # 履歴をインクリメンタルに追加
 setopt inc_append_history
+
+# rコマンドを利用する用
+disable r
