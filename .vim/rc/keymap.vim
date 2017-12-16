@@ -38,9 +38,6 @@ nmap ,ee :e ++enc=euc-jp<CR>
 nmap ,es :e ++enc=cp932<CR>
 nmap ,eu :e ++enc=utf-8<CR>
 
-" エスケープ入力補助
-inoremap <silent><c-f> <ESC>
-
 " ファイルタイプ
 autocmd BufNewFile,BufRead *.less set filetype=css
 autocmd BufNewFile,BufRead *.phtml set filetype=html
