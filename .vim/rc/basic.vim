@@ -83,6 +83,7 @@ if (v:version == 704 && has("patch338")) || v:version >= 705
   set breakindent
   autocmd BufEnter * set breakindentopt=min:20,shift:0
 endif
+autocmd BufEnter * set fileencoding=UTF-8
 
 " INSERT時のカーソル
 if exists('$TMUX')
