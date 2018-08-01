@@ -51,6 +51,9 @@ set cmdheight=1
 " Vimを使ってくれてありがとう!
 set notitle
 
+" swap保存せず
+set noswapfile
+
 " コピペ用
 set clipboard=unnamed
 
