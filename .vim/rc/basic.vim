@@ -70,7 +70,7 @@ filetype indent plugin on
 " 保存文字コード
 set encoding=utf-8
 " 読み取り文字コード順
-set fileencodings=ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932,utf-8
+set fileencodings=utf-8,ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932
 
 " swp削除
 set nobackup
@@ -86,7 +86,6 @@ if (v:version == 704 && has("patch338")) || v:version >= 705
   set breakindent
   autocmd BufEnter * set breakindentopt=min:20,shift:0
 endif
-autocmd BufEnter * set fileencoding=UTF-8
 
 " INSERT時のカーソル
 if exists('$TMUX')
