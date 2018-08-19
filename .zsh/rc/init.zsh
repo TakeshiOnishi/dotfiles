@@ -20,6 +20,9 @@ load_if_exists "${script_dir}/alias.zsh"
 # macの場合のmysql/apach起動コマンド
 load_if_exists "${script_dir}/mac_server.zsh"
 
+# macのFinderCacheReset
+load_if_exists "${script_dir}/mac_cache_clear.zsh"
+
 # PATH追加
 load_if_exists "${script_dir}/path.zsh"
 
