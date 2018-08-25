@@ -27,6 +27,6 @@ load_if_exists "${script_dir}/mac_cache_clear.zsh"
 load_if_exists "${script_dir}/path.zsh"
 
 # 環境ごとのalias (ignore対象)
-for file in ${script_dir}/*.local.*; do
-  source "$file"
+for file in ${script_dir}/*.local; do
+  load_if_exists "$file"
 done
