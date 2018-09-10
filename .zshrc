@@ -8,3 +8,4 @@ source ~/.zsh/rc/init.zsh
 
 # asdf設定
 . $HOME/.asdf/asdf.sh
+. $HOME/.asdf/completions/asdf.bash
