@@ -6,6 +6,7 @@ fi
 # zshの設定ロード
 source ~/.zsh/rc/init.zsh
 
-# asdf設定
-. $HOME/.asdf/asdf.sh
-. $HOME/.asdf/completions/asdf.bash
+# env設定
+eval "$(rbenv init -)"
+eval "$(nodenv init -)"
+eval "$(pyenv init -)"
