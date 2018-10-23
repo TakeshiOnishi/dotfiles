@@ -33,6 +33,8 @@ setopt hist_no_store
 setopt hist_expand
 # 履歴をインクリメンタルに追加
 setopt inc_append_history
+# nomatch対策. グロブ展開無効化
+setopt nonomatch
 
 # rコマンドを利用する用
 disable r

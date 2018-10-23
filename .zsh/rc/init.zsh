@@ -17,8 +17,8 @@ load_if_exists "${script_dir}/prompt.zsh"
 # alias設定
 load_if_exists "${script_dir}/alias.zsh"
 
-# macの場合のmysql/apach起動コマンド
-load_if_exists "${script_dir}/mac_server.zsh"
+# env系の設定
+load_if_exists "${script_dir}/env.zsh"
 
 # macのFinderCacheReset
 load_if_exists "${script_dir}/mac_cache_clear.zsh"
