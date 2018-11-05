@@ -1,7 +1,6 @@
 # コマンド結果再検索用
 stty stop undef
 
-# ----------FROM: http://qiita.com/ktr_type23/items/3eb782f98c7a5f4c60b0 ----------
 # 補完
 autoload -U compinit
 compinit -u

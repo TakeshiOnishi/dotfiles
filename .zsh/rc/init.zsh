@@ -23,6 +23,9 @@ load_if_exists "${script_dir}/env.zsh"
 # macのFinderCacheReset
 load_if_exists "${script_dir}/mac_cache_clear.zsh"
 
+# README生成
+load_if_exists "${script_dir}/init_readme.zsh"
+
 # PATH追加
 load_if_exists "${script_dir}/path.zsh"
 

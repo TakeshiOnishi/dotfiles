@@ -1,5 +1,3 @@
-#FROM: http://www.sirochro.com/note/terminal-zsh-prompt-customize/
-
 # VCSの情報を取得するzsh関数
 autoload -Uz vcs_info
 autoload -Uz colors # black red green yellow blue magenta cyan white

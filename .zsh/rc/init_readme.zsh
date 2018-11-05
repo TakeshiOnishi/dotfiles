@@ -1,0 +1,9 @@
+function init_readme(){
+  NOW_DIR=$(pwd)
+  echo "cp ~/dotfiles/etc/template/README.md ${NOW_DIR}/README.md"
+  cp ~/dotfiles/etc/template/README.md ${NOW_DIR}/README.md
+
+  echo "and... make MIT-LICENSE file..."
+  echo "cp ~/dotfiles/etc/template/LICENSE.txt ${NOW_DIR}/LICENSE.txt"
+  cp ~/dotfiles/etc/template/LICENSE.txt ${NOW_DIR}/LICENSE.txt
+}
