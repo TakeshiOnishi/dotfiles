@@ -1,5 +1,5 @@
-# bin$BMQ(BPATH$BDI2C(B
+# bin以下のパス追加
 export PATH=$PATH:~/dotfiles/bin/
 
-# bin/_local/$BMQ%Q%9DI2C(B
+# bin/_local以下のパス追加
 export PATH=$PATH:~/dotfiles/bin/_local/

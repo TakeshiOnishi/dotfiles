@@ -1,4 +1,4 @@
-# imgcat$B$r(Blocal$BMQ(Bbin$B$X%3%T!<$9$k(B
+# imgcatを設定
 
 cd ~/dotfiles/bin/_local/
 
