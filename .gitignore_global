@@ -2,3 +2,5 @@
 *.swp
 *.swo
 .tool-versions
+tags
+node_modules/
