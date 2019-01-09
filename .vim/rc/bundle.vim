@@ -57,11 +57,9 @@ Bundle 'eshion/vim-sftp-sync'
 Bundle 'AndrewRadev/linediff.vim'
 " Indent
 Bundle 'nathanaelkane/vim-indent-guides'
-" Vimshell
-Bundle 'Shougo/vimshell.vim'
-" vimから非同期実行 (for vimshell)
-" Bundle 'Shougo/vimproc.git'
 " ColorScheme - molokai
 Bundle 'tomasr/molokai'
 " vim-R
 Bundle 'vim-scripts/Vim-R-plugin'
+" autoPasteMode
+Bundle 'ConradIrwin/vim-bracketed-paste'
