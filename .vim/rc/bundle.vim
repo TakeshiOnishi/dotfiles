@@ -42,7 +42,7 @@ Bundle 'groenewege/vim-less.git'
 " cssカラー補助
 Bundle 'gko/vim-coloresque'
 " MarkDownプレビュー
-Bundle 'kannokanno/previm'
+Bundle 'previm/previm'
 "CUIみため
 Bundle 'Lokaltog/vim-powerline'
 " カレンダー
