@@ -63,3 +63,5 @@ Bundle 'tomasr/molokai'
 Bundle 'vim-scripts/Vim-R-plugin'
 " autoPasteMode
 Bundle 'ConradIrwin/vim-bracketed-paste'
+" mermaid txtToGraph
+Bundle 'knsv/mermaid'
