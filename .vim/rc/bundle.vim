@@ -43,8 +43,9 @@ Bundle 'groenewege/vim-less.git'
 Bundle 'gko/vim-coloresque'
 " MarkDownプレビュー
 Bundle 'previm/previm'
-"CUIみため
-Bundle 'Lokaltog/vim-powerline'
+" powerline
+Bundle 'vim-airline/vim-airline-themes'
+Bundle 'vim-airline/vim-airline'
 " カレンダー
 Bundle 'itchyny/calendar.vim'
 " カラーセレクタ
