@@ -38,19 +38,6 @@ omap <silent> <C-e>      :NERDTreeToggle<CR>
 imap <silent> <C-e> <Esc>:NERDTreeToggle<CR>
 cmap <silent> <C-e> <C-u>:NERDTreeToggle<CR>
 
-
-" Dash起動
-function! s:dash(...)
-  let ft = &filetype
-  if &filetype == 'python'
-    let ft = ft.'2'
-  endif
-  let ft = ft.':'
-  let word = len(a:000) == 0 ? input('Dash search: ', ft.expand('<cword>')) : ft.join(a:000, ' ')
-  call system(printf("open dash://'%s'", word))
-endfunction
-command! -nargs=* Dash call <SID>dash(<f-args>)
-
 " previm Markdownファイル認識
 augroup PrevimSettings
   autocmd!
@@ -65,12 +52,3 @@ let g:indent_guides_start_level = 1
 let g:indent_guides_guide_size = 1
 hi IndentGuidesOdd  ctermbg=235
 hi IndentGuidesEven ctermbg=239
-
-" vim-r-plugin settings
-let maplocalleader = ","
-let vimrplugin_vsplit = 1
-let vimrplugin_assign = 0
-
-let vimrplugin_vimpager = "horizontal"
-let vimrplugin_objbr_place = "console,right"
-let vimrplugin_objbr_opendf = 0
