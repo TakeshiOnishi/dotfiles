@@ -1,6 +1,9 @@
 " Vi互換モードをオフ
 set nocompatible
 
+" previewMode Off
+set completeopt=menuone
+
 " 同時編集できるように
 set hidden
 

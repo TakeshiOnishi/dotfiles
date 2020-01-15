@@ -12,7 +12,7 @@ endif
 " wordPress
 Bundle "vim-scripts/VimRepress"
 " 補完
-Bundle 'Shougo/neocomplcache'
+Bundle 'Shougo/neocomplete'
 " スニペ
 Bundle 'mattn/emmet-vim'
 " 文字オブジェクト

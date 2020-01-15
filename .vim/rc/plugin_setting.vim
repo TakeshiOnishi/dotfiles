@@ -1,8 +1,8 @@
-" neocomplcache
-" 起動時に有効化
-let g:neocomplcache_enable_at_startup = 1 
-let g:neocomplcache_min_syntax_length = 3
-inoremap <expr><Space> pumvisible() ? neocomplcache#close_popup() . "\<Space>" : "\<Space>"
+" neocomplete
+let g:acp_enableAtStartup = 0
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_smart_case = 1
+let g:neocomplete#sources#syntax#min_keyword_length = 3
 
 " NERDcomment
 let NERDSpaceDelims = 1
