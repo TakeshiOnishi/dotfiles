@@ -58,8 +58,6 @@ Bundle 'AndrewRadev/linediff.vim'
 Bundle 'nathanaelkane/vim-indent-guides'
 " ColorScheme - molokai
 Bundle 'tomasr/molokai'
-" vim-R
-Bundle 'vim-scripts/Vim-R-plugin'
 " autoPasteMode
 Bundle 'ConradIrwin/vim-bracketed-paste'
 " mermaid txtToGraph
