@@ -62,3 +62,5 @@ Bundle 'tomasr/molokai'
 Bundle 'ConradIrwin/vim-bracketed-paste'
 " mermaid txtToGraph
 Bundle 'knsv/mermaid'
+" Dash
+Bundle 'rizzatti/dash.vim'
