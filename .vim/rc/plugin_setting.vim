@@ -54,4 +54,4 @@ hi IndentGuidesOdd  ctermbg=235
 hi IndentGuidesEven ctermbg=239
 
 " Dash
-nmap <silent> <C-i> <Plug>DashGlobalSearch
+" nmap <silent> <C-i> <Plug>DashGlobalSearch
