@@ -42,6 +42,7 @@ nmap ,eu :e ++enc=utf-8<CR>
 autocmd BufNewFile,BufRead *.less set filetype=css
 autocmd BufNewFile,BufRead *.phtml set filetype=html
 autocmd BufNewFile,BufRead *.tpl set filetype=html
+autocmd FileType php setlocal sw=2
 
 " 入力中の疑似キー移動
 imap A <Up>
