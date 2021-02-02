@@ -4,3 +4,4 @@
 .tool-versions
 tags
 node_modules/
+.node-version
