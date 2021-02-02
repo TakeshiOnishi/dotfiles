@@ -64,3 +64,7 @@ Bundle 'tomasr/molokai'
 Bundle 'ConradIrwin/vim-bracketed-paste'
 " mermaid txtToGraph
 Bundle 'knsv/mermaid'
+" vim-jsx format
+Bundle 'maxmellon/vim-jsx-pretty'
+" typescript highlight
+Bundle 'leafgarland/typescript-vim'
