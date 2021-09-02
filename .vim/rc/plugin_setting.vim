@@ -53,5 +53,10 @@ let g:indent_guides_guide_size = 1
 hi IndentGuidesOdd  ctermbg=235
 hi IndentGuidesEven ctermbg=239
 
-" Dash
-" nmap <silent> <C-i> <Plug>DashGlobalSearch
+" Coc
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gr <Plug>(coc-references)
+nmap <leader>rn <Plug>(coc-rename)
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)

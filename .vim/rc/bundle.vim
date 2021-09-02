@@ -11,8 +11,8 @@ endif
 " GitHubリポジトリ
 " wordPress
 Bundle "vim-scripts/VimRepress"
-" 補完
-Bundle 'Shougo/neocomplete'
+" LSP
+Bundle "neoclide/coc.nvim"
 " スニペ
 Bundle 'mattn/emmet-vim'
 " 文字オブジェクト
