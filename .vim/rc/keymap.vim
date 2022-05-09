@@ -62,7 +62,6 @@ autocmd FileType html,xhtml nnoremap <S-CR> $a<br<Space>/><Esc><S-J>i<CR><ESC>$
 " 閉じ括弧を自動補完
 inoremap { {}<LEFT>
 inoremap [ []<LEFT>
-inoremap ( ()<LEFT>
 
 " 背景透過きりかえ
 function! s:toggle_transparence()
