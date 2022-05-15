@@ -55,12 +55,13 @@ hi IndentGuidesEven ctermbg=239
 
 " Coc
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
-nmap <silent> <space>df <Plug>(coc-definition)
-nmap <silent> <space>rf <Plug>(coc-references)
-nmap <silent> <space>rn <Plug>(coc-rename)
-vmap <silent> <space>fm <Plug>(coc-format-selected)
-nmap <silent> <space>fma <Plug>(coc-format)
-nmap <silent> <space>fix <Plug>(coc-fix-current)
+nmap <silent> <space>df   <Plug>(coc-definition)
+nmap <silent> <space>rf   <Plug>(coc-references)
+nmap <silent> <space>rn   <Plug>(coc-rename)
+vmap <silent> <space>fm   <Plug>(coc-format-selected)
+nmap <silent> <space>fma  <Plug>(coc-format)
+vmap <silent> <space>fix  <Plug>(coc-fix-current)
+nmap <silent> <space>fixa <Plug>(coc-codeaction)
 
 function! ShowDocumentation()
   if CocAction('hasProvider', 'hover')
