@@ -14,8 +14,8 @@
 [color]
 	ui = true
 
-[push]
-  default = simple #一応指定(1.7.11以降不要)
+[pull]
+  rebase = false
 
 [alias]
   st = status -sb
