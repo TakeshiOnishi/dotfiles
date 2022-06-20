@@ -1,6 +1,4 @@
-# 実行ディレクトリ取得
 script_dir=$(cd $(dirname $0); pwd)
-
 
 load_if_exists () {
   if [ -e $1 ]; then
@@ -8,28 +6,18 @@ load_if_exists () {
   fi
 }
 
-# PATH追加
+for file in ${script_dir}/*.local_first; do
+  load_if_exists "$file"
+done
+
 load_if_exists "${script_dir}/path.zsh"
-
-# zshの基本設定
 load_if_exists "${script_dir}/basic.zsh"
-
-# prompt表示
 load_if_exists "${script_dir}/prompt.zsh"
-
-# alias設定
 load_if_exists "${script_dir}/alias.zsh"
-
-# env系の設定
 load_if_exists "${script_dir}/env.zsh"
-
-# macのFinderCacheReset
 load_if_exists "${script_dir}/mac_cache_clear.zsh"
-
-# README生成
 load_if_exists "${script_dir}/init_readme.zsh"
 
-# 環境ごとのalias (ignore対象)
-for file in ${script_dir}/*.local; do
+for file in ${script_dir}/*.local_last; do
   load_if_exists "$file"
 done
