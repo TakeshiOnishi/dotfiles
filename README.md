@@ -24,4 +24,9 @@ Dotfiles
 
 ## Other
 
-mac: `ln -s /usr/local/share/git-core/contrib/diff-highlight/diff-highlight /usr/local/bin`
+#### diff-highlight
+
+- macOS
+  - `ln -s /usr/local/share/git-core/contrib/diff-highlight/diff-highlight /usr/local/bin`
+- RPM based Linux
+  - `ln -s /usr/share/git-core/contrib/diff-highlight /usr/local/bin`
