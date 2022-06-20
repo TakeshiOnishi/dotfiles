@@ -1,26 +1,17 @@
-[WIP]
-Dotfiles
+# Dotfiles
 
-====
+Place the configuration file for development.
 
-## Description
+## QuickStart
 
-- vim
-- tmux
-- git
-- bashrc or zshrc
+1. git clone https://github.com/TakeshiOnishi/dotfiles ~/dotfiles
+1. cd $_
+1. make init
 
-## ignore File
+## AddLocalSettings
 
-- [Directory] *_local
-- [File] *.local
-
-## Install
-
-1. cd ~/
-1. git clone https://github.com/TakeshiOnishi/dotfiles
-1. cd dotfiles
-1. make init  (LINK ONLY: make deploy)
+- `.zsh/rc/*.local_(first|last)`
+- `bin/_local/*`
 
 ## Other
 

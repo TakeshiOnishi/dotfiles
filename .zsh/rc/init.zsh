@@ -15,8 +15,6 @@ load_if_exists "${script_dir}/basic.zsh"
 load_if_exists "${script_dir}/prompt.zsh"
 load_if_exists "${script_dir}/alias.zsh"
 load_if_exists "${script_dir}/env.zsh"
-load_if_exists "${script_dir}/mac_cache_clear.zsh"
-load_if_exists "${script_dir}/init_readme.zsh"
 
 for file in ${script_dir}/*.local_last; do
   load_if_exists "$file"
