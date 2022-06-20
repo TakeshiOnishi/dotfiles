@@ -1,3 +1,5 @@
 {
-  "tsserver.enableJavascript":false
+  "solargraph.formatting": true,
+  "solargraph.diagnostics": true,
+  "coc.preferences.jumpCommand": "split"
 }

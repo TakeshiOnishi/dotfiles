@@ -62,6 +62,7 @@ vmap <silent> <space>fm   <Plug>(coc-format-selected)
 nmap <silent> <space>fma  <Plug>(coc-format)
 vmap <silent> <space>fix  <Plug>(coc-fix-current)
 nmap <silent> <space>fixa <Plug>(coc-codeaction)
+nmap <silent> <space>reg :exe CocAction('CocList lines')
 
 function! ShowDocumentation()
   if CocAction('hasProvider', 'hover')

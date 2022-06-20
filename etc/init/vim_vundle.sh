@@ -1,5 +1,4 @@
-git submodule update --init --recursive
+#!/bin/sh
 
-# BundleUpdate
-# From: https://github.com/VundleVim/Vundle.vim/wiki/Tips-and-Tricks
+git submodule update --init --recursive
 vim -c VundleUpdate -c quitall
