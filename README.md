@@ -21,3 +21,7 @@ Dotfiles
 1. git clone https://github.com/TakeshiOnishi/dotfiles
 1. cd dotfiles
 1. make init  (LINK ONLY: make deploy)
+
+## Other
+
+mac: `ln -s /usr/local/share/git-core/contrib/diff-highlight/diff-highlight /usr/local/bin`
