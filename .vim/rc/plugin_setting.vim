@@ -39,8 +39,8 @@ nmap <silent> <space>rf   <Plug>(coc-references)
 nmap <silent> <space>rn   <Plug>(coc-rename)
 vmap <silent> <space>fmt   <Plug>(coc-format-selected)
 nmap <silent> <space>fmta  <Plug>(coc-format)
-vmap <silent> <space>fix  <Plug>(coc-fix-current)
-nmap <silent> <space>fixa <Plug>(coc-codeaction)
+vmap <silent> <space>ff  <Plug>(coc-fix-current)
+nmap <silent> <space>ffa <Plug>(coc-codeaction)
 nmap <silent> <space>reg :exe CocAction('CocList lines')
 nnoremap <silent> K :call ShowDocumentation()<CR>
 
