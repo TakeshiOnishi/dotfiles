@@ -42,6 +42,7 @@ nmap <silent> <space>fmta  <Plug>(coc-format)
 vmap <silent> <space>fix  <Plug>(coc-fix-current)
 nmap <silent> <space>fixa <Plug>(coc-codeaction)
 nmap <silent> <space>reg :exe CocAction('CocList lines')
+nnoremap <silent> K :call ShowDocumentation()<CR>
 
 function! ShowDocumentation()
   if CocAction('hasProvider', 'hover')
