@@ -1,4 +1,6 @@
-" From: https://github.com/b4b4r07/dotfiles/blob/master/.vim/rc/init.vim
+if has('nvim') == 0
+  echo "There is also a setting for neovim, so you may be able to use that."
+endif
 
 if &compatible
   set nocompatible
@@ -7,11 +9,8 @@ endif
 let g:false = 0
 let g:true  = 1
 
-augroup MyAutoCmd
-  autocmd!
-augroup END
-
 " Base functions
+" From: https://github.com/b4b4r07/dotfiles/blob/master/.vim/rc/init.vim
 function! s:glob(from, pattern)
   return split(globpath(a:from, a:pattern), "[\r\n]")
 endfunction
@@ -49,20 +48,9 @@ function! s:load(...) abort
   return found
 endfunction
 
-" Vundle管理
 call s:load('bundle.vim')
-
-" 基本設定
 call s:load('basic.vim')
-
-" StatusLine設定
 call s:load('status_line.vim')
-
-" keyMap設定
 call s:load('keymap.vim')
-
-" Color関連
 call s:load('colors.vim')
-
-" プラグイン依存設定
 call s:load('plugin_setting.vim')

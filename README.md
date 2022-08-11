@@ -21,3 +21,8 @@ Place the configuration file for development.
   - `ln -s /usr/local/share/git-core/contrib/diff-highlight/diff-highlight /usr/local/bin`
 - RPM based Linux
   - `ln -s /usr/share/git-core/contrib/diff-highlight /usr/local/bin`
+
+### RelatedLink
+
+- [neovim install-from-package](https://github.com/neovim/neovim/wiki/Installing-Neovim#install-from-package)
+
