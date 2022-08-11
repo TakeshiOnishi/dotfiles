@@ -1,5 +1,9 @@
 {
   "solargraph.formatting": true,
   "solargraph.diagnostics": true,
-  "coc.preferences.jumpCommand": "split"
+  "coc.preferences.jumpCommand": "split",
+  "typescript.inlayHints.variableTypes.enabled": true,
+  "typescript.inlayHints.parameterNames.enabled": "all",
+  "typescript.inlayHints.parameterNames.suppressWhenArgumentMatchesName": false,
+  "typescript.inlayHints.functionLikeReturnTypes.enabled": true
 }
