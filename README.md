@@ -15,6 +15,18 @@ Place the configuration file for development.
 
 ## Other
 
+#### Git Config
+
+Place the following files `~/.gitconfig.local`
+And write the following contents.
+
+```
+FILE: .gitconfig.local
+[user]
+  name = YOUR_NAME
+  email = EMAIL_ADDRESS
+```
+
 #### Setting diff-highlight
 
 - macOS
