@@ -1,3 +1,2 @@
-eval "$(rbenv init -)"
-eval "$(nodenv init -)"
-eval "$(pyenv init --path)"
+# use `env.zsh.local_last` file
+# ex: eval "$(goenv init -)"

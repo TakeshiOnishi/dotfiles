@@ -38,3 +38,10 @@ FILE: .gitconfig.local
 
 - [neovim install-from-package](https://github.com/neovim/neovim/wiki/Installing-Neovim#install-from-package)
 
+
+### Use ENV VersionManagementSystem
+
+- Add PathSettings to `.zsh/rc/path.zsh.local_first`
+  - `ex: export PYENV_ROOT="$HOME/.pyenv"; export PATH="$PYENV_ROOT/bin:$PATH`
+- Add InitializeSettings to `.zsh/rc/env.zsh.local_last`
+  - eval "$(pyenv init --path)"
