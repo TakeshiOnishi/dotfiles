@@ -12,6 +12,9 @@
 [pull]
   rebase = false
 
+[init]
+  defaultBranch = main
+
 [alias]
   st = status -sb
   sh = show
