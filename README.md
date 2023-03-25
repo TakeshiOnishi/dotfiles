@@ -29,8 +29,11 @@ FILE: .gitconfig.local
 
 #### Setting diff-highlight
 
-- macOS
-  - `ln -s /usr/local/share/git-core/contrib/diff-highlight/diff-highlight /usr/local/bin`
+- macOS (Using brew)
+  - x86
+    - `ln -s /usr/local/share/git-core/contrib/diff-highlight/diff-highlight /usr/local/bin`
+  - arm(M1)
+    - `ln -s /opt/homebrew/share/git-core/contrib/diff-highlight/diff-highlight  /usr/local/bin`
 - RPM based Linux
   - `ln -s /usr/share/git-core/contrib/diff-highlight /usr/local/bin`
 
