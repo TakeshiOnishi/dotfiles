@@ -7,6 +7,16 @@ Place the configuration file for development.
 1. `git clone https://github.com/TakeshiOnishi/dotfiles ~/dotfiles`
 1. `cd $_`
 1. `make init`
+1. (Option) Manual installation for coc.nvim (LSP)
+    - ruby
+      - solargraph
+    - sh
+      - shellcheck
+    - c, c++, c#
+      - clangd
+    - python
+      - black
+      - flake8
 
 ## Add LocalOnly Settings
 
@@ -15,7 +25,7 @@ Place the configuration file for development.
 
 ## Other
 
-#### Git Config
+### Git Config
 
 Place the following files `~/.gitconfig.local`
 And write the following contents.
@@ -33,14 +43,13 @@ FILE: .gitconfig.local
   - x86
     - `ln -s /usr/local/share/git-core/contrib/diff-highlight/diff-highlight /usr/local/bin`
   - arm(M1)
-    - `ln -s /opt/homebrew/share/git-core/contrib/diff-highlight/diff-highlight  /usr/local/bin`
+    - `ln -s /opt/homebrew/share/git-core/contrib/diff-highlight/diff-highlight /usr/local/bin`
 - RPM based Linux
   - `ln -s /usr/share/git-core/contrib/diff-highlight /usr/local/bin`
 
 ### RelatedLink
 
 - [neovim install-from-package](https://github.com/neovim/neovim/wiki/Installing-Neovim#install-from-package)
-
 
 ### Use ENV VersionManagementSystem
 

@@ -1,9 +1,40 @@
 {
-  "solargraph.formatting": true,
-  "solargraph.diagnostics": true,
   "coc.preferences.jumpCommand": "split",
-  "typescript.inlayHints.variableTypes.enabled": true,
-  "typescript.inlayHints.parameterNames.enabled": "all",
-  "typescript.inlayHints.parameterNames.suppressWhenArgumentMatchesName": false,
-  "typescript.inlayHints.functionLikeReturnTypes.enabled": true
+  "solargraph": {
+    "commandPath": "solargraph",
+    "formatting": true,
+    "diagnostics": true
+  },
+  "clangd": {
+    "path": "clangd",
+    "enabled": true
+  },
+  "bashIde.shellcheckPath": "shellcheck",
+  "lists.disabledLists": [],
+  "json.enable": true,
+  "markdownlint.onSave": false,
+  "html": {
+    "filetypes": [
+      "html"
+    ],
+    "format.enable": true
+  },
+  "css.execArgv": [],
+  "prettier.enable": true,
+  "typescript.inlayHints": {
+    "variableTypes.enabled": true,
+    "parameterNames": {
+      "enabled": "all",
+      "suppressWhenArgumentMatchesName": false
+    },
+    "functionLikeReturnTypes.enabled": true
+  },
+  "python": {
+    "formatting": {
+      "provider": "black"
+    },
+    "linting": {
+      "flake8Enabled": true
+    }
+  }
 }
