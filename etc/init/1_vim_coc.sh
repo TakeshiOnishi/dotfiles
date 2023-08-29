@@ -1,5 +1,10 @@
 #!/bin/sh
 
+if ! type yarn > /dev/null 2>&1; then
+  echo "*** [INFO] Complete the yarn configuration to initialize coc.nvim ***"
+  exit 0
+fi
+
 vim -c "CocInstall coc-lists" \
   -c "CocInstall coc-json" \
   -c "CocInstall coc-html" \
