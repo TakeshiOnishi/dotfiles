@@ -16,4 +16,5 @@ vim -c "CocInstall coc-sh" \
   -c "CocInstall coc-prettier" \
   -c "CocInstall coc-css" \
   -c "CocInstall coc-clangd" \
-  -c "CocInstall coc-markdownlint"
+  -c "CocInstall coc-markdownlint" \
+  -c "CocInstall @yaegassy/coc-ansible"

@@ -44,6 +44,8 @@ nmap <silent> <space>ffa <Plug>(coc-codeaction)
 nmap <silent> <space>reg :exe CocAction('CocList lines')
 nnoremap <silent> K :call ShowDocumentation()<CR>
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+inoremap <silent><expr> <c-space> coc#refresh()
+
 
 function! ShowDocumentation()
   if CocAction('hasProvider', 'hover')

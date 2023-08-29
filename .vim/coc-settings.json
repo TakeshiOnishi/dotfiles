@@ -14,9 +14,7 @@
   "json.enable": true,
   "markdownlint.onSave": false,
   "html": {
-    "filetypes": [
-      "html"
-    ],
+    "filetypes": ["html"],
     "format.enable": true
   },
   "css.execArgv": [],
@@ -35,6 +33,15 @@
     },
     "linting": {
       "flake8Enabled": true
+    }
+  },
+  "languageserver": {
+    "terraform": {
+      "command": "terraform-ls",
+      "args": ["serve"],
+      "filetypes": ["terraform", "tf"],
+      "initializationOptions": {},
+      "settings": {}
     }
   }
 }

@@ -8,36 +8,25 @@ Place the configuration file for development.
 1. `cd $_`
 1. `make init`
 1. (Option) Manual installation for coc.nvim (LSP)
-    - ruby
-      - solargraph
-    - sh
-      - shellcheck
-    - c, c++, c#
-      - clangd
-    - python
-      - black
-      - flake8
+    - ruby: [solargraph](https://github.com/castwide/solargraph)
+    - sh: [shellcheck](https://github.com/koalaman/shellcheck)
+    - c: [clangd](https://clangd.llvm.org/)
+    - python: [black](https://github.com/psf/black), [flake8](https://flake8.pycqa.org/en/latest/)
+    - terraform: [terraform-ls](https://github.com/hashicorp/terraform-ls/blob/main/docs/installation.md)
 
-## Add LocalOnly Settings
+## Additoinal Setup
 
-- `.zsh/rc/*.local_(first|last)`
-- `bin/_local/*`
+### Setup Git Config
 
-## Other
-
-### Git Config
-
-Place the following files `~/.gitconfig.local`
-And write the following contents.
+Place the following files `~/.gitconfig.local`. Write the following contents.
 
 ```
-FILE: .gitconfig.local
 [user]
-  name = YOUR_NAME
-  email = EMAIL_ADDRESS
+  name = MY_NAME
+  email = MY_EMAIL_ADDRESS
 ```
 
-#### Setting diff-highlight
+### Setup diff-highlight
 
 - macOS (Using brew)
   - x86
@@ -47,13 +36,22 @@ FILE: .gitconfig.local
 - RPM based Linux
   - `ln -s /usr/share/git-core/contrib/diff-highlight /usr/local/bin`
 
-### RelatedLink
+## Making the cli useful
 
-- [neovim install-from-package](https://github.com/neovim/neovim/wiki/Installing-Neovim#install-from-package)
+### Configuration file for local environment only
 
-### Use ENV VersionManagementSystem
+- Files to load before or after the standard settings file
+  - `.zsh/rc/*.local_first
+  - `.zsh/rc/*.local_last
 
-- Add PathSettings to `.zsh/rc/path.zsh.local_first`
-  - `ex: export PYENV_ROOT="$HOME/.pyenv"; export PATH="$PYENV_ROOT/bin:$PATH`
-- Add InitializeSettings to `.zsh/rc/env.zsh.local_last`
-  - eval "$(pyenv init --path)"
+### Using Manage App Environment Tool
+
+- e.g. [rbenv](https://github.com/rbenv/rbenv)
+- PathSettings `.zsh/rc/path.zsh.local_first`
+  - `export PATH="$HOME/.rbenv/bin:$PATH"`
+- InitializeSettings `.zsh/rc/env.zsh.local_last`
+  - `eval "$(rbenv init -zsh)"`
+
+## Note
+
+- [neovim install-from-package](https://github.com/neovim/neovim/wiki/Installing-Neovim)
