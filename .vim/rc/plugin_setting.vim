@@ -50,3 +50,7 @@ function! ShowDocumentation()
     call CocActionAsync('doHover')
   endif
 endfunction
+
+let g:coc_filetype_map = {
+      \ 'yaml.ansible': 'ansible',
+      \}
