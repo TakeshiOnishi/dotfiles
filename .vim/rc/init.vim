@@ -1,7 +1,3 @@
-if has('nvim') == 0
-  echo "There is also a setting for neovim, so you may be able to use that."
-endif
-
 if &compatible
   set nocompatible
 endif
