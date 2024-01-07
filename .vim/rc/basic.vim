@@ -26,9 +26,7 @@ set visualbell
 let IM_CtrlMode = 4 " 日本語入力固定
 set expandtab
 set shiftwidth=2
-set tabstop=2
 set softtabstop=0
-au BufNewFile,BufRead * setlocal sw=2 sts=2 ts=2
 
 set wrap
 set breakat=\ 
