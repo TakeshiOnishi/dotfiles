@@ -3,7 +3,8 @@
   "solargraph": {
     "commandPath": "solargraph",
     "formatting": true,
-    "diagnostics": true
+    "diagnostics": true,
+    "shell": "zsh"
   },
   "clangd": {
     "path": "clangd",

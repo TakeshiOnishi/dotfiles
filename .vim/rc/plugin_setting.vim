@@ -34,6 +34,7 @@ hi IndentGuidesEven ctermbg=239
 
 " neoclide/coc.nvim
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
+nmap <silent> <space>td   <Plug>(coc-type-definition)
 nmap <silent> <space>df   <Plug>(coc-definition)
 nmap <silent> <space>rf   <Plug>(coc-references)
 nmap <silent> <space>rn   <Plug>(coc-rename)
