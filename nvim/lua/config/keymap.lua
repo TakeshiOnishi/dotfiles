@@ -80,5 +80,7 @@ function ToggleTransparency()
   end
 end
 
+vim.keymap.set("n", "<ESC><ESC>", ":nohlsearch<CR><ESC>", { noremap = true, silent = true, desc = "Clear search highlight" })
+
 vim.api.nvim_set_keymap("n", "<Space>oT", ":lua ToggleTransparency()<CR>", opts)
 vim.keymap.set("n", "<Leader>l", ":Lazy<CR>", { noremap = true, silent = true, desc = "Open Lazy.nvim" })
