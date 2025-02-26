@@ -81,6 +81,4 @@ function ToggleTransparency()
 end
 
 vim.api.nvim_set_keymap("n", "<Space>oT", ":lua ToggleTransparency()<CR>", opts)
-
--- ESCを2回押して検索ハイライト解除
-map("n", "<ESC><ESC>", ":nohlsearch<CR><ESC>", opts)
+vim.keymap.set("n", "<Leader>l", ":Lazy<CR>", { noremap = true, silent = true, desc = "Open Lazy.nvim" })

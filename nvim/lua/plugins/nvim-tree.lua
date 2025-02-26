@@ -13,7 +13,9 @@ return {
   
           api.config.mappings.default_on_attach(bufnr)
           vim.keymap.set("n", "<C-e>", api.tree.toggle, opts("Toggle NvimTree"))
-        end
+          vim.keymap.set("n", "L", "Lzz", opts("Move to Bottom of View"))
+          vim.keymap.set("n", "H", "Hzz", opts("Move to Top of View"))
+         end
   
         require("nvim-tree").setup({
           on_attach = on_attach, -- 正しくマッピングを適用

@@ -1,3 +1,6 @@
+vim.g.mapleader = " "
+vim.g.maplocalleader = "\\"
+
 -- 基本設定
 vim.opt.compatible = false
 vim.opt.number = true
