@@ -55,3 +55,13 @@ Place the following files `~/.gitconfig.local`. Write the following contents.
 ## Note
 
 - [neovim install-from-package](https://github.com/neovim/neovim/wiki/Installing-Neovim)
+
+## MEMO: Migrate Note
+
+- tree
+    - CD
+        - parent:`-`
+        - cwd: `C-]`
+    - bookmark
+        - m ~ 
+            - d, t, mv
