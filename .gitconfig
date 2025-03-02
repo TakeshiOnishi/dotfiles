@@ -2,12 +2,12 @@
   path = ~/.gitconfig.local
 
 [core]
-	excludesfile = ~/.gitignore_global
-	autocrlf = input  
+  excludesfile = ~/.gitignore_global
+  autocrlf = input  
   safecrlf = true
-	
+
 [color]
-	ui = true
+  ui = true
 
 [pull]
   rebase = false

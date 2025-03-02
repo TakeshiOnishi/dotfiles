@@ -1,5 +1,4 @@
 return {
-  -- TokyoNight カラースキーム
   {
     "folke/tokyonight.nvim",
     lazy = false, 

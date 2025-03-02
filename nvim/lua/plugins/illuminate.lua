@@ -1,5 +1,5 @@
 return {
-    {
+  {
     "RRethy/vim-illuminate",
     opts = {
       delay = 200,
