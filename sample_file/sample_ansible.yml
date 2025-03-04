@@ -1,0 +1,16 @@
+# Ansible サンプル Playbook
+
+- name: Install and configure web server
+  hosts: web_servers
+  become: yes
+  tasks:
+    - name: Install nginx
+      apt:
+        name: nginx
+        state: present
+
+    - name: Start nginx
+      service:
+        name: nginx
+        state: started
+        enabled: yes

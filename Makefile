@@ -5,15 +5,11 @@ DOTFILES_FILES    := $(filter-out $(DOTFILES_EXCLUDES), $(DOTFILES_TARGET))
 XDG_CONFIG_ROOT		:= .config
 
 all:
-	@echo "[INFO] init or create_slink"
-
-init:
-	@$(foreach val, $(DOTFILES_FILES), ln -sfnv $(abspath $(val)) $(HOME)/$(val);)
-	@$(foreach val, $(wildcard ./etc/init/*.sh), bash $(val);)
-	mkdir -p "${HOME}/${XDG_CONFIG_ROOT}"
-	ln -sfnv "${DOTFILES_DIR}/nvim" "${HOME}/${XDG_CONFIG_ROOT}/nvim"
+	@echo "[INFO] create_slink or rm_slink"
 
 create_slink:
+	mkdir -p "${HOME}/${XDG_CONFIG_ROOT}"
+	ln -sfnv "${DOTFILES_DIR}/nvim" "${HOME}/${XDG_CONFIG_ROOT}/nvim"
 	@$(foreach val, $(DOTFILES_FILES), ln -sfnv $(abspath $(val)) $(HOME)/$(val);)
 
 rm_slink:
