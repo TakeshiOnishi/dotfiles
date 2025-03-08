@@ -3,6 +3,8 @@
 Place the configuration file for development.
 **WIP: Migrating to lazy.nvim and nvim-lsp**
 
+
+
 ## QuickStart
 
 1. `git clone https://github.com/TakeshiOnishi/dotfiles ~/dotfiles`
