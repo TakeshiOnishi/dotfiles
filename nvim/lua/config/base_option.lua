@@ -13,15 +13,6 @@ vim.opt.fileencodings = { "utf-8", "ucs-bom", "iso-2022-jp-3", "iso-2022-jp", "e
 vim.opt.backup = false
 vim.opt.undofile = false
 
--- ファイルタイプ、インデント、プラグイン有効化
-vim.cmd("filetype indent plugin on")
-
--- 編集関連
-vim.opt.hidden = true       -- バッファ未保存時移動許可
-vim.opt.wildmenu = true     -- CMDファイル名保管
-vim.opt.showcmd = true      -- CMD途中でも表示
-vim.opt.cmdheight = 1       -- コマンドライン高さ
-
 -- 検索設定
 vim.opt.hlsearch = true     -- 検索ハイライト
 vim.opt.ignorecase = true   -- 大文字小文字無視
@@ -30,11 +21,6 @@ vim.opt.smartcase = true    -- 大文字を含む場合は区別
 -- その他
 vim.opt.startofline = false -- 移動コマンド時の位置抑制
 vim.opt.laststatus = 2      -- ステータスライン常時表示
-vim.opt.confirm = true      -- バッファ変更時の確認
-vim.opt.visualbell = true   -- ビジュアルベル
-
--- 日本語入力固定
-vim.g.IM_CtrlMode = 4
 
 -- インデント関連
 vim.opt.expandtab = true
