@@ -53,6 +53,7 @@ return {
         vim.keymap.set("n", "md", api.fs.trash, opts("Trash"))
         vim.keymap.set("n", "mc", duplicate_file, { buffer = bufnr, desc = "Duplicate File" })
         vim.keymap.set("n", "L", "Lzz", opts("Move to Bottom of View"))
+        vim.keymap.set("n", "M", "Mzz", opts("Move to Middle of View"))
         vim.keymap.set("n", "H", "Hzz", opts("Move to Top of View"))
       end
 
