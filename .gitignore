@@ -2,4 +2,3 @@
 **/_local/*
 !**_local/.gitkeep
 *.local*
-.vim/sessions/*

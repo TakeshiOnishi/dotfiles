@@ -10,6 +10,7 @@ return  {
         { "<leader>g", group = "Git" },
         { "<leader>t", name = "trees-j" },
         { "<leader>E", name = "File Encoding" },
+        { "<leader>l", group = "LSP" },
       },
     },
     keys = {
