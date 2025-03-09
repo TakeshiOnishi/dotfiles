@@ -20,8 +20,9 @@ return {
         view = "notify",
       },
       lsp = {
-        enabled = true,
-        view = "mini",
+        progress = {
+          enabled = false,
+        }
       },
     },
     dependencies = {
