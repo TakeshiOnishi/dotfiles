@@ -3,6 +3,7 @@ return  {
     "folke/which-key.nvim",
     event = "VeryLazy",
     opts = {
+      sort = { "manual" },
       preset = "helix",
       spec = {
         { "<leader>f", group = "telescope" },
@@ -18,12 +19,6 @@ return  {
           require("which-key").show({ global = false })
         end,
         desc = "Buffer Local Keymaps (which-key)",
-      },
-      {
-        "<leader>l",
-        ":Lazy<CR>",
-        desc = "Open Lazy.nvim",
-        silent = true,
       },
     },
   }
