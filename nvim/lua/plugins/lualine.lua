@@ -85,8 +85,8 @@ return {
         function()
           return '▊'
         end,
-        color = { fg = colors.blue }, -- Sets highlighting of component
-        padding = { left = 0, right = 1 }, -- We don't need space before this
+        color = { fg = colors.blue },
+        padding = { left = 0, right = 1 },
       }
 
       ins_left {
@@ -95,7 +95,6 @@ return {
           return ''
         end,
         color = function()
-          -- auto change color according to neovims mode
           local mode_color = {
             n = colors.green,
             i = colors.red,
@@ -153,13 +152,7 @@ return {
       }
 
       -- Insert mid section. 
-      ins_left {
-        function()
-          return '%='
-        end,
-      }
-
-      ins_left {
+      ins_right {
         function()
           local msg = 'No Active Lsp'
           local buf_ft = vim.api.nvim_get_option_value('filetype', { buf = 0 })
@@ -175,14 +168,15 @@ return {
           end
           return msg
         end,
+        cond = conditions.hide_in_width,
         icon = ' LSP:',
         color = { fg = '#ffffff', gui = 'bold' },
       }
-
       ins_right {
-        'searchcount',
-        maxcount = 999,
-        timeout = 500,
+        function()
+          return '%='
+        end,
+        cond = conditions.hide_in_width,
       }
 
       ins_right {
@@ -191,14 +185,15 @@ return {
 
       ins_right {
         'o:encoding',
-        fmt = string.upper,
         cond = conditions.hide_in_width,
+        fmt = string.upper,
         color = { fg = colors.green },
         show_bomb = true,
       }
 
       ins_right {
         'fileformat',
+        cond = conditions.hide_in_width,
         fmt = string.upper,
         icons_enabled = false,
         color = { fg = colors.green },
@@ -206,6 +201,7 @@ return {
 
       ins_right {
         'branch',
+        cond = conditions.hide_in_width,
         icon = '',
         color = { fg = colors.violet },
       }
@@ -214,6 +210,7 @@ return {
         function()
           return '▊'
         end,
+        cond = conditions.hide_in_width,
         color = { fg = colors.blue },
         padding = { left = 1 },
       }
@@ -236,20 +233,18 @@ return {
 
       ins_inactive_right {
         'o:encoding',
-        fmt = string.upper,
         cond = conditions.hide_in_width,
+        fmt = string.upper,
         show_bomb = true,
       }
 
       ins_inactive_right {
         'fileformat',
+        cond = conditions.hide_in_width,
         fmt = string.upper,
         icons_enabled = false,
       }
 
-
-      --TODO: 画面幅小さくなったときにactive - leftのみ表示する
-      
       require("lualine").setup(config)
     end
   }
