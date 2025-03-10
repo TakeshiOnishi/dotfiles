@@ -40,9 +40,10 @@ return {
           description = "コードのテストを作成する。",
         },
         Commit = {
-          prompt = "/COPILOT_COMMIT 選択したコードの変更内容に基づいて、適切なコミットメッセージを作成してください。",
+          prompt = "変更内容に基づいて、コミットメッセージを作成してください。タイトルは50文字以内でprefixはcommitizenのルールに従ってくださいい。本文はなるべく簡潔な日本語にしてください。",
           mapping = "<leader>cm",
           description = "コミットメッセージを作成する。",
+          context = 'git:staged',
         },
       },
     },
