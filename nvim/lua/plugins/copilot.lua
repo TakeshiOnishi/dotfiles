@@ -7,7 +7,7 @@ return {
     },
     build = "make tiktoken", -- Only on MacOS or Linux
     opts = {
-      model = 'gpt-4o',
+      model = 'claude-3.5-sonnet',
       prompts = {
         Explain = {
           prompt = "/COPILOT_EXPLAIN 選択したコードを詳細に説明してください。理解しやすい例や補足を含めてください。",
