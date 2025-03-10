@@ -14,7 +14,6 @@ vim.opt.backup = false
 vim.opt.undofile = false
 
 -- 検索設定
-vim.opt.hlsearch = true     -- 検索ハイライト
 vim.opt.ignorecase = true   -- 大文字小文字無視
 vim.opt.smartcase = true    -- 大文字を含む場合は区別
 
