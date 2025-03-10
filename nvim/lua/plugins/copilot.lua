@@ -8,6 +8,9 @@ return {
     build = "make tiktoken", -- Only on MacOS or Linux
     opts = {
       model = 'claude-3.5-sonnet',
+      question_header = '< 拙者 > ',
+      answer_header = 'そなた [(^o^ )]',
+
       prompts = {
         Explain = {
           prompt = "/COPILOT_EXPLAIN 選択したコードを詳細に説明してください。理解しやすい例や補足を含めてください。",
