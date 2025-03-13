@@ -18,3 +18,6 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.keymap.set("n", "<CR>", "<CR><cmd>cclose<CR>|<cmd>lclose<CR>", { buffer = true, silent = true }) 
   end,
 })
+
+vim.keymap.set("n", "<C-s>s", "<C-w>s", { noremap = true, silent = true })
+vim.keymap.set("n", "<C-s>d", "<C-w>v", { noremap = true, silent = true })

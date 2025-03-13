@@ -22,7 +22,7 @@ return {
         "markdown",
         "markdown_inline",
         "prisma",
-        "php",
+        "php_only",
         "python",
         "query",
         "regex",

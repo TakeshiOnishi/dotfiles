@@ -18,6 +18,12 @@ return {
               icon = "󰚑", 
               key = "q" 
             },
+            { 
+              action = function() vim.api.nvim_input("<cmd>enew<cr>") end, 
+              desc = "  ﾄﾆｶｸｻﾜﾙｾﾞ ┗(^o^ )┓ ", 
+              icon = "󰮢", 
+              key = "i" 
+            },
           },
           footer = function()
             local stats = require("lazy").stats()
