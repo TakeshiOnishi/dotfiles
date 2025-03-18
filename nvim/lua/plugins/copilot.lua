@@ -47,13 +47,17 @@ return {
           description = "コミットメッセージを作成する。",
           context = 'git:staged',
         },
+        Chat = {
+          prompt = "選択内容について会話をしたい。",
+          mapping = "<leader>cc",
+          description = "選択内容について会話・議論をする。",
+        },
       },
     },
     config = function(_, opts)
       local chat = require("CopilotChat")
       chat.setup(opts)
 
-      vim.api.nvim_set_keymap("n", "<leader>cc", "<cmd>lua require('CopilotChat').open()<CR>", { desc="Copilot Chat", noremap = true, silent = true })
       vim.api.nvim_set_keymap("n", "<leader>ct", "<cmd>lua require('CopilotChat').toggle()<CR>", { desc="Copilot Chat Toggle", noremap = true, silent = true })
     end
   },

@@ -5,21 +5,20 @@ return  {
     opts = {
       sort = { "manual" },
       preset = "helix",
-      spec = {
-        { "<leader>f", group = "telescope" },
-        { "<leader>g", group = "Git" },
-        { "<leader>t", name = "trees-j" },
-        { "<leader>E", name = "File Encoding" },
-        { "<leader>l", group = "LSP" },
+      icons = {
+        separator = "",
+        separator = "",
+        group = " - ",
       },
-    },
-    keys = {
-      {
-        "<leader>?",
-        function()
-          require("which-key").show({ global = false })
-        end,
-        desc = "Buffer Local Keymaps (which-key)",
+      spec = {
+        { "<leader>f", name = "telescope" },
+        { "<leader>g", name = "Git" },
+        { "<leader>c", name = "Copilot Chat",   icon = { icon = "", color = "purple" } },
+        { "<leader>t", name = "結んで開いて",   icon = { icon = "", color = "green" } },
+        { "<leader>e", name = "File Encoding",  icon = { icon = "󰼭", color = "grey" } },
+        { "<leader>a", name = "ファイル構造",   icon = { icon = "", color = "grey" } },
+        { "<leader>l", name = "LSP",            icon = { icon = "", color = "azure" } },
+        { "<leader>q", "<esc>" },
       },
     },
   }
