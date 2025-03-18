@@ -7,7 +7,12 @@ return {
         enabled = true,
       },
       messages = {
-        enabled = false,
+        enabled = true,
+        view = "mini",
+        view_error = "notify",
+        view_warn = "notify",
+        view_history = "messages",
+        view_search = "virtualtext",
       },
       popupmenu = {
         enabled = true,
@@ -16,13 +21,18 @@ return {
         enabled = true,
       },
       notify = {
-        enabled = true,
-        view = "notify",
+        enabled = false,
       },
       lsp = {
         progress = {
           enabled = false,
         }
+      },
+      routes = {
+        {
+          filter = { find = "# Plugin Updates" },
+          opts = { skip = true },
+        },
       },
     },
     dependencies = {

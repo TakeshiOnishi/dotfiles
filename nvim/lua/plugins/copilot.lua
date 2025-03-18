@@ -7,7 +7,6 @@ return {
     },
     build = "make tiktoken", -- Only on MacOS or Linux
     opts = {
-      model = 'claude-3.5-sonnet',
       question_header = '< 拙者 > ',
       answer_header = 'そなた [(^o^ )]',
 
