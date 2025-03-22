@@ -30,6 +30,9 @@ return {
           ["<C-Space>"] = cmp.mapping.complete(), 
           ["<C-e>"] = cmp.mapping.abort(), 
           ["<CR>"] = cmp.mapping.confirm({ select = true }), 
+          ['<Tab>'] = cmp.mapping(function(fallback)
+            vim.api.nvim_feedkeys(vim.fn['copilot#Accept'](vim.api.nvim_replace_termcodes('<Tab>', true, true, true)), 'n', true)
+          end)
         }),
         sources = cmp.config.sources({
           { name = "nvim_lsp" }, 

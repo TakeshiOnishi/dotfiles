@@ -8,7 +8,7 @@ return  {
       icons = {
         separator = "",
         separator = "",
-        group = " - ",
+        group = " | ",
       },
       spec = {
         { "<leader>f", name = "telescope" },
@@ -19,6 +19,11 @@ return  {
         { "<leader>a", name = "ファイル構造",   icon = { icon = "", color = "grey" } },
         { "<leader>l", name = "LSP",            icon = { icon = "", color = "azure" } },
         { "<leader>q", "<esc>" },
+        {
+          mode = "v",
+          { "<leader>c", name = "Copilot Chat", icon = { icon = "", color = "purple" } },
+          { "<leader>g", name = "Git" },
+        },
       },
     },
   }

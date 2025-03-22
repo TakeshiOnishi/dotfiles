@@ -1,9 +1,6 @@
 # Dotfiles
 
 Place the configuration file for development.
-**WIP: Migrating to lazy.nvim and nvim-lsp**
-
-
 
 ## QuickStart
 
