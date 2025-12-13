@@ -1,0 +1,42 @@
+[
+    // ファイルツリー操作
+    {
+        "key": "ctrl+e",
+        "command": "workbench.view.explorer"
+    },
+    // ターミナル操作
+    {
+        "key": "ctrl+`",
+        "command": "workbench.action.terminal.toggleTerminal"
+    },
+    // クイック検索
+    {
+        "key": "space f f",
+        "command": "workbench.action.quickOpen"
+    },
+    {
+        "key": "space f g",
+        "command": "workbench.action.findInFiles"
+    },
+    // Git操作
+    {
+        "key": "space g g",
+        "command": "workbench.view.scm"
+    },
+    {
+        "key": "shift+cmd+]",
+        "command": "-workbench.action.nextEditor"
+    },
+    {
+        "key": "shift+cmd+[",
+        "command": "-workbench.action.previousEditor"
+    },
+    {
+        "key": "ctrl+shift+tab",
+        "command": "workbench.action.previousEditor"
+    },
+    {
+        "key": "ctrl+tab",
+        "command": "workbench.action.nextEditor"
+    }
+]

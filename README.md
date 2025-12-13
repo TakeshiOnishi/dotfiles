@@ -8,6 +8,19 @@ Place the configuration file for development.
 1. `cd $_`
 1. `make init`
 
+## Editor Configuration
+
+This repository contains configuration files for both **Neovim** and **VS Code**.
+
+### Neovim Setup
+- Configuration files are located in the `nvim/` directory
+- See `nvim/` for Neovim-specific setup instructions
+
+### VS Code Setup
+- Configuration files are located in the `vscode/` directory
+- See [vscode/README.md](vscode/README.md) for detailed setup instructions
+- Includes settings converted from Neovim configuration
+
 ## Additoinal Setup
 
 ### Setup Git Config
