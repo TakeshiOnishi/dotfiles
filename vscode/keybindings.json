@@ -45,20 +45,6 @@
         "key": "ctrl+`",
         "command": "workbench.action.terminal.toggleTerminal"
     },
-    // クイック検索
-    {
-        "key": "space f f",
-        "command": "workbench.action.quickOpen"
-    },
-    {
-        "key": "space f g",
-        "command": "workbench.action.findInFiles"
-    },
-    // Git操作
-    {
-        "key": "space g g",
-        "command": "workbench.view.scm"
-    },
     {
         "key": "shift+cmd+]",
         "command": "-workbench.action.nextEditor"
