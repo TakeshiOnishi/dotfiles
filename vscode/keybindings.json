@@ -3,12 +3,12 @@
     {
         "key": "ctrl+e",
         "command": "workbench.view.explorer",
-        "when": "!explorerViewletVisible && vim.mode != 'SearchInProgressMode' && vim.mode != 'Insert'"
+        "when": "(editorTextFocus || explorerViewletFocus) && !explorerViewletVisible && vim.mode != 'SearchInProgressMode' && vim.mode != 'Insert'"
     },
     {
         "key": "ctrl+e",
         "command": "workbench.action.toggleSidebarVisibility",
-        "when": "explorerViewletVisible && !searchViewletVisible && !inDebugMode && vim.mode != 'SearchInProgressMode' && vim.mode != 'Insert'"
+        "when": "(editorTextFocus || explorerViewletFocus) && explorerViewletVisible && !searchViewletVisible && !inDebugMode && vim.mode != 'SearchInProgressMode' && vim.mode != 'Insert'"
     },
     {
         "key": "Enter",
