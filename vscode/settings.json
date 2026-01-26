@@ -1,0 +1,28 @@
+"editor.tokenColorCustomizations": {
+    "textMateRules": [
+        {
+            "scope": ["heading.1.markdown entity.name.section.markdown", "punctuation.definition.heading.markdown"],
+            "settings": { "foreground": "#F7768E", "fontStyle": "bold" } // ピンク・レッド（強）
+        },
+        {
+            "scope": ["heading.2.markdown entity.name.section.markdown", "punctuation.definition.heading.markdown"],
+            "settings": { "foreground": "#E0AF68", "fontStyle": "bold" } // オレンジ・イエロー
+        },
+        {
+            "scope": ["heading.3.markdown entity.name.section.markdown", "punctuation.definition.heading.markdown"],
+            "settings": { "foreground": "#9ECE6A", "fontStyle": "bold" } // グリーン
+        },
+        {
+            "scope": ["heading.4.markdown entity.name.section.markdown", "punctuation.definition.heading.markdown"],
+            "settings": { "foreground": "#73DACA" } // ターコイズ
+        },
+        {
+            "scope": ["heading.5.markdown entity.name.section.markdown", "punctuation.definition.heading.markdown"],
+            "settings": { "foreground": "#7AA2F7" } // ブルー
+        },
+        {
+            "scope": ["heading.6.markdown entity.name.section.markdown", "punctuation.definition.heading.markdown"],
+            "settings": { "foreground": "#BB9AF7" } // パープル
+        }
+    ]
+}
