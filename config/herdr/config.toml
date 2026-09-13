@@ -1,0 +1,78 @@
+onboarding = false
+
+[ui.toast]
+delivery = "terminal"
+
+[ui.sound]
+enabled = false
+
+[ui]
+status_indicators = "dots"
+
+[theme]
+name = "solarized"
+auto_switch = false
+
+[keys]
+# Prefix を tmux と同じ Ctrl-t に設定
+prefix = "ctrl+t"
+
+# タブ操作 (tmux のウィンドウ操作と同等)
+new_tab = "prefix+c"
+next_tab = "prefix+n"
+previous_tab = "prefix+p"
+switch_tab = "prefix+1..9"
+close_tab = ""                   # タブ丸ごと閉じる機能は無効化
+rename_tab = "prefix+r"
+
+# 画面分割 (herdr標準の v / - に加えて、tmux の % / " も両方使えるように設定)
+split_vertical = ["prefix+v", "prefix+%"]
+split_horizontal = ["prefix+minus", "prefix+\""]
+
+# ペイン移動 (Vim風移動: Ctrl-t の後、Ctrlを離して h/j/k/l)
+focus_pane_left = "prefix+h"
+focus_pane_down = "prefix+j"
+focus_pane_up = "prefix+k"
+focus_pane_right = "prefix+l"
+
+# デタッチ
+detach = "prefix+d"             # (herdr標準は prefix+q)
+
+# 設定リロード (デフォルトの Shift + r に復帰)
+# ※ 小文字の r はデフォルトの「Resize モード (矢印キーでリサイズ)」として復活
+reload_config = "prefix+shift+r"
+
+# ペインズーム (最大化: デフォルトの z に復帰) & 閉じる (Ctrl+t -> x)
+zoom = "prefix+z"
+close_pane = "prefix+x"
+
+# ====================================================
+# ★ Workspace (Space) と Worktree (Tree) の操作 ★
+# ====================================================
+# [Space]
+new_workspace = "prefix+s"          # 作成: s
+close_workspace = "prefix+shift+s"  # 削除: S
+
+# [Tree]
+new_worktree = "prefix+t"           # 作成: t
+remove_worktree = "prefix+shift+t"  # 削除: T (チェックアウトも安全に片付ける)
+open_worktree = "prefix+shift+g"    # 過去の Worktree 一覧から開く: G
+
+# ====================================================
+# ★ Agent (エージェント) の操作 ★
+# ====================================================
+next_agent = "prefix+i"             # 次のエージェントへジャンプ: i
+previous_agent = "prefix+shift+I"   # 前のエージェントへジャンプ: I
+
+# [デフォルト機能の保護]
+open_notification_target = "prefix+a" # 通知ターゲットへ飛ぶ (デフォルト)
+settings = "prefix+comma"           # 設定画面: カンマ (,)
+
+# コピーモード無効化
+copy_mode = ""
+
+# ナビゲーションモード (ワークスペースの上下移動を j / k に統一)
+navigate_workspace_up = "k"
+navigate_workspace_down = "j"
+navigate_pane_up = "ctrl+k"
+navigate_pane_down = "ctrl+j"
