@@ -1,0 +1,4 @@
+{{ decrypt (include ".chezmoitemplates/claude-common.md.age") -}}
+{{ if eq .machine "work" }}
+{{ decrypt (include ".chezmoitemplates/claude-work.md.age") -}}
+{{ end -}}
