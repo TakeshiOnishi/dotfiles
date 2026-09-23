@@ -1,17 +1,54 @@
 # Dotfiles
 
 Place the configuration file for development.
+Managed by [chezmoi](https://www.chezmoi.io/).
 
 ## QuickStart
 
-1. `git clone https://github.com/TakeshiOnishi/dotfiles ~/dotfiles`
-1. `cd $_`
-1. `make create_slink`
+```
+brew install chezmoi age
+```
 
-## Editor Configuration
+age 秘密鍵を `~/.config/chezmoi/key.txt` へ配置する。
 
-- Neovim configuration files are located in the `nvim/` directory
-- Managed by [lazy.nvim](https://github.com/folke/lazy.nvim)
+```
+chmod 600 ~/.config/chezmoi/key.txt
+```
+
+```
+git clone git@github.com:TakeshiOnishi/dotfiles.git ~/dotfiles
+chezmoi init --source ~/dotfiles
+chezmoi apply
+```
+
+`init` 時にマシン種別（`personal` / `work`）を尋ねられる。
+
+## 構成
+
+| パス | 配置先 |
+| --- | --- |
+| `dot_*` | ホーム直下 |
+| `dot_config/` | `~/.config/` |
+| `dot_claude/` | `~/.claude/` |
+| `.chezmoi*` | 配置しない。chezmoi 自身の設定 |
+
+## 日常の操作
+
+`<target>` はホーム側の配置先パスを指す（例: `~/.zshrc`）。
+ソース側のパスを渡すと `not managed` になる。
+
+```
+chezmoi diff                   # 適用したら何が変わるかを見る
+chezmoi apply                  # ソースの内容をホームへ反映する
+chezmoi edit --apply <target>  # ソースを編集して即座に反映する
+chezmoi merge <target>         # ホーム側の変更をソースへ取り込む
+```
+
+`chezmoi re-add` はテンプレートに効かない。
+アプリが書き換えた設定を取り込むときは `chezmoi merge` を使う。
+
+- <https://www.chezmoi.io/>
+- <https://github.com/twpayne/chezmoi>
 
 ## Additional Setup
 
@@ -34,9 +71,3 @@ Place the following files `~/.gitconfig.local`. Write the following contents.
     - `ln -s /opt/homebrew/share/git-core/contrib/diff-highlight/diff-highlight /usr/local/bin`
 - RPM based Linux
   - `ln -s /usr/share/git-core/contrib/diff-highlight /usr/local/bin`
-
-### Configuration file for local environment only
-
-- Files to load before or after the standard settings file
-  - `.zsh/rc/*.local_first`
-  - `.zsh/rc/*.local_last`

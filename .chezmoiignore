@@ -1,0 +1,8 @@
+# リポジトリ運用ファイル。ホームには配置しない
+README.md
+*.log
+
+{{ if not .isPersonal -}}
+# 個人用マシン限定の設定
+.zsh/rc/*_personal.zsh
+{{ end -}}

@@ -1,4 +1,1 @@
-.config/*
-**/_local/*
-!**_local/.gitkeep
-*.local*
+*.log
