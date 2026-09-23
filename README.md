@@ -26,10 +26,13 @@ chmod 600 ~/.config/chezmoi/key.txt
 ### 3. 取り込む
 
 ```
-chezmoi init --apply TakeshiOnishi/dotfiles
+chezmoi init --source ~/dotfiles --apply TakeshiOnishi/dotfiles
 ```
 
 `init` 時にマシン種別（`personal` / `work`）を尋ねられる。
+
+`--source` は clone 先の指定になる。
+省略すると `~/.local/share/chezmoi` へ展開されるため、必ず付ける。
 
 ## 構成
 
