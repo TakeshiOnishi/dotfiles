@@ -51,8 +51,6 @@ chezmoi init --apply TakeshiOnishi/dotfiles
 `.chezmoitemplates/` 配下では `encrypted_` 接頭辞が機能しない。
 `decrypt (include ...)` で明示的に復号している。
 
-**秘密鍵を失うと復号できない。必ずバックアップすること。**
-
 ## マシン別の差分
 
 `machine` 変数で分岐する。値は `personal` か `work`。
@@ -67,15 +65,40 @@ chezmoi init --apply TakeshiOnishi/dotfiles
 
 ## 日常の操作
 
+### 前提：ソースとホームは別の実体
+
+symlink 方式とは異なり、ホーム側のファイルはソースから生成された独立した実体になる。
+ホーム側を直接編集してもソースには反映されない。
+
+そのため編集には次のどちらかを使う。
+
 ```
-chezmoi diff                 # 適用前に差分を見る
-chezmoi apply                # 反映する
-chezmoi edit --apply <file>  # 編集して即反映する
-chezmoi re-add <file>        # 手で書き換えたファイルを取り込む
+chezmoi edit --apply <file>   # ソースを編集して即反映する
+chezmoi re-add <file>         # 直接編集した結果をソースへ取り込む
 ```
 
-アプリ自身が書き換える設定（`settings.json` など）を更新したときは
-`chezmoi re-add` で取り込み直す。
+### 使い分け
+
+| 状況 | コマンド |
+| --- | --- |
+| 設定を自分で書き換えたい | `chezmoi edit --apply ~/.zshrc` |
+| アプリが勝手に書き換えた | `chezmoi re-add ~/.claude/settings.json` |
+| 適用前に差分を見たい | `chezmoi diff` |
+| まとめて反映したい | `chezmoi apply` |
+
+`chezmoi edit` は暗号化ファイルでも使える。復号して開き、保存時に再暗号化する。
+暗号文を手で扱う必要はない。
+
+Claude Code の `settings.json` のようにアプリ自身が書き換える設定は、
+変更後に `chezmoi re-add` で取り込み直す。忘れるとソースが古いまま残る。
+
+### 補足
+
+ここに書いたのは日常で使う範囲に絞った内容になる。
+オプションの全容と最新の仕様は公式ドキュメントを参照すること。
+
+- <https://www.chezmoi.io/>
+- <https://github.com/twpayne/chezmoi>
 
 ## Additional Setup
 
