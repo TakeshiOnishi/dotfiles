@@ -42,22 +42,22 @@ chezmoi init --apply TakeshiOnishi/dotfiles
 
 ## 暗号化
 
-個人のツール構成や作業規約を含むファイルは age で暗号化している。
+汎用的な設定は平文で残し、個人固有の部分だけを切り出して age で暗号化する。
 
-- `dot_zsh/rc/encrypted_*.tmpl` — PATH・環境変数・エイリアス
-- `dot_claude/encrypted_settings.json.tmpl` — Claude Code の設定
+- `.chezmoitemplates/zsh-*-personal.age` — 個人環境の PATH・環境変数・エイリアス
 - `.chezmoitemplates/claude-*.md.age` — CLAUDE.md の構成部品
+- `dot_claude/encrypted_settings.json.tmpl` — Claude Code の設定
 
-`.chezmoitemplates/` 配下では `encrypted_` 接頭辞が機能しない。
-`decrypt (include ...)` で明示的に復号している。
+`.chezmoitemplates/` 配下では `encrypted_` 接頭辞が効かず、暗号文がそのまま出力される。
+そのため `decrypt (include ...)` で明示的に復号している。
 
 ## マシン別の差分
 
 `machine` 変数で分岐する。値は `personal` か `work`。
 
 ```
-{{ if eq .machine "work" }}
-職場マシンだけに適用される内容
+{{ if eq .machine "personal" }}
+個人用マシンだけに適用される内容
 {{ end }}
 ```
 
@@ -65,37 +65,22 @@ chezmoi init --apply TakeshiOnishi/dotfiles
 
 ## 日常の操作
 
-### 前提：ソースとホームは別の実体
+symlink 方式とは違い、ホーム側はソースから生成された別の実体になる。
+ホーム側を直接編集してもソースへは反映されない。
 
-symlink 方式とは異なり、ホーム側のファイルはソースから生成された独立した実体になる。
-ホーム側を直接編集してもソースには反映されない。
+- `chezmoi diff` — 適用前に差分を見る
+- `chezmoi apply` — 反映する
+- `chezmoi edit --apply <file>` — ソースを編集して即反映する
+- `chezmoi re-add <file>` — 直接編集した結果をソースへ取り込む
 
-そのため編集には次のどちらかを使う。
-
-```
-chezmoi edit --apply <file>   # ソースを編集して即反映する
-chezmoi re-add <file>         # 直接編集した結果をソースへ取り込む
-```
-
-### 使い分け
-
-| 状況 | コマンド |
-| --- | --- |
-| 設定を自分で書き換えたい | `chezmoi edit --apply ~/.zshrc` |
-| アプリが勝手に書き換えた | `chezmoi re-add ~/.claude/settings.json` |
-| 適用前に差分を見たい | `chezmoi diff` |
-| まとめて反映したい | `chezmoi apply` |
-
-`chezmoi edit` は暗号化ファイルでも使える。復号して開き、保存時に再暗号化する。
-暗号文を手で扱う必要はない。
+`chezmoi edit` は暗号化ファイルも扱える。
+復号して開き、保存時に再暗号化するため、暗号文を手で触る必要はない。
 
 Claude Code の `settings.json` のようにアプリ自身が書き換える設定は、
-変更後に `chezmoi re-add` で取り込み直す。忘れるとソースが古いまま残る。
+変更後に `chezmoi re-add` が要る。忘れるとソースが古いまま残る。
 
-### 補足
-
-ここに書いたのは日常で使う範囲に絞った内容になる。
-オプションの全容と最新の仕様は公式ドキュメントを参照すること。
+ここに挙げたのは日常で使う範囲に絞っている。
+全容と最新の仕様は公式ドキュメントを参照すること。
 
 - <https://www.chezmoi.io/>
 - <https://github.com/twpayne/chezmoi>

@@ -2,4 +2,4 @@
 **/_local/*
 !**_local/.gitkeep
 *.local*
-nvim.log
+*.log
