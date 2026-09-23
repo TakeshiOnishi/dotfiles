@@ -48,14 +48,14 @@ chezmoi init --source ~/dotfiles --apply TakeshiOnishi/dotfiles
 汎用的な設定は平文で残し、個人固有の部分だけを age で暗号化する。
 
 - `dot_zsh/rc/encrypted_*_personal.zsh` — 個人環境の PATH・環境変数・エイリアス
-- `dot_claude/encrypted_settings.json.tmpl` — Claude Code の設定
-- `.claude-*.md.age` — CLAUDE.md の構成部品
+- `dot_claude/.CLAUDE-*.md.age` — CLAUDE.md の本体
+- `dot_claude/.settings-*.json.age` — Claude Code の設定
 
 zsh は平文ファイルと暗号化ファイルを分けて配置し、`init.zsh` が両方を読む。
 `encrypted_` 接頭辞だけで完結するため、テンプレート関数を使わない。
 
-CLAUDE.md は1ファイルへまとめる必要があるため、この方法が使えない。
-`{{ include "..." | decrypt }}` で暗号化した部品を結合している。
+CLAUDE.md と settings.json は1ファイルへまとめる必要があるため、この方法が使えない。
+マシン種別ごとに用意した暗号化ファイルを `{{ include "..." | decrypt }}` で読む。
 部品は `.` 始まりで置く。chezmoi が無視するため配置対象にならない。
 
 ## マシン別の差分
@@ -79,7 +79,8 @@ CLAUDE.md は1ファイルへまとめる必要があるため、この方法が
 {{ end }}
 ```
 
-職場固有の設定は `.claude-work.md.age` に書く。
+Claude 関連は共通部分を持たず、マシン種別ごとに全体を分けている。
+職場用は `dot_claude/.CLAUDE-work.md.age` と `dot_claude/.settings-work.json.age` に書く。
 
 ## 日常の操作
 

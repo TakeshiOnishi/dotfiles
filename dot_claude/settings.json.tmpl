@@ -1,0 +1,5 @@
+{{ if eq .machine "personal" -}}
+{{ include "dot_claude/.settings-personal.json.age" | decrypt -}}
+{{ else -}}
+{{ include "dot_claude/.settings-work.json.age" | decrypt -}}
+{{ end -}}
