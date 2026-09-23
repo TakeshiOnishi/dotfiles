@@ -38,7 +38,7 @@ chezmoi init --apply TakeshiOnishi/dotfiles
 | `dot_*` | ホーム直下 |
 | `dot_config/` | `~/.config/` |
 | `dot_claude/` | `~/.claude/` |
-| `.chezmoitemplates/` | 配置しない。暗号化された部品置き場 |
+| `.` 始まり | 配置しない。chezmoi が無視する |
 
 ## 暗号化
 
@@ -46,13 +46,14 @@ chezmoi init --apply TakeshiOnishi/dotfiles
 
 - `dot_zsh/rc/encrypted_*_personal.zsh` — 個人環境の PATH・環境変数・エイリアス
 - `dot_claude/encrypted_settings.json.tmpl` — Claude Code の設定
-- `.chezmoitemplates/claude-*.md.age` — CLAUDE.md の構成部品
+- `.claude-*.md.age` — CLAUDE.md の構成部品
 
 zsh は平文ファイルと暗号化ファイルを分けて配置し、`init.zsh` が両方を読む。
 `encrypted_` 接頭辞だけで完結するため、テンプレート関数を使わない。
 
 CLAUDE.md は1ファイルへまとめる必要があるため、この方法が使えない。
 `{{ include "..." | decrypt }}` で暗号化した部品を結合している。
+部品は `.` 始まりで置く。chezmoi が無視するため配置対象にならない。
 
 ## マシン別の差分
 
@@ -75,7 +76,7 @@ CLAUDE.md は1ファイルへまとめる必要があるため、この方法が
 {{ end }}
 ```
 
-職場固有の設定は `.chezmoitemplates/claude-work.md.age` に書く。
+職場固有の設定は `.claude-work.md.age` に書く。
 
 ## 日常の操作
 
