@@ -1,2 +1,2 @@
-export PATH=$PATH:~/dotfiles/bin/
-export PATH=$PATH:~/dotfiles/bin/_local/
+# use `path.zsh.local_first` file
+# ex: export PATH="$HOME/.local/bin:$PATH"
