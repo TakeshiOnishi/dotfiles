@@ -41,22 +41,24 @@ chezmoi init --source ~/dotfiles --apply TakeshiOnishi/dotfiles
 | `dot_*` | ホーム直下 |
 | `dot_config/` | `~/.config/` |
 | `dot_claude/` | `~/.claude/` |
-| `.` 始まり | 配置しない。chezmoi が無視する |
+| `.chezmoi*` | 配置しない。chezmoi 自身の設定 |
 
 ## 暗号化
 
-汎用的な設定は平文で残し、個人固有の部分だけを age で暗号化する。
+個人固有の情報を含むファイルは age で暗号化する。
 
 - `dot_zsh/rc/encrypted_*_personal.zsh` — 個人環境の PATH・環境変数・エイリアス
-- `dot_claude/.CLAUDE-*.md.age` — CLAUDE.md の本体
-- `dot_claude/.settings-*.json.age` — Claude Code の設定
+- `encrypted_CLAUDE.md.tmpl` — CLAUDE.md
+- `dot_claude/encrypted_settings.json.tmpl` — Claude Code の設定
 
-zsh は平文ファイルと暗号化ファイルを分けて配置し、`init.zsh` が両方を読む。
-`encrypted_` 接頭辞だけで完結するため、テンプレート関数を使わない。
+zsh は汎用部分を平文ファイルに残し、個人固有だけを暗号化した別ファイルへ置く。
+`init.zsh` が両方を読むため、分岐を書かずに済む。
 
 CLAUDE.md と settings.json は1ファイルへまとめる必要があるため、この方法が使えない。
-マシン種別ごとに用意した暗号化ファイルを `{{ include "..." | decrypt }}` で読む。
-部品は `.` 始まりで置く。chezmoi が無視するため配置対象にならない。
+ファイル全体を暗号化し、中でマシン種別ごとに分岐させている。
+
+`encrypted_` と `.tmpl` を併用すると、復号してからテンプレート評価される。
+そのため暗号化ファイルの中でも `{{ .chezmoi.homeDir }}` などが使える。
 
 ## マシン別の差分
 
@@ -80,7 +82,7 @@ CLAUDE.md と settings.json は1ファイルへまとめる必要があるため
 ```
 
 Claude 関連は共通部分を持たず、マシン種別ごとに全体を分けている。
-職場用は `dot_claude/.CLAUDE-work.md.age` と `dot_claude/.settings-work.json.age` に書く。
+編集は `chezmoi edit ~/CLAUDE.md` のように行う。復号された状態で開かれる。
 
 ## 日常の操作
 

@@ -1,4 +1,5 @@
-{{- $machine := promptStringOnce . "machine" "Machine type (personal/work)" -}}
+{{- $choices := list "personal" "work" -}}
+{{- $machine := promptChoiceOnce . "machine" "Machine type" $choices -}}
 
 sourceDir = "~/dotfiles"
 
