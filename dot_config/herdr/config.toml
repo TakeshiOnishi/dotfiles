@@ -1,16 +1,26 @@
 onboarding = false
 
 [ui.toast]
-delivery = "terminal"
+delivery = "herdr"
+
+[ui.toast.herdr]
+position = "top-right"
 
 [ui.sound]
 enabled = false
 
 [ui]
-status_indicators = "dots"
+status_indicators = "symbols"
+
+# サイドバー幅を現状（上限いっぱい）で固定する
+sidebar_width = 36
+sidebar_min_width = 36
+sidebar_max_width = 36
+
+prompt_new_workspace_name = true
 
 [theme]
-name = "solarized"
+name = "gruvbox"
 auto_switch = false
 
 [keys]
@@ -76,3 +86,7 @@ navigate_workspace_up = "k"
 navigate_workspace_down = "j"
 navigate_pane_up = "ctrl+k"
 navigate_pane_down = "ctrl+j"
+
+
+[experimental]
+switch_ascii_input_source_in_prefix = true
