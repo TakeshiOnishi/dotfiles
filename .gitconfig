@@ -3,7 +3,7 @@
 
 [core]
   excludesfile = ~/.gitignore_global
-  autocrlf = input  
+  autocrlf = input
   safecrlf = true
 
 [color]
@@ -24,12 +24,12 @@
   logal = log --graph --all --color --pretty='%x09%h %cn%x09%s %Cred%d%Creset'
   loga = log -30 --graph --all --color --pretty='%x09%h %cn%x09%s %Cred%d%Creset'
   dif = diff
-  d1 = diff HEAD~           
-  d2 = diff HEAD~~          
-  d3 = diff HEAD~~~         
-  d4 = diff HEAD~~~~        
-  d5 = diff HEAD~~~~~       
-  d10 = diff HEAD~~~~~~~~~~ 
+  d1 = diff HEAD~
+  d2 = diff HEAD~~
+  d3 = diff HEAD~~~
+  d4 = diff HEAD~~~~
+  d5 = diff HEAD~~~~~
+  d10 = diff HEAD~~~~~~~~~~
   delete-merged-branches = !git branch --merged | grep -vE '^\\*|main$|master$|develop$' | xargs -I % git branch -d %
 
 [pager]

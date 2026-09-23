@@ -6,22 +6,14 @@ Place the configuration file for development.
 
 1. `git clone https://github.com/TakeshiOnishi/dotfiles ~/dotfiles`
 1. `cd $_`
-1. `make init`
+1. `make create_slink`
 
 ## Editor Configuration
 
-This repository contains configuration files for both **Neovim** and **VS Code**.
+- Neovim configuration files are located in the `nvim/` directory
+- Managed by [lazy.nvim](https://github.com/folke/lazy.nvim)
 
-### Neovim Setup
-- Configuration files are located in the `nvim/` directory
-- See `nvim/` for Neovim-specific setup instructions
-
-### VS Code Setup
-- Configuration files are located in the `vscode/` directory
-- See [vscode/README.md](vscode/README.md) for detailed setup instructions
-- Includes settings converted from Neovim configuration
-
-## Additoinal Setup
+## Additional Setup
 
 ### Setup Git Config
 
@@ -46,5 +38,5 @@ Place the following files `~/.gitconfig.local`. Write the following contents.
 ### Configuration file for local environment only
 
 - Files to load before or after the standard settings file
-  - `.zsh/rc/*.local_first
-  - `.zsh/rc/*.local_last
+  - `.zsh/rc/*.local_first`
+  - `.zsh/rc/*.local_last`
