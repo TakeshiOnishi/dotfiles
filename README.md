@@ -48,8 +48,12 @@ chezmoi init --apply TakeshiOnishi/dotfiles
 - `.chezmoitemplates/claude-*.md.age` — CLAUDE.md の構成部品
 - `dot_claude/encrypted_settings.json.tmpl` — Claude Code の設定
 
-`.chezmoitemplates/` 配下では `encrypted_` 接頭辞が効かず、暗号文がそのまま出力される。
-そのため `decrypt (include ...)` で明示的に復号している。
+`encrypted_` 接頭辞が効くのは、ホームへ配置されるファイルだけになる。
+`.chezmoitemplates/` はどこにも配置されないため接頭辞が解釈されず、暗号文がそのまま出る。
+そのため参照側で `decrypt (include ...)` を呼んで明示的に復号している。
+
+末尾の `.age` は chezmoi の規約ではない。
+中身が暗号文だと分かるようにした命名で、chezmoi はこの拡張子を解釈しない。
 
 ## マシン別の差分
 
