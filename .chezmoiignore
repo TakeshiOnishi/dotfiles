@@ -4,7 +4,5 @@ README.md
 
 {{ if ne .machine "personal" -}}
 # 個人用マシン限定の設定
-.zsh/rc/path_personal.zsh
-.zsh/rc/env_personal.zsh
-.zsh/rc/alias_personal.zsh
+.zsh/rc/*_personal.zsh
 {{ end -}}

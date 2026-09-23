@@ -77,7 +77,7 @@ CLAUDE.md と settings.json は1ファイルへまとめる必要があるため
 
 ```
 {{ if ne .machine "personal" }}
-.zsh/rc/path_personal.zsh
+.zsh/rc/*_personal.zsh
 {{ end }}
 ```
 

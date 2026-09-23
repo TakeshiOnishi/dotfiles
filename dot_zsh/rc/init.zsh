@@ -6,11 +6,8 @@ load_if_exists () {
   fi
 }
 
-load_if_exists "${script_dir}/path.zsh"
-load_if_exists "${script_dir}/path_personal.zsh"
-load_if_exists "${script_dir}/basic.zsh"
-load_if_exists "${script_dir}/prompt.zsh"
-load_if_exists "${script_dir}/alias.zsh"
-load_if_exists "${script_dir}/alias_personal.zsh"
-load_if_exists "${script_dir}/env.zsh"
-load_if_exists "${script_dir}/env_personal.zsh"
+# 各設定の直後に個人用の追加分を読む
+for name in path basic prompt alias env; do
+  load_if_exists "${script_dir}/${name}.zsh"
+  load_if_exists "${script_dir}/${name}_personal.zsh"
+done
