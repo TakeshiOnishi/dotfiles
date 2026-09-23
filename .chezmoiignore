@@ -2,7 +2,7 @@
 README.md
 *.log
 
-{{ if ne .machine "personal" -}}
+{{ if not .isPersonal -}}
 # 個人用マシン限定の設定
 .zsh/rc/*_personal.zsh
 {{ end -}}
