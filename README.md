@@ -34,11 +34,14 @@ chezmoi apply
 
 ## 日常の操作
 
+`<target>` はホーム側の配置先パスを指す（例: `~/.zshrc`）。
+ソース側のパスを渡すと `not managed` になる。
+
 ```
-chezmoi diff
-chezmoi apply
-chezmoi edit --apply <file>
-chezmoi merge <file>
+chezmoi diff                   # 適用したら何が変わるかを見る
+chezmoi apply                  # ソースの内容をホームへ反映する
+chezmoi edit --apply <target>  # ソースを編集して即座に反映する
+chezmoi merge <target>         # ホーム側の変更をソースへ取り込む
 ```
 
 `chezmoi re-add` はテンプレートに効かない。
