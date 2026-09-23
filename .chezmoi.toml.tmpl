@@ -1,0 +1,10 @@
+{{- $machine := promptStringOnce . "machine" "Machine type (personal/work)" -}}
+
+encryption = "age"
+
+[age]
+    identity = "~/.config/chezmoi/key.txt"
+    recipient = "age1r2dvjaj63cagjqrhftrwdaz8vqf3av3466z6hn29ycglhj5n5f4q42xre3"
+
+[data]
+    machine = {{ $machine | quote }}
