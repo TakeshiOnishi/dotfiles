@@ -6,6 +6,3 @@ export PATH="$HOME/.nodenv/bin:$PATH"
 export PATH="$HOME/.rbenv/bin:$PATH"
 
 export PATH="$HOME/.local/bin:$PATH"
-{{ if eq .machine "personal" }}
-{{ decrypt (include ".chezmoitemplates/zsh-path-personal.age") -}}
-{{ end -}}

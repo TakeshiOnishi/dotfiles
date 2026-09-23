@@ -7,7 +7,10 @@ load_if_exists () {
 }
 
 load_if_exists "${script_dir}/path.zsh"
+load_if_exists "${script_dir}/path_personal.zsh"
 load_if_exists "${script_dir}/basic.zsh"
 load_if_exists "${script_dir}/prompt.zsh"
 load_if_exists "${script_dir}/alias.zsh"
+load_if_exists "${script_dir}/alias_personal.zsh"
 load_if_exists "${script_dir}/env.zsh"
+load_if_exists "${script_dir}/env_personal.zsh"

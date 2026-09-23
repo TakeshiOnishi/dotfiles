@@ -42,26 +42,36 @@ chezmoi init --apply TakeshiOnishi/dotfiles
 
 ## 暗号化
 
-汎用的な設定は平文で残し、個人固有の部分だけを切り出して age で暗号化する。
+汎用的な設定は平文で残し、個人固有の部分だけを age で暗号化する。
 
-- `.chezmoitemplates/zsh-*-personal.age` — 個人環境の PATH・環境変数・エイリアス
-- `.chezmoitemplates/claude-*.md.age` — CLAUDE.md の構成部品
+- `dot_zsh/rc/encrypted_*_personal.zsh` — 個人環境の PATH・環境変数・エイリアス
 - `dot_claude/encrypted_settings.json.tmpl` — Claude Code の設定
+- `.chezmoitemplates/claude-*.md.age` — CLAUDE.md の構成部品
 
-`encrypted_` 接頭辞が効くのは、ホームへ配置されるファイルだけになる。
-`.chezmoitemplates/` はどこにも配置されないため接頭辞が解釈されず、暗号文がそのまま出る。
-そのため参照側で `decrypt (include ...)` を呼んで明示的に復号している。
+zsh は平文ファイルと暗号化ファイルを分けて配置し、`init.zsh` が両方を読む。
+`encrypted_` 接頭辞だけで完結するため、テンプレート関数を使わない。
 
-末尾の `.age` は chezmoi の規約ではない。
-中身が暗号文だと分かるようにした命名で、chezmoi はこの拡張子を解釈しない。
+CLAUDE.md は1ファイルへまとめる必要があるため、この方法が使えない。
+`{{ include "..." | decrypt }}` で暗号化した部品を結合している。
 
 ## マシン別の差分
 
 `machine` 変数で分岐する。値は `personal` か `work`。
 
+ファイルの中身を出し分けるときはテンプレートに書く。
+
 ```
 {{ if eq .machine "personal" }}
 個人用マシンだけに適用される内容
+{{ end }}
+```
+
+ファイルごと配置を切り替えるときは `.chezmoiignore` に書く。
+このファイル自体がテンプレートとして評価される。
+
+```
+{{ if ne .machine "personal" }}
+.zsh/rc/path_personal.zsh
 {{ end }}
 ```
 
