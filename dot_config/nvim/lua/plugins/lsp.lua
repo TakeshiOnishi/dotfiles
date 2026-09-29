@@ -20,10 +20,7 @@ return {
           "bashls",        
           "intelephense",
         },
-        automatic_installation = true,
       })
-
-      local lspconfig = require("lspconfig")
 
       local on_attach = function(client, bufnr)
         vim.keymap.set("n", "<leader>lR", vim.lsp.buf.rename, { desc = "Rename Symbol" })
@@ -40,25 +37,13 @@ return {
         vim.keymap.set("n", "<leader>lt", vim.lsp.buf.type_definition, { desc = "Find Type Definition" })
       end
 
-      local servers = {
-        ts_ls = {},
-        pyright = {},
-        solargraph = {},
-        terraformls = {},
-        tflint = {},
-        ansiblels = {},
-        clangd = {},
-        bashls = {},
-      }
-
-      for server, config in pairs(servers) do
-        lspconfig[server].setup(vim.tbl_extend("force", {
-          on_attach = on_attach,
-          flags = {
-            debounce_text_changes = 150,
-          },
-        }, config))
-      end
+      -- 全サーバー共通の設定。サーバーの起動は mason-lspconfig の automatic_enable が行う
+      vim.lsp.config("*", {
+        on_attach = on_attach,
+        flags = {
+          debounce_text_changes = 150,
+        },
+      })
     end
   }
 }
