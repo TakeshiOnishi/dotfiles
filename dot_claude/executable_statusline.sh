@@ -24,7 +24,7 @@ make_bar() {
 CTX_BAR=$(make_bar "$PCT")
 COST_FMT=$(printf '$%.4f' "$COST")
 
-# Git info: branch, worktree state, last commit, ahead/behind (empty outside a repo)
+# Git info: branch, worktree state, ahead/behind (empty outside a repo)
 git_info() {
   local dir=$1
   [ -n "$dir" ] && [ -d "$dir" ] || return 0
@@ -59,18 +59,7 @@ git_info() {
     [ "$t" -gt 0 ] && state="${state:+$state }?$t"
   fi
 
-  # Last commit subject cut to 30 chars (UTF-8 aware)
-  local commit="" subj
-  subj=$(git --no-optional-locks -C "$dir" log -1 --format=%s 2>/dev/null)
-  if [ -n "$subj" ]; then
-    local old_lc=${LC_ALL-}
-    export LC_ALL=en_US.UTF-8
-    if [ "${#subj}" -gt 30 ]; then subj="${subj:0:30}…"; fi
-    if [ -n "$old_lc" ]; then export LC_ALL=$old_lc; else unset LC_ALL; fi
-    commit=" · $subj"
-  fi
-
-  local out="⎇ $branch $state${commit}"
+  local out="⎇ $branch $state"
   [ -n "$ab" ] && out="$out $ab"
   echo "$out"
 }
