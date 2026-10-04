@@ -12,6 +12,9 @@ enabled = false
 [ui]
 status_indicators = "symbols"
 
+# エージェント一覧の並び順を固定する（priority は状態変化で並び替わる）
+agent_panel_sort = "spaces"
+
 # サイドバー幅を現状（上限いっぱい）で固定する
 sidebar_width = 36
 sidebar_min_width = 36
