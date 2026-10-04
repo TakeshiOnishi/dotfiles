@@ -88,14 +88,8 @@ case "${1:-}" in
     fi
     # 制御文字を除く
     message=${message//$'\e'/}
-    # 折りたたみ表示を避けるため、ブラケットペーストを使わず 1 行ずつ入力する
-    # 行の間は Shift+Enter で改行し、送信はしない
-    first=1
-    while IFS= read -r line || [[ -n "$line" ]]; do
-      (( first )) || herdr pane send-keys "$target" shift+enter
-      first=0
-      [[ -z "$line" ]] || herdr pane send-text "$target" "${line//$'\r'/}"
-    done <<< "$message"
+    # ブラケットペーストで包んで、改行による送信を防ぐ
+    herdr pane send-text "$target" $'\e[200~'"$message"$'\e[201~'
     rm -f "$store"
     ;;
   *)
