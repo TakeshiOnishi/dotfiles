@@ -1,6 +1,0 @@
-{
-  "name": "memo",
-  "version": "0.1.0",
-  "description": "選択範囲にメモを貯めて、次の発言にまとめて添える",
-  "types": "./types/index.d.ts"
-}

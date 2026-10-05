@@ -31,16 +31,16 @@ const setup = (on: On) => {
   return { clock, state }
 }
 
-test('選択中の Enter はメモになり、次の発言に添えて送られる', async ($, on) => {
+test('選択中の Enter は注釈になり、次の発言に添えて送られる', async ($, on) => {
   const { clock, state } = setup(on)
   await $.session.start({ cwd: '/', surface: 'terminal', isInteractive: true })
-  // メモがないうちはペインを開かない
+  // 注釈がないうちはペインを開かない
   expect(state.isOpen).toBe(false)
 
   state.selection = '選択した行'
   await clock.advance(300)
   const first = await $.prompt.submit(enter('根拠は？'))
-  expect(first.drop).toBe('メモ 1 件目を追加した')
+  expect(first.drop).toBe('注釈 1 件目を追加した')
   expect(state.sent).toEqual([])
   expect(state.isOpen).toBe(true)
 
@@ -54,16 +54,16 @@ test('選択中の Enter はメモになり、次の発言に添えて送られ�
   state.selection = '別の行'
   await clock.advance(300)
   const second = await $.prompt.submit(enter('5 回にして'))
-  expect(second.drop).toBe('メモ 1 件目を追加した')
+  expect(second.drop).toBe('注釈 1 件目を追加した')
 })
 
 const PANE = {
-  plugin: 'memo',
+  plugin: 'reply-annotate',
   surface: 'terminal',
   component: 'Pane',
-  requestId: 'memo',
+  requestId: 'reply-annotate',
   props: {
-    title: 'memo',
+    title: 'reply-annotate',
     isFocused: true,
     bodyColumns: 40,
     placement: 'dock',
@@ -94,7 +94,7 @@ test('ペインのボタンで 1 件を削除・編集できる', async ($, on) 
   expect(box.text).toBe('B')
 
   const updated = await $.prompt.submit(enter('B を直した'))
-  expect(updated.drop).toBe('メモ 1 件目を更新した')
+  expect(updated.drop).toBe('注釈 1 件目を更新した')
 
   state.selection = undefined
   await clock.advance(300)
@@ -130,7 +130,7 @@ test('編集中に入力欄を空にすると、編集を取り消す', async ($
   await ui.unmount()
 })
 
-test('メモがなく選択もない発言は、そのまま送られる', async ($, on) => {
+test('注釈がなく選択もない発言は、そのまま送られる', async ($, on) => {
   const { state } = setup(on)
   await $.session.start({ cwd: '/', surface: 'terminal', isInteractive: true })
 

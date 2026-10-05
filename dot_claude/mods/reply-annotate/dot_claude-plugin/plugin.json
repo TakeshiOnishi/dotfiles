@@ -1,0 +1,6 @@
+{
+  "name": "reply-annotate",
+  "version": "0.1.0",
+  "description": "選択範囲に注釈を貯めて、次の発言にまとめて添える",
+  "types": "./types/index.d.ts"
+}
