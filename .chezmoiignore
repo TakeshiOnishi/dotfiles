@@ -2,7 +2,14 @@
 README.md
 *.log
 
+# そのマシン限定の設定。chezmoi では管理しない
+.zsh/rc/*_local.zsh
+
 {{ if not .isPersonal -}}
-# 個人用マシン限定の設定
+# personal マシン限定の設定
 .zsh/rc/*_personal.zsh
+{{ end -}}
+{{ if .isPersonal -}}
+# work マシン限定の設定
+.zsh/rc/*_work.zsh
 {{ end -}}
