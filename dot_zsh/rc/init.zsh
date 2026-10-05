@@ -6,8 +6,11 @@ load_if_exists () {
   fi
 }
 
-# 各設定の直後に個人用の追加分を読む
+# 各設定の直後にマシン種別ごとの追加分を読む
 for name in path basic prompt alias env; do
   load_if_exists "${script_dir}/${name}.zsh"
   load_if_exists "${script_dir}/${name}_personal.zsh"
+  load_if_exists "${script_dir}/${name}_work.zsh"
+  # chezmoi で管理しない、そのマシン限定の設定
+  load_if_exists "${script_dir}/${name}_local.zsh"
 done
