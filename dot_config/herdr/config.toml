@@ -90,23 +90,5 @@ navigate_workspace_down = "j"
 navigate_pane_up = "ctrl+k"
 navigate_pane_down = "ctrl+j"
 
-# 選択範囲へのコメントを貯めて、まとめて元のペインのプロンプトへ貼り付ける
-[[keys.command]]
-key = "prefix+m"
-type = "popup"
-command = "/Users/onishi_takeshi/.config/herdr/comment-selection.sh add"
-width = "80%"
-height = "60%"
-description = "add a comment on selection"
-
-[[keys.command]]
-key = "prefix+shift+m"
-type = "popup"
-command = "/Users/onishi_takeshi/.config/herdr/comment-selection.sh send"
-width = "80%"
-height = "60%"
-description = "review and paste comments"
-
-
 [experimental]
 switch_ascii_input_source_in_prefix = true
