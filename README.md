@@ -110,13 +110,3 @@ Place the following files `~/.gitconfig.local`. Write the following contents.
   name = MY_NAME
   email = MY_EMAIL_ADDRESS
 ```
-
-### Setup diff-highlight
-
-- macOS (Using brew)
-  - x86
-    - `ln -s /usr/local/share/git-core/contrib/diff-highlight/diff-highlight /usr/local/bin`
-  - arm(M1)
-    - `ln -s /opt/homebrew/share/git-core/contrib/diff-highlight/diff-highlight /usr/local/bin`
-- RPM based Linux
-  - `ln -s /usr/share/git-core/contrib/diff-highlight /usr/local/bin`
