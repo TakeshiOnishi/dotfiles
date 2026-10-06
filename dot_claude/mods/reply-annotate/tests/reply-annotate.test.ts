@@ -263,3 +263,41 @@ test('選択中は帯のコメント欄で、送信せずに注釈を貯める',
   expect(state.sent).toEqual(['普通の発言\n\n引用して指摘・質問\n\n1: 選択した行\n\n根拠は？'])
   await ui.unmount()
 })
+
+test('選択したまま入力欄に打ち続けたら、帯のコメント欄を消す', async ($, on) => {
+  const { clock, state } = setup(on)
+  on('ui.render', ($, e) => $.ui.resolve(e).Box({}))
+  await $.session.start(start)
+  const ui = await $.ui.mount(BAND)
+
+  // 書きかけの発言があっても、選択すればコメント欄を出す
+  state.box = '書きかけ'
+  await clock.advance(300)
+  state.selection = 'コピーした行'
+  await clock.advance(300)
+  expect(await ui.find({ key: 'comment' })).toBeDefined()
+
+  // 入力欄に打ち続けたら、コピー用の選択とみなして消す
+  state.box = '書きかけの続き'
+  await clock.advance(300)
+  expect(await ui.find({ key: 'comment' })).toBeUndefined()
+
+  // 同じ選択が残っていても、もう出さない
+  await clock.advance(300)
+  expect(await ui.find({ key: 'comment' })).toBeUndefined()
+  await ui.unmount()
+})
+
+test('/an を打ちかけている途中では、選択を消さない', async ($, on) => {
+  const { clock, state } = setup(on)
+  await $.session.start(start)
+
+  state.selection = '選択した行'
+  await clock.advance(300)
+  for (const typed of ['/', '/a', '/an', '/an 根拠は？']) {
+    state.box = typed
+    await clock.advance(300)
+  }
+  await $.command.run(an('根拠は？'))
+  expect(state.toasts).toEqual(['注釈 1 件目を追加した'])
+})

@@ -34,6 +34,8 @@ const used = atom({ plugin: 'reply-annotate', key: 'used' } as const, null)
 const editing = atom({ plugin: 'reply-annotate', key: 'editing' } as const, null)
 // 入力欄が /an で始まっているか。選択中の帯は、このときだけ出す
 const composing = atom({ plugin: 'reply-annotate', key: 'composing' } as const, false)
+// 前回見た入力欄の文字。選択後に変わったら、コピー用の選択とみなして帯を消す
+const draft = atom({ plugin: 'reply-annotate', key: 'draft' } as const, '')
 
 // 先頭に見出しを置き、「番号: 引用」の後に空行を挟んでコメントを書く。引用の 2 行目以降は字下げする
 const format = (list: readonly Annotation[]) =>
@@ -113,12 +115,22 @@ export const register: Register = on => {
       if (fresh !== (await read($, selected))) {
         await update($, selected, () => fresh)
       }
-      const draft = (await $.prompt.read()).text
-      const isComposing = COMPOSING.test(draft)
+      const typed = (await $.prompt.read()).text
+      const isComposing = COMPOSING.test(typed)
       if (isComposing !== (await read($, composing))) {
         await update($, composing, () => isComposing)
       }
-      if ((await read($, editing)) !== null && draft === '') {
+      // 選択したまま入力欄に打ち続けたら、注釈ではなくコピー用の選択だったとみなす。
+      // /an を打ちかけている途中（/ や /a）では消さない
+      if (typed !== (await read($, draft))) {
+        await update($, draft, () => typed)
+        const quote = await read($, selected)
+        if (quote !== null && !typed.startsWith('/')) {
+          await update($, used, () => quote)
+          await update($, selected, () => null)
+        }
+      }
+      if ((await read($, editing)) !== null && typed === '') {
         await update($, editing, () => null)
       }
     })
@@ -217,11 +229,11 @@ export const register: Register = on => {
       return (
         <Box flexDirection="column">
           <Text color="yellow" wrap="truncate-end">
-            📝 「{firstLine(quote)}」 → コメントを書いて Enter で注釈に追加
+            📝 「{firstLine(quote)}」 → ctrl+t → m でコメントを書き、Enter で注釈に追加
           </Text>
           <Input
             key="comment"
-            label="注釈: "
+            label="注釈"
             placeholder="コメント"
             submitLabel="貯める"
             autoFocus
