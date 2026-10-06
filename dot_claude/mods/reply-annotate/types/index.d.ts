@@ -9,6 +9,7 @@ declare module 'claude-code' {
       editing: number | null
       composing: boolean
       draft: string
+      writing: boolean
     }
   }
 }

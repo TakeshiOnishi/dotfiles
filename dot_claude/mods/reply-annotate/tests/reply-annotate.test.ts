@@ -37,6 +37,11 @@ const setup = (on: On) => {
     state.box = e.text
     return { isFilled: true, text: e.text }
   })
+  on('prompt.edit', (_$, e) => {
+    const text = e.text.slice(0, e.start) + e.inputText + e.text.slice(e.end)
+    state.box = text
+    return { text, cursor: e.start + e.inputText.length }
+  })
   on('prompt.read', () => ({ value: { text: state.box, cursor: state.box.length } }))
   on('prompt.submit', (_$, e) => {
     state.sent.push(e.text)
@@ -191,6 +196,17 @@ test('編集中に入力欄を空にすると、編集を取り消す', async ($
   await ui.unmount()
 })
 
+// herdr の ctrl+t → m が送る目印の文字を、入力欄の末尾に打つ
+const pressM = ($: Parameters<Parameters<typeof test>[1]>[0], box: string) =>
+  $.prompt.edit({
+    origin: { kind: 'composer' },
+    text: box,
+    cursor: box.length,
+    start: box.length,
+    end: box.length,
+    inputText: '\uE000',
+  })
+
 const BAND = {
   plugin: 'reply-annotate',
   surface: 'terminal',
@@ -205,11 +221,11 @@ test('/an の案内は、入力欄が /an で始まるときだけ出す', async
   await $.session.start(start)
   const ui = await $.ui.mount(BAND)
 
-  // 選択しただけでは、/an の案内ではなくコメント欄を出す
+  // 選択しただけでは、/an の案内もコメント欄も出さない
   state.selection = '選択した行'
   await clock.advance(300)
   expect(await ui.find({ text: /\/an コメント/ })).toBeUndefined()
-  expect(await ui.find({ key: 'comment' })).toBeDefined()
+  expect(await ui.find({ key: 'comment' })).toBeUndefined()
 
   // /an を書き始めたら案内を出す
   state.box = '/an '
@@ -242,9 +258,15 @@ test('選択中は帯のコメント欄で、送信せずに注釈を貯める',
   // 選択していなければコメント欄を出さない
   expect(await ui.find({ key: 'comment' })).toBeUndefined()
 
+  // 選択しただけでは出さず、m を押したら案内とコメント欄を出す
   state.selection = '選択した行'
   await clock.advance(300)
+  expect(await ui.find({ key: 'comment' })).toBeUndefined()
+  await pressM($, '')
   expect(await ui.find({ key: 'comment' })).toBeDefined()
+  expect(await ui.find({ text: /注釈に追加/ })).toBeDefined()
+  // 目印の文字は入力欄に入れない
+  expect(state.box).toBe('')
 
   // 空のコメントは貯めない
   await ui.input({ key: 'comment', text: '  ' })
@@ -270,12 +292,14 @@ test('選択したまま入力欄に打ち続けたら、帯のコメント欄�
   await $.session.start(start)
   const ui = await $.ui.mount(BAND)
 
-  // 書きかけの発言があっても、選択すればコメント欄を出す
+  // 書きかけの発言があっても、選択して m を押せばコメント欄を出す
   state.box = '書きかけ'
   await clock.advance(300)
   state.selection = 'コピーした行'
   await clock.advance(300)
+  await pressM($, state.box)
   expect(await ui.find({ key: 'comment' })).toBeDefined()
+  expect(state.box).toBe('書きかけ')
 
   // 入力欄に打ち続けたら、コピー用の選択とみなして消す
   state.box = '書きかけの続き'
@@ -300,4 +324,36 @@ test('/an を打ちかけている途中では、選択を消さない', async (
   }
   await $.command.run(an('根拠は？'))
   expect(state.toasts).toEqual(['注釈 1 件目を追加した'])
+})
+
+test('選択していないときの m では、コメント欄を出さない', async ($, on) => {
+  const { clock, state } = setup(on)
+  on('ui.render', ($, e) => $.ui.resolve(e).Box({}))
+  await $.session.start(start)
+  const ui = await $.ui.mount(BAND)
+
+  await pressM($, '')
+  expect(state.box).toBe('')
+  // 後から選択しても、m を押すまでは出さない
+  state.selection = '選択した行'
+  await clock.advance(300)
+  expect(await ui.find({ key: 'comment' })).toBeUndefined()
+  await ui.unmount()
+})
+
+test('コメント欄を出した後に選択し直したら、コメント欄を消す', async ($, on) => {
+  const { clock, state } = setup(on)
+  on('ui.render', ($, e) => $.ui.resolve(e).Box({}))
+  await $.session.start(start)
+  const ui = await $.ui.mount(BAND)
+
+  state.selection = '一行目'
+  await clock.advance(300)
+  await pressM($, '')
+  expect(await ui.find({ key: 'comment' })).toBeDefined()
+
+  state.selection = '二行目'
+  await clock.advance(300)
+  expect(await ui.find({ key: 'comment' })).toBeUndefined()
+  await ui.unmount()
 })

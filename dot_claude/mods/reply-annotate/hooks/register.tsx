@@ -5,8 +5,8 @@
 //   /an clear      : 全件を消す
 //   /an            : ペインを開く
 //   選択なしで Enter : 貯めた注釈を発言に添えて送る
-// 選択中は入力欄の上の帯にコメント欄を出す。herdr の ctrl+t → m（ctrl+x tab を送る）で帯へ移り、
-// Enter で 1 件貯める。プロンプトを送らないので、会話ログは最下部へ飛ばない
+// 選択中に herdr の ctrl+t → m を押すと、入力欄の上の帯にコメント欄を出す。m は目印の文字を送り、
+// 続けて ctrl+x tab で帯へ移る。Enter で 1 件貯める。プロンプトを送らないので、会話ログは最下部へ飛ばない
 import { atom, read, update } from 'claude-code'
 import type { EngineInterface, Register } from 'claude-code'
 
@@ -16,6 +16,8 @@ const PANE = 'reply-annotate'
 const COMMAND = 'an'
 // 入力欄が /an を書きかけているか
 const COMPOSING = new RegExp(`^/${COMMAND}(\\s|$)`)
+// herdr の m が送る目印の文字（私用領域）。入力欄には入れずに捨てる
+const MARK = '\uE000'
 // 選択の有無を見に行く間隔
 const POLL_MS = 300
 // ペインの幅。端末幅に対する割合と、読める下限の桁数
@@ -36,6 +38,8 @@ const editing = atom({ plugin: 'reply-annotate', key: 'editing' } as const, null
 const composing = atom({ plugin: 'reply-annotate', key: 'composing' } as const, false)
 // 前回見た入力欄の文字。選択後に変わったら、コピー用の選択とみなして帯を消す
 const draft = atom({ plugin: 'reply-annotate', key: 'draft' } as const, '')
+// m で帯のコメント欄を出しているか。選択しただけでは出さない
+const writing = atom({ plugin: 'reply-annotate', key: 'writing' } as const, false)
 
 // 先頭に見出しを置き、「番号: 引用」の後に空行を挟んでコメントを書く。引用の 2 行目以降は字下げする
 const format = (list: readonly Annotation[]) =>
@@ -76,6 +80,7 @@ const add = async ($: EngineInterface, comment: string, terminalColumns: number)
   await update($, annotations, list => [...list, { quote, comment }])
   await update($, used, () => quote)
   await update($, selected, () => null)
+  await update($, writing, () => false)
   await open($, terminalColumns)
   const count = (await read($, annotations)).length
   $.ui.toast(`注釈 ${count} 件目を追加した`)
@@ -114,6 +119,7 @@ export const register: Register = on => {
       const fresh = text !== null && text !== (await read($, used)) ? text : null
       if (fresh !== (await read($, selected))) {
         await update($, selected, () => fresh)
+        await update($, writing, () => false)
       }
       const typed = (await $.prompt.read()).text
       const isComposing = COMPOSING.test(typed)
@@ -128,6 +134,7 @@ export const register: Register = on => {
         if (quote !== null && !typed.startsWith('/')) {
           await update($, used, () => quote)
           await update($, selected, () => null)
+          await update($, writing, () => false)
         }
       }
       if ((await read($, editing)) !== null && typed === '') {
@@ -200,6 +207,21 @@ export const register: Register = on => {
     return next({ ...e, text: `${e.text}\n\n${format(list)}` })
   })
 
+  // m の目印を拾ったら、帯にコメント欄を出す。目印は入力欄に入れない
+  on('prompt.edit', async ($, e, next) => {
+    if (!e.inputText.includes(MARK)) {
+      return next(e)
+    }
+    if ((await read($, selected)) !== null) {
+      await update($, writing, () => true)
+    }
+    const inputText = e.inputText.split(MARK).join('')
+    if (inputText === '' && e.start === e.end) {
+      return { text: e.text, cursor: e.cursor }
+    }
+    return next({ ...e, inputText })
+  })
+
   on('ui.render', { component: 'AbovePrompt' }, async ($, e, next) => {
     if (e.props.hasSurvey) {
       return next(e)
@@ -224,12 +246,12 @@ export const register: Register = on => {
         </Text>
       )
     }
-    // 送信せずに貯めるコメント欄。帯へ移ったらすぐ打てるよう autoFocus にする
-    if (quote !== null) {
+    // 送信せずに貯めるコメント欄。m で出し、帯へ移ったらすぐ打てるよう autoFocus にする
+    if (quote !== null && (await read($, writing))) {
       return (
         <Box flexDirection="column">
           <Text color="yellow" wrap="truncate-end">
-            📝 「{firstLine(quote)}」 → ctrl+t → m でコメントを書き、Enter で注釈に追加
+            📝 「{firstLine(quote)}」 にコメントを書き、Enter で注釈に追加
           </Text>
           <Input
             key="comment"
