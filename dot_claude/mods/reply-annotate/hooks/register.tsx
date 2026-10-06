@@ -5,7 +5,7 @@
 //   /an clear      : 全件を消す
 //   /an            : ペインを開く
 //   選択なしで Enter : 貯めた注釈を発言に添えて送る
-// 選択中は入力欄の上の帯にコメント欄を出す。ctrl+x tab（herdr の prefix+m）で帯へ移り、
+// 選択中は入力欄の上の帯にコメント欄を出す。herdr の ctrl+t → m（ctrl+x tab を送る）で帯へ移り、
 // Enter で 1 件貯める。プロンプトを送らないので、会話ログは最下部へ飛ばない
 import { atom, read, update } from 'claude-code'
 import type { EngineInterface, Register } from 'claude-code'
@@ -217,7 +217,7 @@ export const register: Register = on => {
       return (
         <Box flexDirection="column">
           <Text color="yellow" wrap="truncate-end">
-            📝 「{firstLine(quote)}」 → ctrl+x tab でコメント、Enter で注釈に追加
+            📝 「{firstLine(quote)}」 → コメントを書いて Enter で注釈に追加
           </Text>
           <Input
             key="comment"
