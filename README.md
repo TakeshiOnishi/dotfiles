@@ -5,7 +5,7 @@
 ## QuickStart
 
 ```
-brew install chezmoi age
+brew install chezmoi age mise
 ```
 
 age 秘密鍵を `~/.config/chezmoi/key.txt` へ配置する。
@@ -18,6 +18,7 @@ chmod 600 ~/.config/chezmoi/key.txt
 git clone git@github.com:TakeshiOnishi/dotfiles.git ~/dotfiles
 chezmoi init --source ~/dotfiles
 chezmoi apply
+mise install
 ```
 
 `init` 時にマシン種別（`personal` / `work`）を尋ねられる。
