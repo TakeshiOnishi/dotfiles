@@ -18,10 +18,16 @@ chmod 600 ~/.config/chezmoi/key.txt
 git clone git@github.com:TakeshiOnishi/dotfiles.git ~/dotfiles
 chezmoi init --source ~/dotfiles
 chezmoi apply
-mise install
 ```
 
 `init` 時にマシン種別（`personal` / `work`）を尋ねられる。
+
+言語のバージョンは、マシンごとに mise で入れる。
+バージョンは `~/.config/mise/config.toml` に書かれ、dotfiles では管理しない。
+
+```
+mise use -g node@22
+```
 
 git のユーザー名とメールアドレスは、`~/.gitconfig.local` に手で書く。
 
