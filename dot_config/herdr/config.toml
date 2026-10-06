@@ -91,12 +91,13 @@ navigate_pane_up = "ctrl+k"
 navigate_pane_down = "ctrl+j"
 
 # 選択範囲への注釈（Claude Code の reply-annotate mod）
-# m: ctrl+x tab で入力欄の上の帯へ移る。コメントを書いて Enter で貯める
+# m: 目印の文字（U+E000）を送って帯にコメント欄を出させ、ctrl+x tab で帯へ移る
+#    帯の描画を待ってから移る。コメントを書いて Enter で貯める
 #    プロンプトを送らないので、会話ログは最下部へ飛ばない
 [[keys.command]]
 key = "prefix+m"
 type = "shell"
-command = "export PATH=\"/opt/homebrew/bin:$PATH\"; herdr pane send-keys \"$(herdr pane current | jq -r 'first(.. | .pane_id? | strings)')\" ctrl+x tab"
+command = "export PATH=\"/opt/homebrew/bin:$PATH\"; pane=\"$(herdr pane current | jq -r 'first(.. | .pane_id? | strings)')\"; herdr pane send-text \"$pane\" \"$(printf '\\356\\200\\200')\"; sleep 0.3; herdr pane send-keys \"$pane\" ctrl+x tab"
 description = "annotate the selection"
 
 # M: 貯めた注釈を入力欄へ入れる
