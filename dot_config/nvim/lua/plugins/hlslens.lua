@@ -2,7 +2,7 @@ return {
   "kevinhwang91/nvim-hlslens",
   event = "BufRead",
   config = function()
-    opts = {
+    local opts = {
       override_lens = function(render, posList, nearest, idx, relIdx)
         local _ = relIdx
         local lnum, col = unpack(posList[idx])

@@ -2,13 +2,11 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
 -- 基本設定
-vim.opt.compatible = false
 vim.opt.number = true
 vim.opt.autoindent = true
 vim.opt.mouse = "a"
 vim.opt.swapfile = false
 vim.opt.clipboard = "unnamed"
-vim.opt.encoding = "utf-8"
 vim.opt.fileencodings = { "utf-8", "ucs-bom", "iso-2022-jp-3", "iso-2022-jp", "eucjp-ms", "euc-jisx0213", "euc-jp", "sjis", "cp932" }
 vim.opt.backup = false
 vim.opt.undofile = false
