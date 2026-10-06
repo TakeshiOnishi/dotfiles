@@ -195,30 +195,31 @@ const BAND = {
   plugin: 'reply-annotate',
   surface: 'terminal',
   component: 'AbovePrompt',
-  props: { hasSurvey: false },
+  props: { hasSurvey: false, bodyColumns: 115 },
 } as const
 
-test('選択中の帯は、入力欄が /an で始まるときだけ出す', async ($, on) => {
+test('/an の案内は、入力欄が /an で始まるときだけ出す', async ($, on) => {
   const { clock, state } = setup(on)
   // 帯に何も出さないときは、エンジンの描画（ここでは空）に任せる
   on('ui.render', ($, e) => $.ui.resolve(e).Box({}))
   await $.session.start(start)
   const ui = await $.ui.mount(BAND)
 
-  // 選択しただけでは出さない
+  // 選択しただけでは、/an の案内ではなくコメント欄を出す
   state.selection = '選択した行'
   await clock.advance(300)
-  expect(await ui.find({ text: /選択した行/ })).toBeUndefined()
+  expect(await ui.find({ text: /\/an コメント/ })).toBeUndefined()
+  expect(await ui.find({ key: 'comment' })).toBeDefined()
 
-  // /an を書き始めたら出す
+  // /an を書き始めたら案内を出す
   state.box = '/an '
   await clock.advance(300)
-  expect(await ui.find({ text: /選択した行/ })).toBeDefined()
+  expect(await ui.find({ text: /\/an コメント/ })).toBeDefined()
 
   // /analysis のような別のコマンドでは出さない
   state.box = '/analysis'
   await clock.advance(300)
-  expect(await ui.find({ text: /選択した行/ })).toBeUndefined()
+  expect(await ui.find({ text: /\/an コメント/ })).toBeUndefined()
   await ui.unmount()
 })
 
@@ -230,4 +231,35 @@ test('複数行の引用は、2 行目以降を字下げする', async ($, on) =
   await annotate($, ctx, '一行目\n二行目', 'A')
   await $.command.run(an('paste'))
   expect(state.box).toBe('引用して指摘・質問\n\n1: 一行目\n   二行目\n\nA')
+})
+
+test('選択中は帯のコメント欄で、送信せずに注釈を貯める', async ($, on) => {
+  const { clock, state } = setup(on)
+  on('ui.render', ($, e) => $.ui.resolve(e).Box({}))
+  await $.session.start(start)
+  const ui = await $.ui.mount(BAND)
+
+  // 選択していなければコメント欄を出さない
+  expect(await ui.find({ key: 'comment' })).toBeUndefined()
+
+  state.selection = '選択した行'
+  await clock.advance(300)
+  expect(await ui.find({ key: 'comment' })).toBeDefined()
+
+  // 空のコメントは貯めない
+  await ui.input({ key: 'comment', text: '  ' })
+  expect(state.toasts).toEqual([])
+
+  await ui.input({ key: 'comment', text: '根拠は？' })
+  expect(state.toasts).toEqual(['注釈 1 件目を追加した'])
+  // 帯のコメント欄では発言を送らない
+  expect(state.sent).toEqual([])
+  expect(state.isOpen).toBe(true)
+  // 貯めたらコメント欄を閉じる
+  expect(await ui.find({ key: 'comment' })).toBeUndefined()
+
+  state.selection = undefined
+  await $.prompt.submit(enter('普通の発言'))
+  expect(state.sent).toEqual(['普通の発言\n\n引用して指摘・質問\n\n1: 選択した行\n\n根拠は？'])
+  await ui.unmount()
 })
