@@ -19,5 +19,6 @@ require("lazy").setup({
   spec = {
     { import = "plugins" },
   },
-  checker = { enabled = true },
+  -- 更新は必要なときに :Lazy update で行う
+  checker = { enabled = false },
 })

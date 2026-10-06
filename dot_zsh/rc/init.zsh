@@ -14,3 +14,6 @@ for name in path basic prompt alias env; do
   # chezmoi で管理しない、そのマシン限定の設定
   load_if_exists "${script_dir}/${name}_local.zsh"
 done
+
+# PATH の重複を取り除く。typeset -U は配列への代入でしか効かないため、すべて読み込んだ後に代入し直す
+path=($path)

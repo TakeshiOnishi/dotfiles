@@ -1,7 +1,6 @@
 # Dotfiles
 
-Place the configuration file for development.
-Managed by [chezmoi](https://www.chezmoi.io/).
+[chezmoi](https://www.chezmoi.io/) で管理している。
 
 ## QuickStart
 
@@ -23,6 +22,14 @@ chezmoi apply
 
 `init` 時にマシン種別（`personal` / `work`）を尋ねられる。
 
+git のユーザー名とメールアドレスは、`~/.gitconfig.local` に手で書く。
+
+```
+[user]
+  name = <名前>
+  email = <メールアドレス>
+```
+
 ## apply 前のバックアップ
 
 `chezmoi apply` の直前に、上書き・削除されるファイルを退避する。
@@ -31,7 +38,6 @@ chezmoi apply
 - 仕組み
   - `.chezmoi.toml.tmpl` の `[hooks.apply.pre]` から `.chezmoi-backup.sh` を呼ぶ
   - 設定は `chezmoi init` で作られるため、初めて使うマシンの最初の apply から効く
-  - 既存のマシンでは、`chezmoi init` を一度実行して設定を作り直す
 - 退避先
   - `~/.local/state/chezmoi-backups/<日時>/<ホームからの相対パス>`
   - 各世代の `status.txt` に、退避したファイルの `chezmoi status` の行を残す
@@ -55,6 +61,9 @@ cp -p ~/.local/state/chezmoi-backups/<日時>/.zshrc ~/.zshrc
 | `dot_config/` | `~/.config/` |
 | `dot_claude/` | `~/.claude/` |
 | `.chezmoi*` | 配置しない。chezmoi 自身の設定 |
+
+`exact_` の付いたディレクトリは、ソースにないファイルを apply のときに消す。
+ホーム側に直接ファイルを置かない（例: `~/.config/nvim/lua/plugins`）。
 
 ## 管理しないもの
 
@@ -95,28 +104,3 @@ chezmoi merge <target>         # ホーム側の変更をソースへ取り込�
 
 `chezmoi re-add` はテンプレートに効かない。
 アプリが書き換えた設定を取り込むときは `chezmoi merge` を使う。
-
-- <https://www.chezmoi.io/>
-- <https://github.com/twpayne/chezmoi>
-
-## Additional Setup
-
-### Setup Git Config
-
-Place the following files `~/.gitconfig.local`. Write the following contents.
-
-```
-[user]
-  name = MY_NAME
-  email = MY_EMAIL_ADDRESS
-```
-
-### Setup diff-highlight
-
-- macOS (Using brew)
-  - x86
-    - `ln -s /usr/local/share/git-core/contrib/diff-highlight/diff-highlight /usr/local/bin`
-  - arm(M1)
-    - `ln -s /opt/homebrew/share/git-core/contrib/diff-highlight/diff-highlight /usr/local/bin`
-- RPM based Linux
-  - `ln -s /usr/share/git-core/contrib/diff-highlight /usr/local/bin`

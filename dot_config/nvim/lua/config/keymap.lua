@@ -11,11 +11,18 @@ vim.keymap.set("n", "<leader>ew", ":e ++ff=dos<CR>", { desc = "Set Fileformat to
 vim.keymap.set("n", "<leader>ex", ":e ++ff=unix<CR>", { desc = "Set Fileformat to UNIX", silent = true })
 
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "qf", "lspinfo", "help" },
+  pattern = { "qf", "help" },
   callback = function()
-    vim.keymap.set("n", "q", "<cmd>cclose<CR>|<cmd>lclose<CR>", { buffer = true, silent = true })
-    vim.keymap.set("n", "<Esc>", "<cmd>cclose<CR>|<cmd>lclose<CR>", { buffer = true, silent = true })
-    vim.keymap.set("n", "<CR>", "<CR><cmd>cclose<CR>|<cmd>lclose<CR>", { buffer = true, silent = true }) 
+    vim.keymap.set("n", "q", "<cmd>close<CR>", { buffer = true, silent = true })
+    vim.keymap.set("n", "<Esc>", "<cmd>close<CR>", { buffer = true, silent = true })
+  end,
+})
+
+-- quickfix では、選んだ場所へ飛んだ後に一覧を閉じる
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "qf",
+  callback = function()
+    vim.keymap.set("n", "<CR>", "<CR><cmd>cclose<CR>|<cmd>lclose<CR>", { buffer = true, silent = true })
   end,
 })
 

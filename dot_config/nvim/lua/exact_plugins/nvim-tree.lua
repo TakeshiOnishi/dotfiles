@@ -57,7 +57,7 @@ return {
         vim.keymap.set("n", "H", "Hzz", opts("Move to Top of View"))
       end
 
-      opts = {
+      local opts = {
         on_attach = on_attach,
         view = {
           width = 45,

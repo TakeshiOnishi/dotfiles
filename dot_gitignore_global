@@ -2,8 +2,8 @@
 *.swp
 *.swo
 .tool-versions
-tags
 node_modules/
 .node-version
 
 **/.claude/.cc-writes/
+**/.claude/settings.local.json

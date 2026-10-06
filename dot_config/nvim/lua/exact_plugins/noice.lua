@@ -28,12 +28,6 @@ return {
           enabled = false,
         }
       },
-      routes = {
-        {
-          filter = { find = "# Plugin Updates" },
-          opts = { skip = true },
-        },
-      },
     },
     dependencies = {
       "MunifTanjim/nui.nvim",
