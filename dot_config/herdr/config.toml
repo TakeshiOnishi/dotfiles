@@ -90,5 +90,20 @@ navigate_workspace_down = "j"
 navigate_pane_up = "ctrl+k"
 navigate_pane_down = "ctrl+j"
 
+# 選択範囲への注釈（Claude Code の reply-annotate mod の /an を打ち込む）
+# m: 入力欄に「/an 」を入れる。続けてコメントを書いて Enter で貯める
+[[keys.command]]
+key = "prefix+m"
+type = "shell"
+command = "export PATH=\"/opt/homebrew/bin:$PATH\"; herdr pane send-text \"$(herdr pane current | jq -r 'first(.. | .pane_id? | strings)')\" '/an '"
+description = "annotate the selection"
+
+# M: 貯めた注釈を入力欄へ入れる
+[[keys.command]]
+key = "prefix+shift+m"
+type = "shell"
+command = "export PATH=\"/opt/homebrew/bin:$PATH\"; herdr pane run \"$(herdr pane current | jq -r 'first(.. | .pane_id? | strings)')\" '/an paste'"
+description = "paste annotations into the prompt"
+
 [experimental]
 switch_ascii_input_source_in_prefix = true

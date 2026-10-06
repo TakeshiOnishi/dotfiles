@@ -2,28 +2,42 @@ import { expect, mock, test } from 'claude-code/testing'
 import type { On } from 'claude-code'
 
 const enter = (text: string) => ({ text, wait: false, origin: { kind: 'composer' } as const })
+const an = (args: string) => ({ command: 'an', args })
 
-// 選択範囲と送られた発言を差し替えて記録する
+// 選択範囲・送られた発言・入力欄・toast を差し替えて記録する
 const setup = (on: On) => {
   const clock = mock.clock(on)
   const state = {
     selection: undefined as string | undefined,
     sent: [] as string[],
+    box: '',
+    toasts: [] as string[],
     isOpen: false,
+    columns: undefined as number | undefined,
   }
   on('ui.selection', () => ({
     value: state.selection === undefined ? undefined : { text: state.selection },
   }))
   on('session.start', (_$, e) => ({ cwd: e.cwd }))
   on('command.register', (_$, e) => ({ value: { command: e.name } }))
-  on('ui.open', () => {
+  on('ui.open', (_$, e) => {
     state.isOpen = true
+    state.columns = e.columns
     return { value: { isPlaced: true } as const }
   })
   on('ui.close', () => {
     state.isOpen = false
     return { value: undefined }
   })
+  on('ui.toast', (_$, e) => {
+    state.toasts.push(e.text)
+    return { value: undefined }
+  })
+  on('prompt.fill', (_$, e) => {
+    state.box = e.text
+    return { isFilled: true, text: e.text }
+  })
+  on('prompt.read', () => ({ value: { text: state.box, cursor: state.box.length } }))
   on('prompt.submit', (_$, e) => {
     state.sent.push(e.text)
     return { text: e.text }
@@ -31,30 +45,91 @@ const setup = (on: On) => {
   return { clock, state }
 }
 
-test('選択中の Enter は注釈になり、次の発言に添えて送られる', async ($, on) => {
-  const { clock, state } = setup(on)
-  await $.session.start({ cwd: '/', surface: 'terminal', isInteractive: true })
-  // 注釈がないうちはペインを開かない
-  expect(state.isOpen).toBe(false)
+const start = { cwd: '/', surface: 'terminal', isInteractive: true } as const
 
-  state.selection = '選択した行'
+// 選択してから /an を実行する
+const annotate = async (
+  $: Parameters<Parameters<typeof test>[1]>[0],
+  { clock, state }: ReturnType<typeof setup>,
+  quote: string,
+  comment: string,
+) => {
+  state.selection = quote
   await clock.advance(300)
-  const first = await $.prompt.submit(enter('根拠は？'))
-  expect(first.drop).toBe('注釈 1 件目を追加した')
+  await $.command.run(an(comment))
+}
+
+test('選択中でも Enter は横取りせず、そのまま送られる', async ($, on) => {
+  const { clock, state } = setup(on)
+  await $.session.start(start)
+
+  state.selection = 'コピーしたい行'
+  await clock.advance(300)
+  await $.prompt.submit(enter('普通の発言'))
+  expect(state.sent).toEqual(['普通の発言'])
+  expect(state.isOpen).toBe(false)
+})
+
+test('/an で注釈を貯め、次の発言に添えて送る', async ($, on) => {
+  const ctx = setup(on)
+  const { clock, state } = ctx
+  await $.session.start(start)
+
+  await annotate($, ctx, '選択した行', '根拠は？')
+  expect(state.toasts).toEqual(['注釈 1 件目を追加した'])
   expect(state.sent).toEqual([])
+  // 1 件でも貯まったらペインを開く。幅は端末幅の 15% で、下限は 24 桁
   expect(state.isOpen).toBe(true)
+  expect(state.columns).toBeGreaterThanOrEqual(24)
 
   // 同じ選択が残っていても、2 件目にはしない
   await clock.advance(300)
+  await $.command.run(an('もう一度'))
+  expect(state.toasts.at(-1)).toBe('選択範囲がない。注釈する箇所を選択してから実行する')
+
   await $.prompt.submit(enter('普通の発言'))
-  expect(state.sent).toEqual(['普通の発言\n\n## 1\n\n> 選択した行\n\n根拠は？'])
+  expect(state.sent).toEqual(['普通の発言\n\n引用して指摘・質問\n\n1: 選択した行\n\n根拠は？'])
   // 送ったらペインを閉じる
   expect(state.isOpen).toBe(false)
+})
 
-  state.selection = '別の行'
-  await clock.advance(300)
-  const second = await $.prompt.submit(enter('5 回にして'))
-  expect(second.drop).toBe('注釈 1 件目を追加した')
+test('/an paste で注釈を入力欄へ入れ、貯めた分を空にする', async ($, on) => {
+  const ctx = setup(on)
+  const { state } = ctx
+  await $.session.start(start)
+
+  await annotate($, ctx, '一行目', 'A')
+  await annotate($, ctx, '二行目', 'B')
+  await $.command.run(an('paste'))
+  expect(state.box).toBe('引用して指摘・質問\n\n1: 一行目\n\nA\n\n2: 二行目\n\nB')
+  expect(state.isOpen).toBe(false)
+
+  // 貼り付けた後の発言には、もう添えない
+  state.selection = undefined
+  await $.prompt.submit(enter('送る'))
+  expect(state.sent).toEqual(['送る'])
+
+  await $.command.run(an('paste'))
+  expect(state.toasts.at(-1)).toBe('貯めた注釈がない')
+})
+
+test('/an undo と /an clear で注釈を消す', async ($, on) => {
+  const ctx = setup(on)
+  const { state } = ctx
+  await $.session.start(start)
+
+  await annotate($, ctx, '一行目', 'A')
+  await annotate($, ctx, '二行目', 'B')
+  await $.command.run(an('undo'))
+  await $.command.run(an('paste'))
+  expect(state.box).toBe('引用して指摘・質問\n\n1: 一行目\n\nA')
+
+  await annotate($, ctx, '三行目', 'C')
+  await $.command.run(an('clear'))
+  expect(state.isOpen).toBe(false)
+  state.selection = undefined
+  await $.prompt.submit(enter('送る'))
+  expect(state.sent).toEqual(['送る'])
 })
 
 const PANE = {
@@ -73,25 +148,18 @@ const PANE = {
 } as const
 
 test('ペインのボタンで 1 件を削除・編集できる', async ($, on) => {
-  const { clock, state } = setup(on)
-  const box = { text: '' }
-  on('prompt.fill', (_$, e) => {
-    box.text = e.text
-    return { isFilled: true, text: e.text }
-  })
-  on('prompt.read', () => ({ value: { text: box.text, cursor: box.text.length } }))
-  await $.session.start({ cwd: '/', surface: 'terminal', isInteractive: true })
+  const ctx = setup(on)
+  const { clock, state } = ctx
+  await $.session.start(start)
 
   for (const [quote, comment] of [['一行目', 'A'], ['二行目', 'B'], ['三行目', 'C']]) {
-    state.selection = quote
-    await clock.advance(300)
-    await $.prompt.submit(enter(comment ?? ''))
+    await annotate($, ctx, quote ?? '', comment ?? '')
   }
 
   const ui = await $.ui.mount(PANE)
   await ui.press({ key: 'remove-0' })
   await ui.press({ key: 'edit-0' })
-  expect(box.text).toBe('B')
+  expect(state.box).toBe('B')
 
   const updated = await $.prompt.submit(enter('B を直した'))
   expect(updated.drop).toBe('注釈 1 件目を更新した')
@@ -100,40 +168,66 @@ test('ペインのボタンで 1 件を削除・編集できる', async ($, on) 
   await clock.advance(300)
   await $.prompt.submit(enter('送る'))
   expect(state.sent).toEqual([
-    '送る\n\n## 1\n\n> 二行目\n\nB を直した\n\n## 2\n\n> 三行目\n\nC',
+    '送る\n\n引用して指摘・質問\n\n1: 二行目\n\nB を直した\n\n2: 三行目\n\nC',
   ])
   await ui.unmount()
 })
 
 test('編集中に入力欄を空にすると、編集を取り消す', async ($, on) => {
-  const { clock, state } = setup(on)
-  const box = { text: '' }
-  on('prompt.fill', (_$, e) => {
-    box.text = e.text
-    return { isFilled: true, text: e.text }
-  })
-  on('prompt.read', () => ({ value: { text: box.text, cursor: box.text.length } }))
-  await $.session.start({ cwd: '/', surface: 'terminal', isInteractive: true })
+  const ctx = setup(on)
+  const { clock, state } = ctx
+  await $.session.start(start)
 
-  state.selection = '一行目'
-  await clock.advance(300)
-  await $.prompt.submit(enter('A'))
+  await annotate($, ctx, '一行目', 'A')
 
   const ui = await $.ui.mount(PANE)
   await ui.press({ key: 'edit-0' })
-  box.text = ''
+  state.box = ''
   await clock.advance(300)
 
   state.selection = undefined
   await $.prompt.submit(enter('送る'))
-  expect(state.sent).toEqual(['送る\n\n## 1\n\n> 一行目\n\nA'])
+  expect(state.sent).toEqual(['送る\n\n引用して指摘・質問\n\n1: 一行目\n\nA'])
   await ui.unmount()
 })
 
-test('注釈がなく選択もない発言は、そのまま送られる', async ($, on) => {
-  const { state } = setup(on)
-  await $.session.start({ cwd: '/', surface: 'terminal', isInteractive: true })
+const BAND = {
+  plugin: 'reply-annotate',
+  surface: 'terminal',
+  component: 'AbovePrompt',
+  props: { hasSurvey: false },
+} as const
 
-  await $.prompt.submit(enter('こんにちは'))
-  expect(state.sent).toEqual(['こんにちは'])
+test('選択中の帯は、入力欄が /an で始まるときだけ出す', async ($, on) => {
+  const { clock, state } = setup(on)
+  // 帯に何も出さないときは、エンジンの描画（ここでは空）に任せる
+  on('ui.render', ($, e) => $.ui.resolve(e).Box({}))
+  await $.session.start(start)
+  const ui = await $.ui.mount(BAND)
+
+  // 選択しただけでは出さない
+  state.selection = '選択した行'
+  await clock.advance(300)
+  expect(await ui.find({ text: /選択した行/ })).toBeUndefined()
+
+  // /an を書き始めたら出す
+  state.box = '/an '
+  await clock.advance(300)
+  expect(await ui.find({ text: /選択した行/ })).toBeDefined()
+
+  // /analysis のような別のコマンドでは出さない
+  state.box = '/analysis'
+  await clock.advance(300)
+  expect(await ui.find({ text: /選択した行/ })).toBeUndefined()
+  await ui.unmount()
+})
+
+test('複数行の引用は、2 行目以降を字下げする', async ($, on) => {
+  const ctx = setup(on)
+  const { state } = ctx
+  await $.session.start(start)
+
+  await annotate($, ctx, '一行目\n二行目', 'A')
+  await $.command.run(an('paste'))
+  expect(state.box).toBe('引用して指摘・質問\n\n1: 一行目\n   二行目\n\nA')
 })

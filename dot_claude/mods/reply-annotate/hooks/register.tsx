@@ -1,15 +1,26 @@
 // 選択範囲に注釈を貯めて、次の発言にまとめて添える
-//   選択中に Enter : 選択範囲とコメントを 1 件貯める（Claude には送らない）
+//   /an <コメント> : 選択範囲とコメントを 1 件貯める（Claude には送らない）
+//   /an paste      : 貯めた注釈を入力欄へ入れて、貯めた分を空にする
+//   /an undo       : 最後の 1 件を消す
+//   /an clear      : 全件を消す
+//   /an            : ペインを開く
 //   選択なしで Enter : 貯めた注釈を発言に添えて送る
-//   /reply-annotate [undo|clear] : ペインを開く・最後の 1 件を消す・全件を消す
 import { atom, read, update } from 'claude-code'
 import type { EngineInterface, Register } from 'claude-code'
 
 import type { Annotation } from '../types'
 
 const PANE = 'reply-annotate'
+const COMMAND = 'an'
+// 入力欄が /an を書きかけているか
+const COMPOSING = new RegExp(`^/${COMMAND}(\\s|$)`)
 // 選択の有無を見に行く間隔
 const POLL_MS = 300
+// ペインの幅。端末幅に対する割合と、読める下限の桁数
+const PANE_RATIO = 0.15
+const PANE_MIN_COLUMNS = 24
+// 端末幅が分からないとき（プラグインからの実行など）に使う幅
+const FALLBACK_COLUMNS = 80
 
 const annotations = atom({ plugin: 'reply-annotate', key: 'annotations' } as const, [])
 const selected = atom({ plugin: 'reply-annotate', key: 'selected' } as const, null)
@@ -17,16 +28,27 @@ const selected = atom({ plugin: 'reply-annotate', key: 'selected' } as const, nu
 const used = atom({ plugin: 'reply-annotate', key: 'used' } as const, null)
 // 編集中の注釈の番号（0 始まり）
 const editing = atom({ plugin: 'reply-annotate', key: 'editing' } as const, null)
+// 入力欄が /an で始まっているか。選択中の帯は、このときだけ出す
+const composing = atom({ plugin: 'reply-annotate', key: 'composing' } as const, false)
 
+// 先頭に見出しを置き、「番号: 引用」の後に空行を挟んでコメントを書く。引用の 2 行目以降は字下げする
 const format = (list: readonly Annotation[]) =>
-  list
-    .map((annotation, i) => {
-      const quote = annotation.quote.replace(/^/gm, '> ')
-      return `## ${i + 1}\n\n${quote}\n\n${annotation.comment}`
-    })
-    .join('\n\n')
+  [
+    '引用して指摘・質問',
+    ...list.map((annotation, i) => {
+      const quote = annotation.quote.replace(/\n/g, '\n   ')
+      return `${i + 1}: ${quote}\n\n${annotation.comment}`
+    }),
+  ].join('\n\n')
 
-const open = ($: EngineInterface) => $.ui.open({ id: PANE, title: 'reply-annotate' })
+const firstLine = (text: string) => text.split('\n')[0] ?? ''
+
+const open = ($: EngineInterface, terminalColumns: number) =>
+  $.ui.open({
+    id: PANE,
+    title: 'reply-annotate',
+    columns: Math.max(PANE_MIN_COLUMNS, Math.round(terminalColumns * PANE_RATIO)),
+  })
 
 // ペインを閉じる。失敗しても、注釈の送信や消去は止めない
 const close = ($: EngineInterface) => $.ui.close({ id: PANE }).catch(() => undefined)
@@ -60,19 +82,24 @@ const edit = async ($: EngineInterface, index: number) => {
 export const register: Register = on => {
   on('session.start', async ($, e, next) => {
     await $.command.register({
-      name: 'reply-annotate',
-      description: '注釈のペインを開く。undo で最後の 1 件、clear で全件を消す',
-      argumentHint: '[undo|clear]',
+      name: COMMAND,
+      description: '選択範囲に注釈を貯める。paste で入力欄へ入れる、undo で最後の 1 件、clear で全件を消す',
+      argumentHint: '<コメント>|paste|undo|clear',
     })
 
-    // 選択が変わったら帯を描き直す。編集中に入力欄が空になったら、編集を取り消す
+    // 選択や入力欄が変わったら帯を描き直す。編集中に入力欄が空になったら、編集を取り消す
     $.clock.every(POLL_MS, async () => {
       const text = (await $.ui.selection())?.text.trim() || null
       const fresh = text !== null && text !== (await read($, used)) ? text : null
       if (fresh !== (await read($, selected))) {
         await update($, selected, () => fresh)
       }
-      if ((await read($, editing)) !== null && (await $.prompt.read()).text === '') {
+      const draft = (await $.prompt.read()).text
+      const isComposing = COMPOSING.test(draft)
+      if (isComposing !== (await read($, composing))) {
+        await update($, composing, () => isComposing)
+      }
+      if ((await read($, editing)) !== null && draft === '') {
         await update($, editing, () => null)
       }
     })
@@ -80,21 +107,50 @@ export const register: Register = on => {
     return next(e)
   })
 
-  on('command.run', { command: 'reply-annotate' }, async ($, e) => {
-    switch (e.args.trim()) {
+  // 結果は toast で伝え、command の出力行には何も出さない（Claude に読ませない）
+  on('command.run', { command: COMMAND }, async ($, e) => {
+    const args = e.args.trim()
+    switch (args) {
+      case '':
+        await open($, e.presentation?.columns ?? FALLBACK_COLUMNS)
+        return {}
+      case 'paste': {
+        const list = await read($, annotations)
+        if (list.length === 0) {
+          $.ui.toast('貯めた注釈がない')
+          return {}
+        }
+        await clear($)
+        await $.prompt.fill({ text: format(list), mode: 'insert' })
+        return {}
+      }
       case 'undo':
         await update($, annotations, list => list.slice(0, -1))
+        await update($, editing, () => null)
         if ((await read($, annotations)).length === 0) {
           await close($)
         }
-        return { text: '最後の注釈を消した' }
+        $.ui.toast('最後の注釈を消した')
+        return {}
       case 'clear':
         await clear($)
-        return { text: '注釈を全件消した' }
-      default:
-        await open($)
-        return { text: '注釈のペインを開いた' }
+        $.ui.toast('注釈を全件消した')
+        return {}
     }
+
+    const quote = await read($, selected)
+    if (quote === null) {
+      $.ui.toast('選択範囲がない。注釈する箇所を選択してから実行する')
+      return {}
+    }
+    await update($, annotations, list => [...list, { quote, comment: args }])
+    await update($, used, () => quote)
+    await update($, selected, () => null)
+    await open($, e.presentation?.columns ?? FALLBACK_COLUMNS)
+    const count = (await read($, annotations)).length
+    $.ui.toast(`注釈 ${count} 件目を追加した`)
+
+    return {}
   })
 
   on('prompt.submit', async ($, e, next) => {
@@ -114,21 +170,6 @@ export const register: Register = on => {
       return { drop: `注釈 ${index + 1} 件目を更新した` }
     }
 
-    const quote = await read($, selected)
-    if (quote !== null) {
-      const comment = e.text.trim()
-      if (comment === '') {
-        return next(e)
-      }
-      await update($, annotations, list => [...list, { quote, comment }])
-      await update($, used, () => quote)
-      await update($, selected, () => null)
-      void open($)
-      const count = (await read($, annotations)).length
-
-      return { drop: `注釈 ${count} 件目を追加した` }
-    }
-
     const list = await read($, annotations)
     if (list.length === 0) {
       return next(e)
@@ -144,17 +185,26 @@ export const register: Register = on => {
     }
 
     const { Text } = $.ui.resolve(e)
-    const count = (await read($, annotations)).length
+    const list = await read($, annotations)
     const index = await read($, editing)
 
     if (index !== null) {
-      return <Text color="yellow">📝 {index + 1} 件目を編集中：Enter で更新 ・ ctrl+c で取り消し</Text>
+      return (
+        <Text color="yellow" wrap="truncate-end">
+          📝 {index + 1} 件目「{firstLine(list[index]?.quote ?? '')}」を編集中：Enter で更新 ・ 入力欄を空にすると取り消し
+        </Text>
+      )
     }
-    if ((await read($, selected)) !== null) {
-      return <Text color="yellow">📝 選択中：Enter で注釈に追加 ・ ctrl+c で取り消し</Text>
+    const quote = await read($, selected)
+    if (quote !== null && (await read($, composing))) {
+      return (
+        <Text color="yellow" wrap="truncate-end">
+          📝 「{firstLine(quote)}」 → /an コメント で注釈に追加
+        </Text>
+      )
     }
-    if (count > 0) {
-      return <Text dimColor>📝 注釈 {count} 件：次の発言に添えて送る</Text>
+    if (list.length > 0) {
+      return <Text dimColor>📝 注釈 {list.length} 件：次の発言に添えて送る</Text>
     }
 
     return next(e)
@@ -168,7 +218,7 @@ export const register: Register = on => {
       return (
         <Box flexDirection="column">
           <Text dimColor>注釈はまだない</Text>
-          <Text dimColor>選択して Enter で追加</Text>
+          <Text dimColor>選択して /an コメント で追加</Text>
         </Box>
       )
     }
@@ -178,7 +228,7 @@ export const register: Register = on => {
         {list.map((annotation, i) => (
           <Box key={`annotation-${i}`} flexDirection="column" marginBottom={1}>
             <Text dimColor wrap="truncate-end">
-              {i + 1} &gt; {annotation.quote.split('\n')[0]}
+              {i + 1} &gt; {firstLine(annotation.quote)}
             </Text>
             <Text>  → {annotation.comment}</Text>
             <Box>
