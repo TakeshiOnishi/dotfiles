@@ -8,6 +8,7 @@ declare module 'claude-code' {
       used: string | null
       editing: number | null
       composing: boolean
+      draft: string
     }
   }
 }

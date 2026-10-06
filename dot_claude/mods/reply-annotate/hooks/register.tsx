@@ -5,6 +5,8 @@
 //   /an clear      : 全件を消す
 //   /an            : ペインを開く
 //   選択なしで Enter : 貯めた注釈を発言に添えて送る
+// 選択中は入力欄の上の帯にコメント欄を出す。herdr の ctrl+t → m（ctrl+x tab を送る）で帯へ移り、
+// Enter で 1 件貯める。プロンプトを送らないので、会話ログは最下部へ飛ばない
 import { atom, read, update } from 'claude-code'
 import type { EngineInterface, Register } from 'claude-code'
 
@@ -21,6 +23,8 @@ const PANE_RATIO = 0.15
 const PANE_MIN_COLUMNS = 24
 // 端末幅が分からないとき（プラグインからの実行など）に使う幅
 const FALLBACK_COLUMNS = 80
+// 帯の右端にエンジンが取る桁数（[-] の分）
+const BAND_MARK_COLUMNS = 5
 
 const annotations = atom({ plugin: 'reply-annotate', key: 'annotations' } as const, [])
 const selected = atom({ plugin: 'reply-annotate', key: 'selected' } as const, null)
@@ -30,6 +34,8 @@ const used = atom({ plugin: 'reply-annotate', key: 'used' } as const, null)
 const editing = atom({ plugin: 'reply-annotate', key: 'editing' } as const, null)
 // 入力欄が /an で始まっているか。選択中の帯は、このときだけ出す
 const composing = atom({ plugin: 'reply-annotate', key: 'composing' } as const, false)
+// 前回見た入力欄の文字。選択後に変わったら、コピー用の選択とみなして帯を消す
+const draft = atom({ plugin: 'reply-annotate', key: 'draft' } as const, '')
 
 // 先頭に見出しを置き、「番号: 引用」の後に空行を挟んでコメントを書く。引用の 2 行目以降は字下げする
 const format = (list: readonly Annotation[]) =>
@@ -58,6 +64,21 @@ const clear = async ($: EngineInterface) => {
   await update($, annotations, () => [])
   await update($, editing, () => null)
   await close($)
+}
+
+// 選択範囲とコメントを 1 件貯める。選択がなければ toast で伝える
+const add = async ($: EngineInterface, comment: string, terminalColumns: number) => {
+  const quote = await read($, selected)
+  if (quote === null) {
+    $.ui.toast('選択範囲がない。注釈する箇所を選択してから実行する')
+    return
+  }
+  await update($, annotations, list => [...list, { quote, comment }])
+  await update($, used, () => quote)
+  await update($, selected, () => null)
+  await open($, terminalColumns)
+  const count = (await read($, annotations)).length
+  $.ui.toast(`注釈 ${count} 件目を追加した`)
 }
 
 // 1 件消す。0 件になったらペインを閉じる
@@ -94,12 +115,22 @@ export const register: Register = on => {
       if (fresh !== (await read($, selected))) {
         await update($, selected, () => fresh)
       }
-      const draft = (await $.prompt.read()).text
-      const isComposing = COMPOSING.test(draft)
+      const typed = (await $.prompt.read()).text
+      const isComposing = COMPOSING.test(typed)
       if (isComposing !== (await read($, composing))) {
         await update($, composing, () => isComposing)
       }
-      if ((await read($, editing)) !== null && draft === '') {
+      // 選択したまま入力欄に打ち続けたら、注釈ではなくコピー用の選択だったとみなす。
+      // /an を打ちかけている途中（/ や /a）では消さない
+      if (typed !== (await read($, draft))) {
+        await update($, draft, () => typed)
+        const quote = await read($, selected)
+        if (quote !== null && !typed.startsWith('/')) {
+          await update($, used, () => quote)
+          await update($, selected, () => null)
+        }
+      }
+      if ((await read($, editing)) !== null && typed === '') {
         await update($, editing, () => null)
       }
     })
@@ -138,17 +169,7 @@ export const register: Register = on => {
         return {}
     }
 
-    const quote = await read($, selected)
-    if (quote === null) {
-      $.ui.toast('選択範囲がない。注釈する箇所を選択してから実行する')
-      return {}
-    }
-    await update($, annotations, list => [...list, { quote, comment: args }])
-    await update($, used, () => quote)
-    await update($, selected, () => null)
-    await open($, e.presentation?.columns ?? FALLBACK_COLUMNS)
-    const count = (await read($, annotations)).length
-    $.ui.toast(`注釈 ${count} 件目を追加した`)
+    await add($, args, e.presentation?.columns ?? FALLBACK_COLUMNS)
 
     return {}
   })
@@ -184,7 +205,7 @@ export const register: Register = on => {
       return next(e)
     }
 
-    const { Text } = $.ui.resolve(e)
+    const { Box, Input, Text } = $.ui.resolve(e)
     const list = await read($, annotations)
     const index = await read($, editing)
 
@@ -201,6 +222,30 @@ export const register: Register = on => {
         <Text color="yellow" wrap="truncate-end">
           📝 「{firstLine(quote)}」 → /an コメント で注釈に追加
         </Text>
+      )
+    }
+    // 送信せずに貯めるコメント欄。帯へ移ったらすぐ打てるよう autoFocus にする
+    if (quote !== null) {
+      return (
+        <Box flexDirection="column">
+          <Text color="yellow" wrap="truncate-end">
+            📝 「{firstLine(quote)}」 → ctrl+t → m でコメントを書き、Enter で注釈に追加
+          </Text>
+          <Input
+            key="comment"
+            label="注釈"
+            placeholder="コメント"
+            submitLabel="貯める"
+            autoFocus
+            onSubmit={async value => {
+              const comment = value.trim()
+              if (comment !== '') {
+                // 帯の幅に、エンジンが右端に取る 5 桁を足して端末幅とみなす
+                await add($, comment, e.props.bodyColumns + BAND_MARK_COLUMNS)
+              }
+            }}
+          />
+        </Box>
       )
     }
     if (list.length > 0) {
