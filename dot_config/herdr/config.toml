@@ -108,4 +108,4 @@ command = "export PATH=\"/opt/homebrew/bin:$PATH\"; herdr pane run \"$(herdr pan
 description = "paste annotations into the prompt"
 
 [experimental]
-switch_ascii_input_source_in_prefix = true
+switch_ascii_input_source_in_prefix = false
