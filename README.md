@@ -23,6 +23,30 @@ chezmoi apply
 
 `init` 時にマシン種別（`personal` / `work`）を尋ねられる。
 
+## apply 前のバックアップ
+
+`chezmoi apply` の直前に、上書き・削除されるファイルを退避する。
+手で編集したファイルを、apply で誤って消す事故への備え。
+
+- 仕組み
+  - `.chezmoi.toml.tmpl` の `[hooks.apply.pre]` から `.chezmoi-backup.sh` を呼ぶ
+  - 設定は `chezmoi init` で作られるため、初めて使うマシンの最初の apply から効く
+  - 既存のマシンでは、`chezmoi init` を一度実行して設定を作り直す
+- 退避先
+  - `~/.local/state/chezmoi-backups/<日時>/<ホームからの相対パス>`
+  - 各世代の `status.txt` に、退避したファイルの `chezmoi status` の行を残す
+- 保持
+  - 30 日を過ぎた世代を、次の apply のときに消す
+  - 期限に関係なく、最新 5 世代は残す
+- 退避に失敗したときは、apply を止める
+
+復元するときは、退避先から `cp` で戻す。
+
+```
+ls ~/.local/state/chezmoi-backups/
+cp -p ~/.local/state/chezmoi-backups/<日時>/.zshrc ~/.zshrc
+```
+
 ## 構成
 
 | パス | 配置先 |

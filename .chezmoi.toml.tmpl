@@ -5,6 +5,10 @@ sourceDir = "~/dotfiles"
 
 encryption = "age"
 
+# apply の直前に、上書き・削除されるファイルを ~/.local/state/chezmoi-backups へ退避する
+[hooks.apply.pre]
+    command = {{ joinPath .chezmoi.sourceDir ".chezmoi-backup.sh" | quote }}
+
 [age]
     identity = "~/.config/chezmoi/key.txt"
     recipient = "age1r2dvjaj63cagjqrhftrwdaz8vqf3av3466z6hn29ycglhj5n5f4q42xre3"
