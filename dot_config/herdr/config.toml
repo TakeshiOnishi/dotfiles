@@ -100,11 +100,12 @@ type = "shell"
 command = "export PATH=\"/opt/homebrew/bin:$PATH\"; pane=\"$(herdr pane current | jq -r 'first(.. | .pane_id? | strings)')\"; herdr pane send-text \"$pane\" \"$(printf '\\356\\200\\200')\"; sleep 0.3; herdr pane send-keys \"$pane\" ctrl+x tab"
 description = "annotate the selection"
 
-# M: 貯めた注釈を入力欄へ入れる
+# M: 貯めた注釈を入力欄へ入れる。目印の文字（U+E001）を送るだけで、送信はしない
+#    書きかけの文字は [その他] として注釈の後ろに回る
 [[keys.command]]
 key = "prefix+shift+m"
 type = "shell"
-command = "export PATH=\"/opt/homebrew/bin:$PATH\"; herdr pane run \"$(herdr pane current | jq -r 'first(.. | .pane_id? | strings)')\" '/an paste'"
+command = "export PATH=\"/opt/homebrew/bin:$PATH\"; pane=\"$(herdr pane current | jq -r 'first(.. | .pane_id? | strings)')\"; herdr pane send-text \"$pane\" \"$(printf '\\356\\200\\201')\""
 description = "paste annotations into the prompt"
 
 [experimental]
