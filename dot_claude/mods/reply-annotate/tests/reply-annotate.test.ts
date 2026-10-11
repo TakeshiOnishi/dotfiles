@@ -93,7 +93,7 @@ test('/an で注釈を貯め、次の発言に添えて送る', async ($, on) =>
   expect(state.toasts.at(-1)).toBe('選択範囲がない。注釈する箇所を選択してから実行する')
 
   await $.prompt.submit(enter('普通の発言'))
-  expect(state.sent).toEqual(['普通の発言\n\n引用して指摘・質問\n\n1: 選択した行\n\n根拠は？'])
+  expect(state.sent).toEqual(['[引用して指摘・質問]\n\n1: 選択した行\n\n根拠は？\n\n[その他]\n\n普通の発言'])
   // 送ったらペインを閉じる
   expect(state.isOpen).toBe(false)
 })
@@ -106,7 +106,7 @@ test('/an paste で注釈を入力欄へ入れ、貯めた分を空にする', a
   await annotate($, ctx, '一行目', 'A')
   await annotate($, ctx, '二行目', 'B')
   await $.command.run(an('paste'))
-  expect(state.box).toBe('引用して指摘・質問\n\n1: 一行目\n\nA\n\n2: 二行目\n\nB')
+  expect(state.box).toBe('[引用して指摘・質問]\n\n1: 一行目\n\nA\n\n2: 二行目\n\nB')
   expect(state.isOpen).toBe(false)
 
   // 貼り付けた後の発言には、もう添えない
@@ -127,7 +127,7 @@ test('/an undo と /an clear で注釈を消す', async ($, on) => {
   await annotate($, ctx, '二行目', 'B')
   await $.command.run(an('undo'))
   await $.command.run(an('paste'))
-  expect(state.box).toBe('引用して指摘・質問\n\n1: 一行目\n\nA')
+  expect(state.box).toBe('[引用して指摘・質問]\n\n1: 一行目\n\nA')
 
   await annotate($, ctx, '三行目', 'C')
   await $.command.run(an('clear'))
@@ -173,7 +173,7 @@ test('ペインのボタンで 1 件を削除・編集できる', async ($, on) 
   await clock.advance(300)
   await $.prompt.submit(enter('送る'))
   expect(state.sent).toEqual([
-    '送る\n\n引用して指摘・質問\n\n1: 二行目\n\nB を直した\n\n2: 三行目\n\nC',
+    '[引用して指摘・質問]\n\n1: 二行目\n\nB を直した\n\n2: 三行目\n\nC\n\n[その他]\n\n送る',
   ])
   await ui.unmount()
 })
@@ -192,7 +192,7 @@ test('編集中に入力欄を空にすると、編集を取り消す', async ($
 
   state.selection = undefined
   await $.prompt.submit(enter('送る'))
-  expect(state.sent).toEqual(['送る\n\n引用して指摘・質問\n\n1: 一行目\n\nA'])
+  expect(state.sent).toEqual(['[引用して指摘・質問]\n\n1: 一行目\n\nA\n\n[その他]\n\n送る'])
   await ui.unmount()
 })
 
@@ -206,6 +206,47 @@ const pressM = ($: Parameters<Parameters<typeof test>[1]>[0], box: string) =>
     end: box.length,
     inputText: '\uE000',
   })
+
+// herdr の ctrl+t → M が送る目印の文字を、入力欄の末尾に打つ
+const pressShiftM = ($: Parameters<Parameters<typeof test>[1]>[0], box: string) =>
+  $.prompt.edit({
+    origin: { kind: 'composer' },
+    text: box,
+    cursor: box.length,
+    start: box.length,
+    end: box.length,
+    inputText: '\uE001',
+  })
+
+test('M で注釈を入力欄へ入れ、書きかけの文字は [その他] として後ろに置く', async ($, on) => {
+  const ctx = setup(on)
+  const { state } = ctx
+  await $.session.start(start)
+
+  await annotate($, ctx, '一行目', 'A')
+  await annotate($, ctx, '二行目', 'B')
+  const pasted = await pressShiftM($, '全体的に OK')
+  expect(pasted.text).toBe(
+    '[引用して指摘・質問]\n\n1: 一行目\n\nA\n\n2: 二行目\n\nB\n\n[その他]\n\n全体的に OK',
+  )
+  // 入れるだけで送らない
+  expect(state.sent).toEqual([])
+  expect(state.isOpen).toBe(false)
+})
+
+test('M は入力欄が空なら [その他] を付けず、注釈がなければ何もしない', async ($, on) => {
+  const ctx = setup(on)
+  const { state } = ctx
+  await $.session.start(start)
+
+  const empty = await pressShiftM($, '書きかけ')
+  expect(empty.text).toBe('書きかけ')
+  expect(state.toasts.at(-1)).toBe('貯めた注釈がない')
+
+  await annotate($, ctx, '一行目', 'A')
+  const pasted = await pressShiftM($, '')
+  expect(pasted.text).toBe('[引用して指摘・質問]\n\n1: 一行目\n\nA')
+})
 
 const BAND = {
   plugin: 'reply-annotate',
@@ -246,7 +287,7 @@ test('複数行の引用は、2 行目以降を字下げする', async ($, on) =
 
   await annotate($, ctx, '一行目\n二行目', 'A')
   await $.command.run(an('paste'))
-  expect(state.box).toBe('引用して指摘・質問\n\n1: 一行目\n   二行目\n\nA')
+  expect(state.box).toBe('[引用して指摘・質問]\n\n1: 一行目\n   二行目\n\nA')
 })
 
 test('選択中は帯のコメント欄で、送信せずに注釈を貯める', async ($, on) => {
@@ -282,7 +323,7 @@ test('選択中は帯のコメント欄で、送信せずに注釈を貯める',
 
   state.selection = undefined
   await $.prompt.submit(enter('普通の発言'))
-  expect(state.sent).toEqual(['普通の発言\n\n引用して指摘・質問\n\n1: 選択した行\n\n根拠は？'])
+  expect(state.sent).toEqual(['[引用して指摘・質問]\n\n1: 選択した行\n\n根拠は？\n\n[その他]\n\n普通の発言'])
   await ui.unmount()
 })
 

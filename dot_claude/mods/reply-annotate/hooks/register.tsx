@@ -4,9 +4,10 @@
 //   /an undo       : 最後の 1 件を消す
 //   /an clear      : 全件を消す
 //   /an            : ペインを開く
-//   選択なしで Enter : 貯めた注釈を発言に添えて送る
+//   選択なしで Enter : 貯めた注釈を発言に添えて送る。発言は [その他] として注釈の後ろに置く
 // 選択中に herdr の ctrl+t → m を押すと、入力欄の上の帯にコメント欄を出す。m は目印の文字を送り、
 // 続けて ctrl+x tab で帯へ移る。Enter で 1 件貯める。プロンプトを送らないので、会話ログは最下部へ飛ばない
+// ctrl+t → M を押すと、貯めた注釈を入力欄へ入れる。書きかけの文字は [その他] として注釈の後ろに置く。送信はしない
 import { atom, read, update } from 'claude-code'
 import type { EngineInterface, Register } from 'claude-code'
 
@@ -18,6 +19,8 @@ const COMMAND = 'an'
 const COMPOSING = new RegExp(`^/${COMMAND}(\\s|$)`)
 // herdr の m が送る目印の文字（私用領域）。入力欄には入れずに捨てる
 const MARK = '\uE000'
+// herdr の M が送る目印の文字。貯めた注釈を入力欄へ入れる
+const PASTE_MARK = '\uE001'
 // 選択の有無を見に行く間隔
 const POLL_MS = 300
 // ペインの幅。端末幅に対する割合と、読める下限の桁数
@@ -42,13 +45,15 @@ const draft = atom({ plugin: 'reply-annotate', key: 'draft' } as const, '')
 const writing = atom({ plugin: 'reply-annotate', key: 'writing' } as const, false)
 
 // 先頭に見出しを置き、「番号: 引用」の後に空行を挟んでコメントを書く。引用の 2 行目以降は字下げする
-const format = (list: readonly Annotation[]) =>
+// 全体へのコメントがあれば、見出し [その他] を付けて最後に置く
+const format = (list: readonly Annotation[], rest = '') =>
   [
-    '引用して指摘・質問',
+    '[引用して指摘・質問]',
     ...list.map((annotation, i) => {
       const quote = annotation.quote.replace(/\n/g, '\n   ')
       return `${i + 1}: ${quote}\n\n${annotation.comment}`
     }),
+    ...(rest.trim() === '' ? [] : ['[その他]', rest.trim()]),
   ].join('\n\n')
 
 const firstLine = (text: string) => text.split('\n')[0] ?? ''
@@ -204,11 +209,23 @@ export const register: Register = on => {
     }
     await clear($)
 
-    return next({ ...e, text: `${e.text}\n\n${format(list)}` })
+    return next({ ...e, text: format(list, e.text) })
   })
 
-  // m の目印を拾ったら、帯にコメント欄を出す。目印は入力欄に入れない
+  // 目印を拾う。目印は入力欄に入れない
+  //   M : 書きかけの文字を後ろに回して、貯めた注釈を入力欄へ入れる
+  //   m : 帯にコメント欄を出す
   on('prompt.edit', async ($, e, next) => {
+    if (e.inputText.includes(PASTE_MARK)) {
+      const list = await read($, annotations)
+      if (list.length === 0) {
+        $.ui.toast('貯めた注釈がない')
+        return { text: e.text, cursor: e.cursor }
+      }
+      await clear($)
+      const text = format(list, e.text)
+      return { text, cursor: text.length }
+    }
     if (!e.inputText.includes(MARK)) {
       return next(e)
     }
