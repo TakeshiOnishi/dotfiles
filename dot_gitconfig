@@ -30,4 +30,4 @@
   d4 = diff HEAD~~~~
   d5 = diff HEAD~~~~~
   d10 = diff HEAD~~~~~~~~~~
-  delete-merged-branches = !git branch --merged | grep -vE '^\\*|main$|master$|develop$' | xargs -I % git branch -d %
+  delete-merged-branches = !git branch --format='%(if)%(worktreepath)%(then)%(else)%(refname:short)%(end)' --merged | grep -vE '^(main|master|develop)?$' | xargs -I % git branch -d %
