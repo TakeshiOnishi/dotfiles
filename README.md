@@ -125,3 +125,25 @@ chezmoi merge <target>         # ホーム側の変更をソースへ取り込�
 
 `chezmoi re-add` はテンプレートに効かない。
 アプリが書き換えた設定を取り込むときは `chezmoi merge` を使う。
+ただし `~/.claude/settings.json` は、次の節の手順で取り込む。
+
+## Claude Code の settings.json
+
+`~/.claude/settings.json` は、Claude Code 自身も書き換える。
+そのため、ファイル全体ではなく、テンプレートに書いたキーだけを管理する。
+
+- 管理するファイルは `dot_claude/modify_encrypted_settings.json`
+  - apply のとき、現在の `~/.claude/settings.json` を読み、テンプレートのキーを差し込む
+- キーごとに、次のどちらかで扱う
+  - 値まで固定：apply のたびにテンプレートの値で上書きする
+  - キーだけ固定：実ファイルにキーが無いときだけ、テンプレートの値を入れる
+- `enabledPlugins` 配下だけを、キーだけ固定にしている
+  - プラグインの有効・無効を Claude Code で切り替えても、apply で戻らない
+- テンプレートに書いていないキーには触らない
+- apply すると、キーがアルファベット順に並ぶ
+  - Claude Code が新しいキーを足すと、diff に並び替えが出る
+  - 次の apply で消える
+
+値まで固定のキーを Claude Code で変えると、`chezmoi diff` に出る。
+残したい値は、`chezmoi edit ~/.claude/settings.json` でテンプレートに書き写す。
+書き写さずに apply すると、テンプレートの値に戻る。
