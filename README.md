@@ -72,6 +72,20 @@ cp -p ~/.local/state/chezmoi-backups/<日時>/.zshrc ~/.zshrc
 `exact_` の付いたディレクトリは、ソースにないファイルを apply のときに消す。
 ホーム側に直接ファイルを置かない（例: `~/.config/nvim/lua/plugins`）。
 
+## zsh の設定
+
+`~/.zshrc` は起点だけにする。
+`~/.zsh/rc/init.zsh` を読み込む1行以外は書かない。
+
+- 設定は `~/.zsh/rc/` 配下に置く
+  - `init.zsh` が `path` → `basic` → `prompt` → `alias` → `env` の順に読む
+  - 各設定の直後に、`_personal`・`_work`・`_local` の追加分を読む
+  - 例：`compinit` の後に要る補完は `basic_*.zsh` に置く
+- インストーラが `~/.zshrc` に追記したら、`~/.zsh/rc/` へ移す
+  - 例：Google Cloud SDK は `path_work.zsh` と `basic_work.zsh` に移した
+    - インストール先のパスを公開しないよう、どちらも暗号化した
+  - 移した後に `chezmoi apply ~/.zshrc` で追記を消す
+
 ## 管理しないもの
 
 認証情報と、万が一露出して困るものは、このリポジトリに一切入れない。
