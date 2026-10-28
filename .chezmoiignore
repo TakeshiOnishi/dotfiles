@@ -12,4 +12,6 @@ README.md
 {{ if .isPersonal -}}
 # work マシン限定の設定
 .zsh/rc/*_work.zsh
+.local/bin/waiton
+.claude/skills/waiton
 {{ end -}}
