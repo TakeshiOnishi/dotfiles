@@ -36,7 +36,7 @@ next_tab = "prefix+n"
 previous_tab = "prefix+p"
 switch_tab = "prefix+1..9"
 close_tab = ""                   # タブ丸ごと閉じる機能は無効化
-rename_tab = "prefix+t"           # タブ名の変更: t
+rename_tab = "prefix+r"
 
 # 画面分割 (herdr標準の v / - に加えて、tmux の % / " も両方使えるように設定)
 split_vertical = ["prefix+v", "prefix+%"]
