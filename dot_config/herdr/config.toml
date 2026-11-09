@@ -67,7 +67,7 @@ new_workspace = "prefix+s"          # 作成: s
 close_workspace = "prefix+shift+s"  # 削除: S
 
 # [Tree]
-new_worktree = "prefix+t"           # 作成: t
+new_worktree = ""                   # 作成は割り当てない（必要なら手動で作る）
 remove_worktree = "prefix+shift+t"  # 削除: T (チェックアウトも安全に片付ける)
 open_worktree = "prefix+shift+g"    # 過去の Worktree 一覧から開く: G
 

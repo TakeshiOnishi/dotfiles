@@ -140,9 +140,10 @@ chezmoi merge <target>         # ホーム側の変更をソースへ取り込�
 - `enabledPlugins` 配下だけを、キーだけ固定にしている
   - プラグインの有効・無効を Claude Code で切り替えても、apply で戻らない
 - テンプレートに書いていないキーには触らない
-- apply すると、キーがアルファベット順に並ぶ
-  - Claude Code が新しいキーを足すと、diff に並び替えが出る
-  - 次の apply で消える
+- 実ファイルのキーの並びを保つ。差し込みには jq を使う
+  - diff には、値が変わった行だけが出る
+  - 実ファイルに無いキーは、末尾に足す
+  - jq が入っていないと apply できない
 
 値まで固定のキーを Claude Code で変えると、`chezmoi diff` に出る。
 残したい値は、`chezmoi edit ~/.claude/settings.json` でテンプレートに書き写す。
